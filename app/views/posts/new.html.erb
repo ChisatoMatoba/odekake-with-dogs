@@ -1,6 +1,6 @@
 <div class="items-sell-contents">
   <header class="items-sell-header">
-    <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
+    <%= link_to image_tag('owd_logo.png' , size: '185x185'), "/" %>
 
   </header>
 
@@ -9,7 +9,61 @@
     <%= form_with model: @post, url: posts_path, data: { turbo: false }, local: true do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
 
-    <%# 商品画像 %>
+    <%# 施設についての説明 %>
+    <div class="new-items">
+      <div class="weight-bold-text">
+        都道府県
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
+      <div class="weight-bold-text">
+        施設名
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_area :place_name, class:"items-text", id:"item-name", placeholder:"施設の名前（必須 40文字まで)", maxlength:"40" %>
+      <div class="weight-bold-text">
+        カテゴリー
+        <span class="indispensable">必須</span>
+      </div>
+      <%#= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+      <div class="weight-bold-text">
+        施設の条件
+        <span class="indispensable">任意、複数選択可</span>
+      </div>
+      <%#= f.collection_check_boxes(:condition_id, Condition.all, :id, :category, {}, {class:"check-box", id:"entry-condition"}) %>
+    </div>
+    <%# /施設についての説明 %>
+    <%# 口コミ %>
+    <div class="price-content">
+      <div class="price-text">
+        <span>訪れた人数</span>
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :people_num, class:"price-input", id:"item-price", placeholder:"例）3" %>
+    </div>
+    <div class="price-content">
+      <div class="price-text">
+        <span>一緒に訪れたワンちゃんの数</span>
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :dogs_num, class:"price-input", id:"item-price", placeholder:"例）3" %>
+    </div>
+      <div class="weight-bold-text">
+        満足度（非常に不満〜非常に満足）
+        <span class="indispensable">必須</span>
+      </div>
+      <%#= f.collection_select(:rating_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+      <div class="items-explain">
+        <div class="weight-bold-text">
+          感想・おすすめポイント
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_area :review, class:"items-text", id:"item-info", placeholder:"施設を訪れた感想を書いてください！（必須 1,000文字まで）" ,rows:"7" ,maxlength:"1000" %>
+      </div>
+    <%# /口コミ %>
+
+<!--
+    <%# おでかけ画像 %>
     <div class="img-upload">
       <div class="weight-bold-text">
         商品画像
@@ -22,98 +76,8 @@
         <%= f.file_field :image, id:"item-image" %>
       </div>
     </div>
-    <%# /商品画像 %>
-    <%# 商品名と商品説明 %>
-    <div class="new-items">
-      <div class="weight-bold-text">
-        商品名
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.text_area :item, class:"items-text", id:"item-name", placeholder:"商品名（必須 40文字まで)", maxlength:"40" %>
-      <div class="items-explain">
-        <div class="weight-bold-text">
-          商品の説明
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.text_area :description, class:"items-text", id:"item-info", placeholder:"商品の説明（必須 1,000文字まで）（色、素材、重さ、定価、注意点など）例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。あわせやすいのでおすすめです。" ,rows:"7" ,maxlength:"1000" %>
-      </div>
-    </div>
-    <%# /商品名と商品説明 %>
-
-    <%# 商品の詳細 %>
-    <div class="items-detail">
-      <div class="weight-bold-text">商品の詳細</div>
-      <div class="form">
-        <div class="weight-bold-text">
-          カテゴリー
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
-        <div class="weight-bold-text">
-          商品の状態
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.collection_select(:condition_id, Condition.all, :id, :name, {}, {class:"select-box", id:"item-sales-status"}) %>
-      </div>
-    </div>
-    <%# /商品の詳細 %>
-
-    <%# 配送について %>
-    <div class="items-detail">
-      <div class="weight-bold-text question-text">
-        <span>配送について</span>
-        <a class="question" href="#">?</a>
-      </div>
-      <div class="form">
-        <div class="weight-bold-text">
-          配送料の負担
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.collection_select(:shipping_charge_id, ShippingCharge.all, :id, :name, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
-        <div class="weight-bold-text">
-          発送元の地域
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.collection_select(:region_of_origin_id, RegionOfOrigin.all, :id, :name, {}, {class:"select-box", id:"item-prefecture"}) %>
-        <div class="weight-bold-text">
-          発送までの日数
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.collection_select(:until_shipment_id, UntilShipment.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
-      </div>
-    </div>
-    <%# /配送について %>
-
-    <%# 販売価格 %>
-    <div class="sell-price">
-      <div class="weight-bold-text question-text">
-        <span>販売価格<br>(¥300〜9,999,999)</span>
-        <a class="question" href="#">?</a>
-      </div>
-      <div>
-        <div class="price-content">
-          <div class="price-text">
-            <span>価格</span>
-            <span class="indispensable">必須</span>
-          </div>
-          <span class="sell-yen">¥</span>
-          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300" %>
-        </div>
-        <div class="price-content">
-          <span>販売手数料 (10%)</span>
-          <span>
-            <span id='add-tax-price'></span>円
-          </span>
-        </div>
-        <div class="price-content">
-          <span>販売利益</span>
-          <span>
-            <span id='profit'></span>円
-          </span>
-        </div>
-      </div>
-    </div>
-    <%# /販売価格 %>
+    <%# /おでかけ画像 %>
+-->
 
     <%# 注意書き %>
     <div class="caution">
@@ -142,16 +106,18 @@
     <%# /下部ボタン %>
   </div>
   <% end %>
--->
+
   <footer class="items-sell-footer">
+<!--
     <ul class="menu">
       <li><a href="#">プライバシーポリシー</a></li>
       <li><a href="#">フリマ利用規約</a></li>
       <li><a href="#">特定商取引に関する表記</a></li>
     </ul>
-    <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
+-->
+    <%= link_to image_tag('owd_logo.png' , size: '185x185'), "/" %>
     <p class="inc">
-      ©︎Furima,Inc.
+      ©︎ Chisato Matoba 2023
     </p>
   </footer>
 </div>

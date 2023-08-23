@@ -2,7 +2,7 @@
 
 
 .items-sell-contents {
-  background-color: #f5f5f5;
+  background-color: #e0ffff;
   font-family: "Source Sans Pro", Helvetica, Arial, "æ¸¸ã‚´ã‚·ãƒƒã‚¯ä½“", "YuGothic", "ãƒ¡ã‚¤ãƒªã‚ª", "Meiryo", sans-serif;
   font-size: 14px;
   display: flex;
@@ -202,7 +202,7 @@
 /* /下部ボタン */
 
 .items-sell-footer {
-  background-color: #f5f5f5;
+  background-color: #e0ffff;
   width: 60vw;
   padding: 3ch 0;
   display: flex;
