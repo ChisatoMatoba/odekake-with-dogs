@@ -20,6 +20,9 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def move_to_index
     return if user_signed_in?
 
