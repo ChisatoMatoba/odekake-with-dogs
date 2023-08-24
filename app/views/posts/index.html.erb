@@ -98,8 +98,50 @@
 
   <%# 商品一覧 %>
   <div class='item-contents'>
-    口コミ一覧
+    <h2 class='title'>みんなのおでかけ情報一覧</h2>
+    <ul class='item-lists'>
+      <% @posts.each do |post| %>
+        <li class='list'>
+          <%= link_to post_path(post.id) do %>
+            <div class='item-img-content'>
+              <%= image_tag(post.image, class: "item-img") %>
+            </div>
+            <div class='item-info'>
+              <h3 class='item-name'>
+                <%= post.place_name %>
+              </h3>
+              <div class='item-price'>
+                <span><%= post.prefecture.name + "　　　" + post.rating.name %></span>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+<!--
+      <% if @posts.empty? %>
+        <%# 商品がない場合のみ以下のダミー商品を表示 %>
+        <li class='list'>
+          <%= link_to '#' do %>
+            <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+            <div class='item-info'>
+              <h3 class='item-name'>
+                商品を出品してね！
+              </h3>
+              <div class='item-price'>
+                <span>99999999円<br>(税込み)</span>
+                <div class='star-btn'>
+                  <%= image_tag "star.png", class:"star-icon" %>
+                  <span class='star-count'>0</span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+-->
+    </ul>
   </div>
+
   <%# /商品一覧 %>
 </div>
 
