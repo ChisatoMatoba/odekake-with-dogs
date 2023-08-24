@@ -64,20 +64,45 @@
     <%# /ユーザーレビュー %>
   </div>
 
-  <div class="comment-box">
-    <form>
-      <textarea class="comment-text"></textarea>
-      <p class="comment-warn">
-        相手のことを考え丁寧なコメントを心がけましょう。
-        <br>
-        不快な言葉遣いなどは利用制限や退会処分となることがあります。
-      </p>
-      <button type="submit" class="comment-btn">
-        <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
-        <span>コメントする<span>
-      </button>
-    </form>
-  </div>
+  <%# コメント投稿欄(ログイン中のみ) %>
+  <% if user_signed_in? %>
+    <div class="comment-box">
+      <h2>コメント投稿</h2>
+      <%= form_with model: [@post, @comment], local: true do |f|%>
+        <div >
+          <%= f.text_area :content, class:"comment-text" %>
+        </div>
+        <p class="comment-warn">
+          相手のことを考え丁寧なコメントを心がけましょう。
+          <br>
+          不快な言葉遣いなどは利用制限や退会処分となることがあります。
+        </p>
+        <button class='comment-btn'>
+          <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
+          <%= f.submit "コメントする" %>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+        
+  <%# コメント一覧 %>
+  <ul class="comments_lists">
+    <h2>コメント一覧</h2>
+    <li class="comments_list">
+      <% @comments.each do |comment| %>
+        <p>
+          <%= link_to comment.user.nickname, "/users/#{comment.user_id}", class: :comment_user %>
+          (<%= comment.created_at.strftime('%Y/%m/%d') %>)：<br>
+          <%= comment.content %>
+        </p>
+      <% end %>
+    </li>
+  </ul>
+
+
+
+
+
   <a href="#" class="another-item"><%= @post.prefecture.name %>のおでかけ情報をもっと見る</a>
 </div>
 
