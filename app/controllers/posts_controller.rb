@@ -23,6 +23,29 @@ class PostsController < ApplicationController
   def show
   end
 
+  def edit
+    return if user_signed_in? && current_user.id == @post.user_id
+
+    redirect_to root_path
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to post_path(@post.id)
+    else
+      Rails.logger.debug @post.errors.full_messages
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    if user_signed_in? && current_user.id == @post.user_id
+      post.destroy
+      redirect_to root_path
+    end
+  end
+
   def move_to_index
     return if user_signed_in?
 
