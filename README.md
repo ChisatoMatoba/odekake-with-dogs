@@ -63,7 +63,6 @@
 | prefecture_id | integer    | null: false                    |
 | place_name    | string     | null: false                    |
 | category_id   | integer    | null: false                    |
-| condition_id  | integer    |                                |
 | people_num    | integer    | null: false                    |
 | dogs_num      | integer    | null: false                    |
 | rating_id     | integer    | null: false                    |
@@ -74,6 +73,29 @@
 
 - belongs_to :user
 - has_many   :comments
+- has_many   :conditions, through: :post_conditions
+
+## conditionsテーブル
+
+| Column   | Type       | Options          |
+| -------- | ---------- | ---------------- |
+| category | string     |                  |
+
+### Association
+
+- has_many   :posts, through: :post_conditions
+
+## post-conditionsテーブル
+
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| post      | references | null: false, foreign_key: true |
+| condition | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :post
+- belongs_to :condition
 
 ## commentsテーブル
 
