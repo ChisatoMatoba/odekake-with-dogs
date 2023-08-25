@@ -18,19 +18,34 @@
           </tr>
         </tbody>
       </table>
-      <table class="table">
-        <tbody>
-          <%= "#{@user.nickname}さんの愛犬紹介"%>
-          <tr>
-            <th class="table__col1">名前</th>
-            <td class="table__col2"><%= @user.nickname %></td>
-          </tr>
-          <tr>
-            <th class="table__col1">年齢</th>
-            <td class="table__col2"><%= @user.nickname %></td>
-          </tr>
-        </tbody>
-      </table>
+
+      <%= "#{@user.nickname}さんの愛犬紹介"%>
+      <%# 複数表示に変更予定 %>
+      <% @dogs.each do |dog| %>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th class="table__col1">名前</th>
+              <td class="table__col2"><%= dog.dog_name %></td>
+            </tr>
+            <tr>
+              <th class="table__col1">生年月日</th>
+              <td class="table__col2"><%= dog.dog_birthday %></td>
+            </tr>
+            <tr>
+              <th class="table__col1">犬種</th>
+              <td class="table__col2"><%= dog.breed.name %></td>
+            </tr>
+            <tr>
+              <th class="table__col1">男の子／女の子</th>
+              <td class="table__col2"><%= dog.gender.name %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+      <%# ログイン中かつ自分のページなら、愛犬登録ボタンを表示 %>
+      <%= link_to "愛犬登録はこちら", new_user_dog_path(@user.id) %>
+
       <h2 class="page-heading">
         <%= "#{@user.nickname}さんの投稿一覧"%>
       </h2>
