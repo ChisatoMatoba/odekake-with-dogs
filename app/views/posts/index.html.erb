@@ -113,6 +113,11 @@
               <div class='item-price'>
                 <span><%= post.prefecture.name + "　　　" + post.rating.name %></span>
               </div>
+              <div class='item-price'>
+                <span><%= link_to "投稿者：" + post.user.nickname + "さん", "/users/#{post.user_id}", class: :comment_user %></span>
+              </div>
+
+              
             </div>
           <% end %>
         </li>

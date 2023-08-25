@@ -37,7 +37,7 @@
       </tbody>
     </table>
     <%# /施設の情報 %>
-    <h1><%= "#{@post.user.nickname}さんのレビュー" %></h1>
+    <h1><%= link_to @post.user.nickname, "/users/#{@post.user_id}" %>さんのレビュー</h1>
     <%# ユーザーレビュー %>
     <table class="detail-table">
       <tbody>
