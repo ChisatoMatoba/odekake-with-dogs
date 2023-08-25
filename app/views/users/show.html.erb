@@ -44,8 +44,9 @@
         </table>
       <% end %>
       <%# ログイン中かつ自分のページなら、愛犬登録ボタンを表示 %>
-      <%= link_to "愛犬登録はこちら", new_user_dog_path(@user.id) %>
-
+      <div class="title">
+        <%= link_to "愛犬登録はこちら", new_user_dog_path(@user.id) %>
+      </div>
       <h2 class="page-heading">
         <%= "#{@user.nickname}さんの投稿一覧"%>
       </h2>
