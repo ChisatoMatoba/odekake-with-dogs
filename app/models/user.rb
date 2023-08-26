@@ -6,6 +6,7 @@ class User < ApplicationRecord
   
   has_many :posts
   has_many :comments
+  has_many :dogs
 
   validates :nickname,           presence: true
   validates :birthday,           presence: true

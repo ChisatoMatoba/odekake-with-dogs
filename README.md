@@ -46,7 +46,7 @@
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| dogs_name    | string     | null: false                    |
+| dog_name     | string     | null: false                    |
 | dog_birthday | date       | null: false                    |
 | breed_id     | integer    | null: false                    |
 | gender_id    | integer    | null: false                    |
