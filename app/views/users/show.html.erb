@@ -29,6 +29,14 @@
               <td class="table__col2"><%= dog.dog_name %></td>
             </tr>
             <tr>
+              <th class="table__col1">お写真</th>
+              <td class="table__col2">
+                <div class="item-img-content">
+                  <%= image_tag(dog.image, class:"item-box-img") %>
+                </div>
+              </td>
+            </tr>
+            <tr>
               <th class="table__col1">生年月日</th>
               <td class="table__col2"><%= dog.dog_birthday %></td>
             </tr>

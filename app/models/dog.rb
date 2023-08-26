@@ -1,5 +1,6 @@
 class Dog < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
   with_options presence: true do
     validates :dog_name
@@ -8,4 +9,8 @@ class Dog < ApplicationRecord
     validates :gender_id
     validates :user
   end
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :breed
+  belongs_to :gender
 end
