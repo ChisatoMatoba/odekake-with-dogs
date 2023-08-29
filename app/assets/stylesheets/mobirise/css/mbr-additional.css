@@ -858,7 +858,7 @@ a {
   align-items: center;
   border-radius: 100vw;
   margin-top: 1rem;
-  background-color: #ffffff;
+  background-color: #ffe4b5;;
   box-shadow: 0 30px 60px 0 rgba(27, 31, 10, 0.08);
 }
 @media (max-width: 992px) {
@@ -1062,6 +1062,7 @@ a {
 }
 .cid-tOiHcRLYQd ul.navbar-nav {
   flex-wrap: wrap;
+  align-items: flex-end;
 }
 .cid-tOiHcRLYQd .navbar-buttons {
   text-align: center;

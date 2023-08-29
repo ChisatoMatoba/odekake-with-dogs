@@ -10,3 +10,4 @@
 //= link 'bootstrap/css/bootstrap.min.css'
 //= link 'bootstrap/css/bootstrap-grid.min.css'
 //= link 'bootstrap/css/bootstrap-reboot.min.css'
+//= link 'mobirise/css/mbr-additional.css'
