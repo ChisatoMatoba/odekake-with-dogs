@@ -6,61 +6,32 @@
     <div class="row">
       <div class="content-wrap col-12 col-md-6">
         <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
-          <strong>New Arrivals</strong>
+          <strong>おでかけ<br>with DOGS!!</strong>
         </h1>
         
-        <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">
-          Block with flexible configuration, free vertical and horizontal
-          content movement (only when the Full Screen option is enabled in Block
-          Parameters).
+        <p class="mbr-fonts-style mbr-text mbr-white mt-4 display-7">
+          あなたと愛犬の毎日をもっと楽しくするために…
         </p>
-        <div class="mbr-section-btn"><a class="btn btn-white display-7" href="https://mobiri.se">Learn more</a></div>
+        <div class="mbr-section-btn mt-5">
+          <% if user_signed_in? %>
+            <p class="mbr-fonts-style mbr-text mbr-white display-5">
+              <b>Let's GO！！！</b>
+            </p>
+          <% else %>
+            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-light display-7" %></li>
+            <%= link_to '新規登録はこちら', new_user_registration_path, class: "btn btn-outline-light display-7" %></li>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-
 </section>
 
 
-  <%# FURIMAの特徴 %>
-  <div class='feature-contents'>
-    <h2 class='title'>
-      FURIMAの特徴
-    </h2>
-    <ul class='feature-lists'>
-      <li class='list'>
-        <%= image_tag "furima-intro04.png", class:"list-pict" %>
-        <h3 class='feature-list-text'>
-          簡単に売り買いできる
-        </h3>
-        <p class='feature-list-description'>
-          スマホひとつで、いつでもどこでも簡単に出品・購入が可能！
-        </p>
-      </li>
-      <li class='list'>
-        <%= image_tag "furima-intro05.png", class:"list-pict" %>
-        <h3 class='feature-list-text'>
-          売上金は即日振込みに対応
-        </h3>
-        <p class='feature-list-description'>
-          午前9時までに振込を依頼いただければ、翌日に指定の口座に入金いたします。
-        </p>
-      </li>
-      <li class='list'>
-        <%= image_tag "furima-intro06.png", class:"list-pict" %>
-        <h3 class='feature-list-text'>
-          様々な支払いに対応
-        </h3>
-        <p class='feature-list-description'>
-          お支払いは、クレジットカードだけでなく、ポイントや売上金など多彩な方法があります。
-        </p>
-      </li>
-    </ul>
-  </div>
-  <%# /FURIMAの特徴 %>
--->
 
-  <%# 商品一覧 %>
+
+
+
   <div class='item-contents'>
     <h2 class='title'>みんなのおでかけ情報一覧</h2>
     <ul class='item-lists'>
