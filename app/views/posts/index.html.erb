@@ -26,12 +26,6 @@
     </div>
   </div>
 </section>
-
-
-
-
-
-
   <div class='item-contents'>
     <h2 class='title'>みんなのおでかけ情報一覧</h2>
     <ul class='item-lists'>
@@ -57,33 +51,88 @@
           <% end %>
         </li>
       <% end %>
-<!--
-      <% if @posts.empty? %>
-        <%# 商品がない場合のみ以下のダミー商品を表示 %>
-        <li class='list'>
-          <%= link_to '#' do %>
-            <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
-            <div class='item-info'>
-              <h3 class='item-name'>
-                商品を出品してね！
-              </h3>
-              <div class='item-price'>
-                <span>99999999円<br>(税込み)</span>
-                <div class='star-btn'>
-                  <%= image_tag "star.png", class:"star-icon" %>
-                  <span class='star-count'>0</span>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </li>
-      <% end %>
--->
     </ul>
   </div>
-
-  <%# /商品一覧 %>
 </div>
+
+<section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+  <div class="container-fluid">
+  <!-- title -->
+      <div class="row justify-content-center">
+          <div class="col-12 content-head">
+              <div class="mb-5">
+                  <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Photo Gallery</strong></h3>
+                  <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">みんなのおでかけフォト</h4>
+              </div>
+          </div>
+      </div>
+      
+  <!-- photo -->
+      <div class="row mbr-gallery">
+  <!-- 1画像（postの数だけ) -->
+          <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+              <div class="item-wrapper mb-3" data-toggle="modal" data-bs-toggle="modal" data-target="#tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
+                  <%= image_tag("gallery01.jpg", class: "w-100", alt: "Mobirise Website Builder",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
+              </div>
+              <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
+                  Image Caption and <a href="#" class="text-primary">Link</a>
+              </h6>
+          </div>
+  <!-- 1 -->
+
+
+  <!-- 画像クリック後 -->
+      <div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-body">
+                      <div class="carousel slide carousel-fade" data-pause="false" data-bs-pause="false" id="lb-tOiMnQnqDw" data-interval="5000" data-bs-interval="5000">
+                          <div class="carousel-inner">
+                            <!-- 複数画像があるとき枚数分(スライド用) -->
+                              <div class="carousel-item active">
+                                <%= image_tag("gallery01.jpg", class: "d-block w-100", alt: "Mobirise Website Builder") %>
+                              </div>
+                          </div>
+                          <!-- 下の●、複数画像があるとき枚数分(スライド用) -->
+                          <ol class="carousel-indicators">
+                              <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+                              <li data-slide-to="1" data-bs-slide-to="1" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+                          </ol>
+                          <!-- 閉じるボタン -->
+                          <a role="button" href="" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                          </a>
+                          <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
+                          <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
+                              <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+                              <span class="sr-only visually-hidden">Previous</span>
+                          </a>
+                          <a class="carousel-control-next carousel-control" role="button" data-slide="next" data-bs-slide="next" href="#lb-tOiMnQnqDw">
+                              <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+                              <span class="sr-only visually-hidden">Next</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <%= link_to(new_post_path, data: { turbo: false }, class: 'purchase-btn') do %>
