@@ -4,7 +4,7 @@ class Post < ApplicationRecord
 
   has_many   :post_conditions, dependent: :destroy
   has_many   :conditions, through: :post_conditions
-  has_many_attached :image
+  has_many_attached :images
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
