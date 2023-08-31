@@ -1,62 +1,62 @@
 <%= render "shared/header" %>
-
 <div class="main">
   <div class="inner">
     <div class="user__wrapper">
       <h2 class="page-heading">
-        <%= "#{@user.nickname}さんの情報"%>
+        <span class="bg-color"><%= "~#{@user.nickname}さんの情報~"%></span>
       </h2>
-      <table class="table">
+      <table class="detail-table">
         <tbody>
           <tr>
-            <th class="table__col1">名前</th>
-            <td class="table__col2"><%= @user.nickname %></td>
+            <th class="detail-item display-7">名前</th>
+            <td class="detail-value display-7"><%= @user.nickname %></td>
           </tr>
           <tr>
-            <th class="table__col1">年齢</th>
-            <td class="table__col2"><%= @age %></td>
+            <th class="detail-item display-7">年齢</th>
+            <td class="detail-value display-7"><%= @age %></td>
           </tr>
         </tbody>
       </table>
-
-      <%= "#{@user.nickname}さんの愛犬紹介"%>
+      <h2 class="page-heading">
+        <span class="bg-color">~愛犬紹介~</span>
+      </h2>
       <%# 複数表示に変更予定 %>
       <% @dogs.each do |dog| %>
-        <table class="table">
+        <table class="detail-table">
           <tbody>
             <tr>
-              <th class="table__col1">名前</th>
-              <td class="table__col2"><%= dog.dog_name %></td>
+              <th class="detail-item display-7">名前</th>
+              <td class="detail-value display-7"><%= dog.dog_name %></td>
             </tr>
             <tr>
-              <th class="table__col1">お写真</th>
-              <td class="table__col2">
+              <th class="detail-item display-7">お写真</th>
+              <td class="detail-value">
                 <div class="item-img-content">
                   <%= image_tag(dog.image, class:"item-box-img") %>
                 </div>
               </td>
             </tr>
             <tr>
-              <th class="table__col1">生年月日</th>
-              <td class="table__col2"><%= dog.dog_birthday %></td>
+              <th class="detail-item display-7">生年月日</th>
+              <td class="detail-value display-7"><%= dog.dog_birthday %></td>
             </tr>
             <tr>
-              <th class="table__col1">犬種</th>
-              <td class="table__col2"><%= dog.breed.name %></td>
+              <th class="detail-item display-7">犬種</th>
+              <td class="detail-value display-7"><%= dog.breed.name %></td>
             </tr>
             <tr>
-              <th class="table__col1">男の子／女の子</th>
-              <td class="table__col2"><%= dog.gender.name %></td>
+              <th class="detail-item display-8">男の子／女の子</th>
+              <td class="detail-value display-7"><%= dog.gender.name %></td>
             </tr>
           </tbody>
         </table>
       <% end %>
       <%# ログイン中かつ自分のページなら、愛犬登録ボタンを表示 %>
-      <div class="title">
-        <%= link_to "愛犬登録はこちら", new_user_dog_path(@user.id) %>
+      <div class="title d-grid col-3 mx-auto">
+        <%= link_to "！愛犬登録はこちら！", new_user_dog_path(@user.id), class: "btn btn-warning display-7" %>
       </div>
       <h2 class="page-heading">
-        <%= "#{@user.nickname}さんの投稿一覧"%>
+        <br><span class="bg-color"><%= "~#{@user.nickname}さんの投稿一覧~"%></span>
       </h2>
       <div class="user__card">
         <%# そのユーザーが投稿した情報一覧を表示する %>

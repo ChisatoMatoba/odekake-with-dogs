@@ -1,31 +1,45 @@
-<%# CSS・・・assets/stylesheets/shared/header.css %>
-<header class='top-page-header'>
-  <div class='search-bar-contents'>
-    <%= link_to image_tag("owd_logo.png", class:"icon"), "/" %>
-<!--
-    <form class="search-form" action="#">
-      <input class='input-box' placeholder='キーワードから探す'>
-      <button class="search-button">
-        <%= image_tag "search.png", class:"search-icon" %>
+<section data-bs-version="5.1" class="menu menu2 cid-tOiHcRLYQd" once="menu" id="menu02-1i">
+  <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+    <div class="container">
+      <div class="navbar-brand">
+        <span class="navbar-logo">
+          <%= link_to image_tag("owd_logo.png"), "/" %>
+        </span>
+      </div>
+      <%# ハンバーガーメニュー %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </button>
-    </form>
--->
-  </div>
-  <div class='nav'>
-<!--
-    <ul class='lists-left'>
-      <li><%= link_to 'カテゴリー', "#", class: "category-list" %></li>
-      <li><%= link_to 'ブランド', "#", class: "brand-list" %></li>
-    </ul>
--->
-    <ul class='lists-right'>
-      <% if user_signed_in? %>
-        <li><%= link_to "こんにちは" + current_user.nickname + "さん", "/users/#{current_user.id}", class: "user-nickname" %></li>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete }, class: "logout" %></li>
-      <% else %>
-        <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
-        <li><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></li>
-      <% end %>
-    </ul>
-  </div>
-</header>
+      <%# link %>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item ms-auto">
+            <a class="nav-link active display-7" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item ms-auto">
+            <a class="nav-link display-7" href="#">Link</a>
+          </li>
+          <li class="nav-item ms-auto">
+            <a class="nav-link disabled display-7">Disabled</a>
+          </li>
+          <li class="nav-link ms-auto">
+            <ul style="display: flex;">
+              <% if user_signed_in? %>
+                <li><br>こんにちは！<br><%= link_to current_user.nickname, "/users/#{current_user.id}", class: "btn-link display-7" %>さん</li>
+                <li><%= link_to 'Log-out', destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-secondary display-7" %></li>
+              <% else %>
+                <li><%= link_to 'Log-in', new_user_session_path, class: "btn btn-outline-warning me-2 display-7" %></li>
+                <li><%= link_to 'Sign-up', new_user_registration_path, class: "btn btn-warning display-7" %></li>
+              <% end %>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</section>

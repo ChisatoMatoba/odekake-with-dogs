@@ -1,102 +1,31 @@
 <%= render "shared/header" %>
 <div class='main'>
-<!--
-  <%# 画面上部の「人生を変えるフリマアプリ」帯部分 %>
-  <div class='title-contents'>
-    <h2 class='service-title'>
-      人生を変えるフリマアプリ
-    </h2>
-    <p class='service-explain'>
-      FURIMAはだれでもかんたんに出品・購入できる
-    </p>
-    <p class='service-explain'>
-      フリマアプリです
-    </p>
-  </div>
-  <%# /画面上部の「人生を変えるフリマアプリ」帯部分  %>
 
-  <%# FURIMAが選ばれる3つの理由部分 %>
-  <div class='select-reason-contents'>
-    <h2 class='title'>
-      FURIMAが選ばれる3つの理由
-    </h2>
-    <ul class='reason-lists'>
-      <li class='list'>
-        <%= image_tag "furima-intro01.png", class:"list-pict" %>
-        <span class='reason-list-number'>1</span>
-        <h3 class='reason-list-text'>
-          <span class='reason-list-blue-text'>3分</span>
-          ですぐに出品
-        </h3>
-        <p class='reason-list-description'>
-          スマホで入力するだけで簡単に出品できる！
+<section data-bs-version="5.1" class="header10 cid-tOiHnzp6jK mbr-fullscreen" id="header10-1j">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content-wrap col-12 col-md-6">
+        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
+          <strong>おでかけ<br>with DOGS!!</strong>
+        </h1>
+        
+        <p class="mbr-fonts-style mbr-text mbr-white mt-4 display-7">
+          あなたと愛犬の毎日をもっと楽しくするために…
         </p>
-      </li>
-      <li class='list'>
-        <%= image_tag "furima-intro02.png", class:"list-pict" %>
-        <span class='reason-list-number'>2</span>
-        <h3 class='reason-list-text'>
-          <span class='reason-list-blue-text'>シンプル</span>
-          で使いやすい
-        </h3>
-        <p class='reason-list-description'>
-          めんどくさい入力は必要なく、検索も購入もスムーズ！
-        </p>
-      </li>
-      <li class='list'>
-        <%= image_tag "furima-intro03.png", class:"list-pict" %>
-        <span class='reason-list-number'>3</span>
-        <h3 class='reason-list-text'>
-          手数料
-          <span class='reason-list-blue-text'>業界最安</span>
-        </h3>
-        <p class='reason-list-description'>
-          10%でお得に出品&購入！
-        </p>
-      </li>
-    </ul>
+        <div class="mbr-section-btn mt-5">
+          <% if user_signed_in? %>
+            <p class="mbr-fonts-style mbr-text mbr-white display-5">
+              <b>Let's GO！！！</b>
+            </p>
+          <% else %>
+            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-light display-7" %></li>
+            <%= link_to '新規登録はこちら', new_user_registration_path, class: "btn btn-outline-light display-7" %></li>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <%# /FURIMAが選ばれる3つの理由部分 %>
-
-  <%# FURIMAの特徴 %>
-  <div class='feature-contents'>
-    <h2 class='title'>
-      FURIMAの特徴
-    </h2>
-    <ul class='feature-lists'>
-      <li class='list'>
-        <%= image_tag "furima-intro04.png", class:"list-pict" %>
-        <h3 class='feature-list-text'>
-          簡単に売り買いできる
-        </h3>
-        <p class='feature-list-description'>
-          スマホひとつで、いつでもどこでも簡単に出品・購入が可能！
-        </p>
-      </li>
-      <li class='list'>
-        <%= image_tag "furima-intro05.png", class:"list-pict" %>
-        <h3 class='feature-list-text'>
-          売上金は即日振込みに対応
-        </h3>
-        <p class='feature-list-description'>
-          午前9時までに振込を依頼いただければ、翌日に指定の口座に入金いたします。
-        </p>
-      </li>
-      <li class='list'>
-        <%= image_tag "furima-intro06.png", class:"list-pict" %>
-        <h3 class='feature-list-text'>
-          様々な支払いに対応
-        </h3>
-        <p class='feature-list-description'>
-          お支払いは、クレジットカードだけでなく、ポイントや売上金など多彩な方法があります。
-        </p>
-      </li>
-    </ul>
-  </div>
-  <%# /FURIMAの特徴 %>
--->
-
-  <%# 商品一覧 %>
+</section>
   <div class='item-contents'>
     <h2 class='title'>みんなのおでかけ情報一覧</h2>
     <ul class='item-lists'>
@@ -122,33 +51,88 @@
           <% end %>
         </li>
       <% end %>
-<!--
-      <% if @posts.empty? %>
-        <%# 商品がない場合のみ以下のダミー商品を表示 %>
-        <li class='list'>
-          <%= link_to '#' do %>
-            <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
-            <div class='item-info'>
-              <h3 class='item-name'>
-                商品を出品してね！
-              </h3>
-              <div class='item-price'>
-                <span>99999999円<br>(税込み)</span>
-                <div class='star-btn'>
-                  <%= image_tag "star.png", class:"star-icon" %>
-                  <span class='star-count'>0</span>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </li>
-      <% end %>
--->
     </ul>
   </div>
-
-  <%# /商品一覧 %>
 </div>
+
+<section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+  <div class="container-fluid">
+  <!-- title -->
+      <div class="row justify-content-center">
+          <div class="col-12 content-head">
+              <div class="mb-5">
+                  <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Photo Gallery</strong></h3>
+                  <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">みんなのおでかけフォトギャラリー</h4>
+              </div>
+          </div>
+      </div>
+      
+  <!-- photo -->
+      <div class="row mbr-gallery">
+  <!-- 1画像（postの数だけ) -->
+          <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+              <div class="item-wrapper mb-3" data-toggle="modal" data-bs-toggle="modal" data-target="#tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
+                  <%= image_tag("gallery01.jpg", class: "w-100", alt: "Mobirise Website Builder",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
+              </div>
+              <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
+                  Image Caption and <a href="#" class="text-primary">Link</a>
+              </h6>
+          </div>
+  <!-- 1 -->
+
+
+  <!-- 画像クリック後 -->
+      <div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-body">
+                      <div class="carousel slide carousel-fade" data-pause="false" data-bs-pause="false" id="lb-tOiMnQnqDw" data-interval="5000" data-bs-interval="5000">
+                          <div class="carousel-inner">
+                            <!-- 複数画像があるとき枚数分(スライド用) -->
+                              <div class="carousel-item active">
+                                <%= image_tag("gallery01.jpg", class: "d-block w-100", alt: "Mobirise Website Builder") %>
+                              </div>
+                          </div>
+                          <!-- 下の●、複数画像があるとき枚数分(スライド用) -->
+                          <ol class="carousel-indicators">
+                              <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+                              <li data-slide-to="1" data-bs-slide-to="1" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+                          </ol>
+                          <!-- 閉じるボタン -->
+                          <a role="button" href="" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                          </a>
+                          <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
+                          <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
+                              <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+                              <span class="sr-only visually-hidden">Previous</span>
+                          </a>
+                          <a class="carousel-control-next carousel-control" role="button" data-slide="next" data-bs-slide="next" href="#lb-tOiMnQnqDw">
+                              <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+                              <span class="sr-only visually-hidden">Next</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <%= link_to(new_post_path, data: { turbo: false }, class: 'purchase-btn') do %>
