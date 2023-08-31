@@ -6,7 +6,7 @@
 
   <div class="items-sell-main">
     <h2 class="items-sell-title">おでかけ情報を入力</h2>
-    <%= form_with model: @post, data: { turbo: false }, local: true do |f| %>
+    <%= form_with model: @post, data: { turbo: false }, id: 'new_post', local: true do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
 
     <%# 施設についての説明 %>
@@ -72,6 +72,7 @@
         おでかけ画像
         <span class="indispensable">必須</span>
       </div>
+      <div id="previews"></div>
       <div class="click-upload">
         <p>
           クリックしてファイルをアップロード
