@@ -4,7 +4,7 @@ class Post < ApplicationRecord
 
   has_many   :post_conditions, dependent: :destroy
   has_many   :conditions, through: :post_conditions
-  has_one_attached :image
+  has_many_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
@@ -22,6 +22,7 @@ class Post < ApplicationRecord
     validates :people_num
     validates :dogs_num
     validates :review
+    validates :images, length: { minimum: 1, maximum: 5, message: "は1枚以上5枚以下にしてください" }
   end
 
 end

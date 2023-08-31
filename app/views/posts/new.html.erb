@@ -74,8 +74,9 @@
       <div class="click-upload">
         <p>
           クリックしてファイルをアップロード
+          ※画像は5枚まで投稿できます
         </p>
-        <%= f.file_field :image, id:"item-image" %>
+        <%= f.file_field :image, id:"item-image", name: 'post[images][]', data: {index: 0} %>
       </div>
     </div>
     <%# /おでかけ画像 %>
