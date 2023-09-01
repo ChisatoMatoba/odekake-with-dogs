@@ -1,34 +1,29 @@
 <%= render "shared/header" %>
 
+<div class="post-show-main">
 <%# おでかけ情報の概要 %>
-<div class="item-show">
-  <div class="item-box">
-    <%# 投稿者のみ編集削除ボタン表示 %>
-    <% if user_signed_in? && current_user.id == @post.user_id %>
-      <%= link_to "編集", edit_post_path(@post.id), data: { turbo: false }, method: :get, class: "item-red-btn" %>
-      <p class="or-text">or</p>
-      <%= link_to "削除", post_path(@post.id), data: { turbo_method: :delete }, class:"item-destroy" %>
-    <% end %>
-    <%# /投稿者のみ編集削除ボタン表示 %>
-    <h1>施設情報</h1>
+  <div class="user__wrapper">
+    <h2 class="page-heading">
+      <span class="bg-color">~施設情報~</span>
+    </h2>
     <%# 施設の情報 %>
     <table class="detail-table">
       <tbody>
         <tr>
-          <th class="detail-item">施設名</th>
-          <td class="detail-value"><%= @post.place_name %></td>
+          <th class="detail-item display-7">施設名</th>
+          <td class="detail-value display-7"><%= @post.place_name %></td>
         </tr>
         <tr>
-          <th class="detail-item">所在地</th>
-          <td class="detail-value"><%= @post.prefecture.name %></td>
+          <th class="detail-item display-7">所在地</th>
+          <td class="detail-value display-7"><%= @post.prefecture.name %></td>
         </tr>
         <tr>
-          <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= @post.category.name %></td>
+          <th class="detail-item display-7">カテゴリー</th>
+          <td class="detail-value display-7"><%= @post.category.name %></td>
         </tr>
         <tr>
-          <th class="detail-item">条件</th>
-          <td class="detail-value">
+          <th class="detail-item display-7">条件</th>
+          <td class="detail-value display-7">
             <% @post.conditions.each do |condition| %>
               <%= condition.category %><br>
             <% end %>
@@ -36,27 +31,28 @@
         </tr>
       </tbody>
     </table>
-    <%# /施設の情報 %>
-    <h1><%= link_to @post.user.nickname, "/users/#{@post.user_id}" %>さんのレビュー</h1>
+
     <%# ユーザーレビュー %>
+    <h2 class="page-heading">
+      <span class="bg-color">~<%= link_to @post.user.nickname, "/users/#{@post.user_id}" %>さんのレビュー~</span>
+    </h2>
     <table class="detail-table">
       <tbody>
         <tr>
-          <th class="detail-item">訪れた人数</th>
-          <td class="detail-value"><%= "#{@post.people_num}人　＋　ワンちゃん#{@post.dogs_num}匹" %></td>
+          <th class="detail-item display-7">訪れた人数</th>
+          <td class="detail-value display-7"><%= "#{@post.people_num}　人　＋　ワンちゃん　#{@post.dogs_num}　匹" %></td>
         </tr>
         <tr>
-          <th class="detail-item">満足度</th>
-          <td class="detail-value"><%= @post.rating.name %></td>
+          <th class="detail-item display-7">満足度</th>
+          <td class="detail-value display-7"><%= @post.rating.name %></td>
         </tr>
         <tr>
-          <th class="detail-item">レビュー</th>
-          <td class="detail-value">
+          <th class="detail-item display-7">レビュー</th>
+          <td class="detail-value display-7">
             <%= @post.review %>
             <br><br>
             <div class="item-img-content">
-              <%#= image_tag(@post.image, class:"item-box-img") %>
-              <%= image_tag @post.images[0], class: "main-image item-box-img" %><br>
+              <%= image_tag @post.images[0], class: "item-img-content" %><br>
               <div class="other-images">
                 <% @post.images[1..-1].each do |image| %>
                   <div class="other-image">
@@ -70,48 +66,52 @@
       </tbody>
     </table>
     <%# /ユーザーレビュー %>
-  </div>
 
-  <%# コメント投稿欄(ログイン中のみ) %>
-  <% if user_signed_in? %>
     <div class="comment-box">
-      <h2>コメント投稿</h2>
-      <%= form_with model: [@post, @comment], local: true do |f|%>
-        <div >
-          <%= f.text_area :content, class:"comment-text" %>
-        </div>
-        <p class="comment-warn">
-          相手のことを考え丁寧なコメントを心がけましょう。
-          <br>
-          不快な言葉遣いなどは利用制限や退会処分となることがあります。
-        </p>
-        <button class='comment-btn'>
-          <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
-          <%= f.submit "コメントする" %>
-        </button>
+      <%# コメント投稿欄(ログイン中のみ) %>
+      <% if user_signed_in? %>
+        <h2>コメント投稿</h2>
+        <%= form_with model: [@post, @comment], local: true do |f|%>
+          <div >
+            <%= f.text_area :content, class:"comment-text" %>
+          </div>
+          <button class='display-7'>
+            <%= f.submit "コメントする" %>
+          </button>
+        <% end %>
       <% end %>
+
+      <%# コメント一覧 %>
+      <ul class="comments_lists">
+        <h2>コメント一覧</h2>
+        <li class="comments_list">
+          <% @comments.each do |comment| %>
+            <p>
+              <br><%= link_to comment.user.nickname, "/users/#{comment.user_id}", class: :comment_user %>
+              (<%= comment.created_at.strftime('%Y/%m/%d') %>)：　
+              <%= comment.content %><br><br>
+            </p>
+          <% end %>
+          <% if @comments.empty? %>
+            <br><br><p>※コメントはまだありません</p><br><br>
+          <% end %>
+        </li>
+      </ul>
     </div>
-  <% end %>
-        
-  <%# コメント一覧 %>
-  <ul class="comments_lists">
-    <h2>コメント一覧</h2>
-    <li class="comments_list">
-      <% @comments.each do |comment| %>
-        <p>
-          <%= link_to comment.user.nickname, "/users/#{comment.user_id}", class: :comment_user %>
-          (<%= comment.created_at.strftime('%Y/%m/%d') %>)：<br>
-          <%= comment.content %>
-        </p>
-      <% end %>
-    </li>
-  </ul>
 
-
-
-
-
-  <a href="#" class="another-item"><%= @post.prefecture.name %>のおでかけ情報をもっと見る</a>
+<!--
+  <a href="#" class="another-posts"><%= @post.prefecture.name %>のおでかけ情報をもっと見る</a>
+-->
+  </div>
 </div>
+
+     <%# 投稿者のみ編集削除ボタン表示 %>
+      <% if user_signed_in? && current_user.id == @post.user_id %>
+        <div class='edit-del'>
+          <%= link_to "編集", edit_post_path(@post.id), data: { turbo: false }, method: :get, class: "item-red-btn" %>
+          <%= link_to "削除", post_path(@post.id), data: { turbo_method: :delete }, class:"item-destroy" %>
+        </div>
+      <% end %>
+      <%# /投稿者のみ編集削除ボタン表示 %>
 
 <%= render "shared/footer" %>
