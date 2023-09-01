@@ -15,7 +15,7 @@
       <label class="form-text">ニックネーム</label>
       <span class="indispensable">必須</span>
     </div>
-    <%= f.text_area :nickname, class:"input-default", id:"nickname", placeholder:"例) furima太郎", maxlength:"40" %>
+    <%= f.text_area :nickname, class:"input-default", id:"nickname", placeholder:"例) いぬ山いぬ子", maxlength:"40" %>
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
@@ -45,7 +45,7 @@
     </p>
     <p class='form-info-text'>
       他のお客さまには年代のみ公開されます <br>
-      (例：30代)
+      (例：30〜39歳)
     </p>
   </div>
   <div class="form-group">
@@ -68,19 +68,11 @@
     </div>
     <p class='info-text'>※ 本人情報は正しく入力してください。</p>
   </div>
-<!--
-  <div class="form-group">
-    <h2 class='form-bottom-text'>
-      「会員登録」のボタンを押すことにより、
-      <span>利用規約</span>
-      <br>に同意したものとみなします
-    </h2>
+  
+  <div class="sell-btn-contents">
+    <%= f.submit "会員登録" ,class:"sell-btn" %>
+    <%=link_to 'もどる', root_path, class:"back-btn" %>
   </div>
--->
-  <div class='register-btn'>
-    <%= f.submit "会員登録" ,class:"register-red-btn" %>
-  </div>
- <!--  <p class='register-info'>本人情報の登録について</p> -->
 </div>
 <% end %>
 
