@@ -6,21 +6,8 @@ a {
   background: #f8f8f8;
 }
 
-/* 画面上部の「人生を変えるフリマアプリ」帯部分 */
-.title-contents {
-  width: 100vw;
-  background-image: image-url('furima-header01.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 5vh 15vw;
-  color: #fff;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
-}
+/* 画面上部の帯部分 */
+
 
 .service-title {
   font-size: 8vh;
@@ -121,22 +108,7 @@ a {
 /* //FURIMAが選ばれる3つの理由部分 */
 
 
-/* 画面中央の「会員数日本一位」帯部分*/
-.ad-contents {
-  width: 100vw;
-  background-image: image-url('furima-header02.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 5vh 15vw;
-  color: #fff;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
-}
-
+/* 画面中央の帯部分*/
 .ad-title {
   font-size: 5vh;
   margin-bottom: 2vh;
@@ -161,9 +133,9 @@ a {
   height: 9vh;
 }
 
-/* //画面中央の「会員数日本一位」帯部分 */
+/* //画面中央の帯部分 */
 
-/* FURIMAの特徴 */
+/* 特徴 */
 .feature-contents {
   padding: 5vh 15vw;
 }
@@ -211,7 +183,6 @@ a {
   margin-top: 20px;
 }
 
-/* //FURIMAの特徴 */
 
 /* 商品一覧 */
 
@@ -260,20 +231,6 @@ a {
   height: 33vh;
 }
 
-.sold-out {
-  position: absolute;
-  top: 40%;
-  width: 100%;
-  text-align: center;
-  background-color: crimson;
-  transform: skewY(-10deg);
-}
-
-.sold-out>span {
-  color: #FFF;
-  font-size: 45px;
-  font: bold;
-}
 
 
 .item-info {
@@ -308,4 +265,3 @@ a {
   font-size: 2vh;
 }
 
-/* //商品一覧 */
