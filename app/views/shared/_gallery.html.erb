@@ -1,0 +1,58 @@
+<div class="col-12 col-md-6 col-lg-3 item gallery-image">
+  <%= link_to post_path(post.id) do %>
+    <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
+      <%= post.place_name %>
+    </div>
+    <div class="item-wrapper mb-3" data-toggle="modal" data-bs-toggle="modal" data-target="#tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
+      <%= image_tag(post.images[0], class: "w-100", alt: "Mobirise Website Builder",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
+    </div>
+    <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-8">
+      <span><%= post.prefecture.name + "　　　" + post.rating.name %></span><br>
+      <span><%= link_to "投稿者：" + post.user.nickname + "さん", "/users/#{post.user_id}" %></span>
+    </div>
+  <% end %>
+</div>
+<!-- 画像クリック後 -->
+<div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="carousel slide carousel-fade" data-pause="false" data-bs-pause="false" id="lb-tOiMnQnqDw" data-interval="5000" data-bs-interval="5000">
+          <div class="carousel-inner">
+            <!-- 複数画像があるとき枚数分(スライド用) -->
+            <% post.images.each_with_index do |image,i| %>
+              <% if i == 0 %>
+                <div class="carousel-item active">
+                  <%= image_tag(image, class: "d-block w-100", alt: "Mobirise Website Builder") %>
+                </div>
+              <% else %>
+                <div class="carousel-item">
+                  <%= image_tag(image, class: "d-block w-100", alt: "Mobirise Website Builder") %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <!-- 下の●、複数画像があるとき枚数分(スライド用) -->
+          <ol class="carousel-indicators">
+            <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+            <li data-slide-to="1" data-bs-slide-to="1" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+            <li data-slide-to="2" data-bs-slide-to="2" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+            <li data-slide-to="3" data-bs-slide-to="3" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+            <li data-slide-to="4" data-bs-slide-to="4" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
+          </ol>
+          <!-- 閉じるボタン -->
+          <a role="button" href="" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+          </a>
+          <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
+          <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
+            <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+            <span class="sr-only visually-hidden">Previous</span>
+          </a>
+          <a class="carousel-control-next carousel-control" role="button" data-slide="next" data-bs-slide="next" href="#lb-tOiMnQnqDw">
+            <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+            <span class="sr-only visually-hidden">Next</span>
+          </a>
+      </div>
+    </div>
+  </div>
+</div>

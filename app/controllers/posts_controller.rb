@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
+    @@areas = @posts.map { |post| post.area_group }
   end
 
   def new
