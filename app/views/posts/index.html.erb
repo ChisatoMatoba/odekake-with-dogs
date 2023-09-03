@@ -1,57 +1,137 @@
 <%= render "shared/header" %>
 <div class='main'>
 
-<section data-bs-version="5.1" class="header10 cid-tOiHnzp6jK mbr-fullscreen" id="header10-1j">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="content-wrap col-12 col-md-6">
-        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
-          <strong>おでかけ<br>with DOGS!!</strong>
-        </h1>
-        
-        <p class="mbr-fonts-style mbr-text mbr-white mt-4 display-7">
-          あなたと愛犬の毎日をもっと楽しくするために…
-        </p>
-        <div class="mbr-section-btn mt-5">
-          <% if user_signed_in? %>
-            <p class="mbr-fonts-style mbr-text mbr-white display-5">
-              <b>Let's GO！！！</b>
-            </p>
-          <% else %>
-            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-light display-7" %></li>
-            <%= link_to '新規登録はこちら', new_user_registration_path, class: "btn btn-outline-light display-7" %></li>
-          <% end %>
+  <section data-bs-version="5.1" class="header10 cid-tOiHnzp6jK mbr-fullscreen" id="header10-1j">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="content-wrap col-12 col-md-6">
+          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
+            <strong>おでかけ<br>with DOGS!!</strong>
+          </h1>
+          
+          <p class="mbr-fonts-style mbr-text mbr-white mt-4 display-7">
+            あなたと愛犬の毎日をもっと楽しくするために…
+          </p>
+          <div class="mbr-section-btn mt-5">
+            <% if user_signed_in? %>
+              <p class="mbr-fonts-style mbr-text mbr-white display-5">
+                <b>Let's GO！！！</b>
+              </p>
+            <% else %>
+              <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-light display-7" %></li>
+              <%= link_to '新規登録はこちら', new_user_registration_path, class: "btn btn-outline-light display-7" %></li>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ギャラリー -->
-<section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
-  <div class="container-fluid">
-  <!-- title -->
-    <div class="row justify-content-center">
-      <div class="col-12 content-head">
-        <div class="mb-5">
-          <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Photo Gallery</strong></h3>
-          <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">みんなのおでかけフォトギャラリー</h4>
+  <!-- ギャラリー -->
+  <section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+    <div class="container-fluid">
+      <!-- title -->
+      <div class="row justify-content-center">
+        <div class="col-12 content-head">
+          <div class="mb-5">
+            <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Photo Gallery</strong></h3>
+            <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">みんなのおでかけフォトギャラリー</h4>
+          </div>
+        </div>
+      </div>
+        
+      <!-- photo -->
+      <div class="row mbr-gallery">
+        <!-- タブ -->
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-zenkoku-tab" data-bs-toggle="tab" data-bs-target="#nav-zenkoku-content" type="button" role="tab" aria-controls="nav-zenkoku-content" aria-selected="true">全国</button>
+            <button class="nav-link" id="nav-hokkaido-tab" data-bs-toggle="tab" data-bs-target="#nav-hokkaido-content" type="button" role="tab" aria-controls="nav-hokkaido-content" aria-selected="false">北海道</button>
+            <button class="nav-link" id="nav-tohoku-tab" data-bs-toggle="tab" data-bs-target="#nav-tohoku-content" type="button" role="tab" aria-controls="nav-tohoku-content" aria-selected="false">東北</button>
+            <button class="nav-link" id="nav-kanto-tab" data-bs-toggle="tab" data-bs-target="#nav-kanto-content" type="button" role="tab" aria-controls="nav-kanto-content" aria-selected="false">関東</button>
+            <button class="nav-link" id="nav-chubu-tab" data-bs-toggle="tab" data-bs-target="#nav-chubu-content" type="button" role="tab" aria-controls="nav-chubu-content" aria-selected="false">中部</button>
+            <button class="nav-link" id="nav-kinki-tab" data-bs-toggle="tab" data-bs-target="#nav-kinki-content" type="button" role="tab" aria-controls="nav-kinki-content" aria-selected="false">近畿</button>
+            <button class="nav-link" id="nav-chushikoku-tab" data-bs-toggle="tab" data-bs-target="#nav-chushikoku-content" type="button" role="tab" aria-controls="nav-chusshikoku-content" aria-selected="false">中国四国</button>
+            <button class="nav-link" id="nav-kyushu-tab" data-bs-toggle="tab" data-bs-target="#nav-kyushu-content" type="button" role="tab" aria-controls="nav-kyushu-content" aria-selected="false">九州</button>
+            <button class="nav-link" id="nav-okinawa-tab" data-bs-toggle="tab" data-bs-target="#nav-okinawa-content" type="button" role="tab" aria-controls="nav-okinawa-content" aria-selected="false">沖縄</button>
+          </div>
+        </nav>
+        <!-- photo -->
+        <div class="tab-content" id="nav-tabContent">
+          <!-- 全国 -->
+          <div class="tab-pane fade show active" id="nav-zenkoku-content" role="tabpanel" aria-labelledby="nav-home-tab" data-bs-target="#nav-zenkoku-content" tabindex="0">
+            <div class="row mbr-gallery">
+              <!-- 例 -->
+              <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+                <%= image_tag("gallery.jpeg", class: "") %>
+              </div>
+              <!-- 画像（postの数だけ) -->
+              <% @posts.each do |post| %>
+                <%= render "shared/gallery", post: post %>
+              <% end %>
+            </div>
+          </div>
+
+        <% area_list = ["北海道", "東北", "関東", "中部", "近畿", "中国四国", "九州", "沖縄"] %>
+        <% area_list.each do |area_name| %>
+          <% if @areas[area_name].present? %>
+            <% @areas.each do |area| %>
+              <% if area[0] == "北海道" %>
+                <% @id_name = "nav-hokkaido-content" %>
+              <% elsif area[0] == "東北" %>
+                <% @id_name = "nav-tohoku-content" %>
+              <% elsif area[0] == "関東" %>
+                <% @id_name = "nav-kanto-content" %>
+              <% elsif area[0] == "中部" %>
+                <% @id_name = "nav-chubu-content" %>
+              <% elsif area[0] == "近畿" %>
+                <% @id_name = "nav-kinki-content" %>
+              <% elsif area[0] == "中国四国" %>
+                <% @id_name = "nav-chushikoku-content" %>
+              <% elsif area[0] == "九州" %>
+                <% @id_name = "nav-kyushu-content" %>
+              <% elsif area[0] == "沖縄" %>
+                <% @id_name = "nav-okinawa-content" %>
+              <% end %>
+
+              <div class="tab-pane fade" id="<%= @id_name %>" role="tabpanel" aria-labelledby="nav-<%= @id_name %>-tab" data-bs-target="#<%= @id_name %>" tabindex="0">
+                <%#binding.pry%>
+                <% @areas[area[0]].each do |post| %>
+                  <%= render "shared/gallery", post: post %>
+                <% end %>
+                <script>console.log('if');</script>
+              </div>
+            <% end %>
+
+          <% else %>
+            <% if area_name == "北海道" %>
+              <% @id_name = "nav-hokkaido-content" %>
+            <% elsif area_name == "東北" %>
+              <% @id_name = "nav-tohoku-content" %>
+            <% elsif area_name == "関東" %>
+              <% @id_name = "nav-kanto-content" %>
+            <% elsif area_name == "中部" %>
+              <% @id_name = "nav-chubu-content" %>
+            <% elsif area_name == "近畿" %>
+              <% @id_name = "nav-kinki-content" %>
+            <% elsif area_name == "中国四国" %>
+              <% @id_name = "nav-chushikoku-content" %>
+            <% elsif area_name == "九州" %>
+              <% @id_name = "nav-kyushu-content" %>
+            <% elsif area_name == "沖縄" %>
+              <% @id_name = "nav-okinawa-content" %>
+            <% end %>
+            <div class="tab-pane fade" id="<%= @id_name %>" role="tabpanel" aria-labelledby="nav-<%= @id_name %>-tab" data-bs-target="#<%= @id_name %>" tabindex="0">
+              <script>console.log('else');</script>
+              <br><p style="text-align: center;"><%= area_name %>のおでかけ情報がまだありません</p>
+            </div>
+          <% end %>
+        <% end %>
         </div>
       </div>
     </div>
-      
-  <!-- photo -->
-    <div class="row mbr-gallery">
-      <!-- 例 -->
-      <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-        <%= image_tag("gallery.jpeg", class: "") %>
-      </div>
-      <!-- 画像（postの数だけ) -->
-      <% @posts.each do |post| %>
-        <%= render "shared/gallery", post: post %>
-      <% end %>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <%= render "shared/footer" %>
+

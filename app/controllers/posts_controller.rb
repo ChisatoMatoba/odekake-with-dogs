@@ -5,7 +5,14 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
-    @@areas = @posts.map { |post| post.area_group }
+
+    @areas = {}
+    # 投稿を地域ごとにグループ化する
+    @posts.each do |post|
+      area = post.area_group
+      @areas[area] ||= []
+      @areas[area] << post
+    end
   end
 
   def new
