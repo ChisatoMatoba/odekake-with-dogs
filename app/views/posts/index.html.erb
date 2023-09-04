@@ -1,114 +1,102 @@
 <%= render "shared/header" %>
 <div class='main'>
 
-<section data-bs-version="5.1" class="header10 cid-tOiHnzp6jK mbr-fullscreen" id="header10-1j">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="content-wrap col-12 col-md-6">
-        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
-          <strong>おでかけ<br>with DOGS!!</strong>
-        </h1>
-        
-        <p class="mbr-fonts-style mbr-text mbr-white mt-4 display-7">
-          あなたと愛犬の毎日をもっと楽しくするために…
-        </p>
-        <div class="mbr-section-btn mt-5">
-          <% if user_signed_in? %>
-            <p class="mbr-fonts-style mbr-text mbr-white display-5">
-              <b>Let's GO！！！</b>
-            </p>
-          <% else %>
-            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-light display-7" %></li>
-            <%= link_to '新規登録はこちら', new_user_registration_path, class: "btn btn-outline-light display-7" %></li>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ギャラリー -->
-<section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
-  <div class="container-fluid">
-  <!-- title -->
-    <div class="row justify-content-center">
-      <div class="col-12 content-head">
-        <div class="mb-5">
-          <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Photo Gallery</strong></h3>
-          <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">みんなのおでかけフォトギャラリー</h4>
-        </div>
-      </div>
-    </div>
-      
-  <!-- photo -->
-    <div class="row mbr-gallery">
-      <!-- 例 -->
-      <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-        <%= image_tag("gallery.jpeg", class: "") %>
-      </div>
-        <!-- 画像（postの数だけ) -->
-        <% @posts.each do |post| %>
-          <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-            <%= link_to post_path(post.id) do %>
-              <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
-                <%= post.place_name %>
-              </div>
-              <div class="item-wrapper mb-3" data-toggle="modal" data-bs-toggle="modal" data-target="#tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
-                <%= image_tag(post.images[0], class: "w-100", alt: "Mobirise Website Builder",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
-              </div>
-              <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-8">
-                <span><%= post.prefecture.name + "　　　" + post.rating.name %></span><br>
-                <span><%= link_to "投稿者：" + post.user.nickname + "さん", "/users/#{post.user_id}" %></span>
-              </div>
+  <section data-bs-version="5.1" class="header10 cid-tOiHnzp6jK mbr-fullscreen" id="header10-1j">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="content-wrap col-12 col-md-6">
+          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
+            <strong>おでかけ<br>with DOGS!!</strong>
+          </h1>
+          
+          <p class="mbr-fonts-style mbr-text mbr-white mt-4 display-7">
+            あなたと愛犬の毎日をもっと楽しくするために…
+          </p>
+          <div class="mbr-section-btn mt-5">
+            <% if user_signed_in? %>
+              <p class="mbr-fonts-style mbr-text mbr-white display-5">
+                <b>Let's GO！！！</b>
+              </p>
+            <% else %>
+              <%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-light display-7" %></li>
+              <%= link_to '新規登録はこちら', new_user_registration_path, class: "btn btn-outline-light display-7" %></li>
+            <% end %>
           </div>
-        <% end %>
-        <!-- 画像クリック後 -->
-        <div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="carousel slide carousel-fade" data-pause="false" data-bs-pause="false" id="lb-tOiMnQnqDw" data-interval="5000" data-bs-interval="5000">
-                  <div class="carousel-inner">
-                    <!-- 複数画像があるとき枚数分(スライド用) -->
-                    <% post.images.each_with_index do |image,i| %>
-                      <% if i == 0 %>
-                        <div class="carousel-item active">
-                          <%= image_tag(image, class: "d-block w-100", alt: "Mobirise Website Builder") %>
-                        </div>
-                      <% else %>
-                        <div class="carousel-item">
-                          <%= image_tag(image, class: "d-block w-100", alt: "Mobirise Website Builder") %>
-                        </div>
-                      <% end %>
-                    <% end %>
-                  </div>
-                  <!-- 下の●、複数画像があるとき枚数分(スライド用) -->
-                  <ol class="carousel-indicators">
-                    <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
-                    <li data-slide-to="1" data-bs-slide-to="1" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
-                    <li data-slide-to="2" data-bs-slide-to="2" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
-                    <li data-slide-to="3" data-bs-slide-to="3" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
-                    <li data-slide-to="4" data-bs-slide-to="4" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
-                  </ol>
-                  <!-- 閉じるボタン -->
-                  <a role="button" href="" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
-                  </a>
-                  <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
-                  <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
-                    <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
-                    <span class="sr-only visually-hidden">Previous</span>
-                  </a>
-                  <a class="carousel-control-next carousel-control" role="button" data-slide="next" data-bs-slide="next" href="#lb-tOiMnQnqDw">
-                    <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
-                    <span class="sr-only visually-hidden">Next</span>
-                  </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ギャラリー -->
+  <section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+    <div class="container-fluid">
+      <!-- title -->
+      <div class="row justify-content-center">
+        <div class="col-12 content-head">
+          <div class="mb-5">
+            <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Photo Gallery</strong></h3>
+            <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">みんなのおでかけフォトギャラリー</h4>
+          </div>
+        </div>
+      </div>
+        
+      <!-- photo -->
+      <div class="row mbr-gallery">
+        <!-- タブ -->
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-zenkoku-tab" data-bs-toggle="tab" data-bs-target="#nav-zenkoku-content" type="button" role="tab" aria-controls="nav-zenkoku-content" aria-selected="true">全国</button>
+            <button class="nav-link" id="nav-hokkaido-tab" data-bs-toggle="tab" data-bs-target="#nav-hokkaido-content" type="button" role="tab" aria-controls="nav-hokkaido-content" aria-selected="false">北海道</button>
+            <button class="nav-link" id="nav-tohoku-tab" data-bs-toggle="tab" data-bs-target="#nav-tohoku-content" type="button" role="tab" aria-controls="nav-tohoku-content" aria-selected="false">東北</button>
+            <button class="nav-link" id="nav-kanto-tab" data-bs-toggle="tab" data-bs-target="#nav-kanto-content" type="button" role="tab" aria-controls="nav-kanto-content" aria-selected="false">関東</button>
+            <button class="nav-link" id="nav-chubu-tab" data-bs-toggle="tab" data-bs-target="#nav-chubu-content" type="button" role="tab" aria-controls="nav-chubu-content" aria-selected="false">中部</button>
+            <button class="nav-link" id="nav-kinki-tab" data-bs-toggle="tab" data-bs-target="#nav-kinki-content" type="button" role="tab" aria-controls="nav-kinki-content" aria-selected="false">近畿</button>
+            <button class="nav-link" id="nav-chushikoku-tab" data-bs-toggle="tab" data-bs-target="#nav-chushikoku-content" type="button" role="tab" aria-controls="nav-chusshikoku-content" aria-selected="false">中国四国</button>
+            <button class="nav-link" id="nav-kyushu-tab" data-bs-toggle="tab" data-bs-target="#nav-kyushu-content" type="button" role="tab" aria-controls="nav-kyushu-content" aria-selected="false">九州</button>
+            <button class="nav-link" id="nav-okinawa-tab" data-bs-toggle="tab" data-bs-target="#nav-okinawa-content" type="button" role="tab" aria-controls="nav-okinawa-content" aria-selected="false">沖縄</button>
+          </div>
+        </nav>
+        <!-- photo -->
+        <div class="tab-content" id="nav-tabContent">
+          <!-- 全国 -->
+          <div class="tab-pane fade show active" id="nav-zenkoku-content" role="tabpanel" aria-labelledby="nav-home-tab" data-bs-target="#nav-zenkoku-content" tabindex="0">
+            <div class="row mbr-gallery">
+              <!-- 例 -->
+              <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+                <%= image_tag("gallery.jpeg", class: "") %>
               </div>
+              <!-- 画像（postの数だけ) -->
+              <% @posts.each do |post| %>
+                <%= render "shared/gallery", post: post %>
+              <% end %>
             </div>
           </div>
+
+        <% area_list = [["北海道", "nav-hokkaido-content"], ["東北", "nav-tohoku-content"], ["関東", "nav-kanto-content"], ["中部", "nav-chubu-content"], ["近畿", "nav-kinki-content"], ["中国四国", "nav-chushikoku-content"], ["九州", "nav-kyushu-content"], ["沖縄", "nav-okinawa-content"]] %>
+        <% area_list.each do |area_name| %>
+          <% if @areas[area_name].present? %>
+            <%# その地域の投稿がある場合 %>
+            <% @areas.each do |area| %>
+              <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="nav-<%= area_name[1] %>-tab" data-bs-target="#<%= area_name[1] %>" tabindex="0">
+                <div class="row mbr-gallery">
+                  <% @areas[area[0]].each do |post| %>
+                    <%= render "shared/gallery", post: post %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <%# その地域の投稿がない場合 %>
+            <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="nav-<%= area_name[1] %>-tab" data-bs-target="#<%= area_name[1] %>" tabindex="0">
+              <br><p style="text-align: center;"><%= area_name[0] %>のおでかけ情報がまだありません</p>
+            </div>
+          <% end %>
+        <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <%= render "shared/footer" %>
+

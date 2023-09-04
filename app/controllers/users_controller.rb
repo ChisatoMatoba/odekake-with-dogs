@@ -5,6 +5,6 @@ class UsersController < ApplicationController
     @age = @user.age_group
     @dog = Dog.new
     @dogs = @user.dogs.includes(:user)
-    @post = @user.posts.includes(:user)
+    @posts = @user.posts.includes(:user)
   end
 end
