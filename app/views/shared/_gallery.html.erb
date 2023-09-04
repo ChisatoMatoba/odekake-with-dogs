@@ -4,7 +4,7 @@
       <%= post.place_name %>
     </div>
     <div class="item-wrapper mb-3" data-toggle="modal" data-bs-toggle="modal" data-target="#tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
-      <%= image_tag(post.images[0], class: "w-100", alt: "Mobirise Website Builder",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
+      <%= image_tag(post.images[0], class: "w-100", alt: "No Image",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
     </div>
     <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-8">
       <span><%= post.prefecture.name + "　　　" + post.rating.name %></span><br>
@@ -23,11 +23,11 @@
             <% post.images.each_with_index do |image,i| %>
               <% if i == 0 %>
                 <div class="carousel-item active">
-                  <%= image_tag(image, class: "d-block w-100", alt: "Mobirise Website Builder") %>
+                  <%= image_tag(image, class: "d-block w-100", alt: "No Image") %>
                 </div>
               <% else %>
                 <div class="carousel-item">
-                  <%= image_tag(image, class: "d-block w-100", alt: "Mobirise Website Builder") %>
+                  <%= image_tag(image, class: "d-block w-100", alt: "No Image") %>
                 </div>
               <% end %>
             <% end %>

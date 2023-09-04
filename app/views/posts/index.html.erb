@@ -72,58 +72,23 @@
             </div>
           </div>
 
-        <% area_list = ["北海道", "東北", "関東", "中部", "近畿", "中国四国", "九州", "沖縄"] %>
+        <% area_list = [["北海道", "nav-hokkaido-content"], ["東北", "nav-tohoku-content"], ["関東", "nav-kanto-content"], ["中部", "nav-chubu-content"], ["近畿", "nav-kinki-content"], ["中国四国", "nav-chushikoku-content"], ["九州", "nav-kyushu-content"], ["沖縄", "nav-okinawa-content"]] %>
         <% area_list.each do |area_name| %>
           <% if @areas[area_name].present? %>
+            <%# その地域の投稿がある場合 %>
             <% @areas.each do |area| %>
-              <% if area[0] == "北海道" %>
-                <% @id_name = "nav-hokkaido-content" %>
-              <% elsif area[0] == "東北" %>
-                <% @id_name = "nav-tohoku-content" %>
-              <% elsif area[0] == "関東" %>
-                <% @id_name = "nav-kanto-content" %>
-              <% elsif area[0] == "中部" %>
-                <% @id_name = "nav-chubu-content" %>
-              <% elsif area[0] == "近畿" %>
-                <% @id_name = "nav-kinki-content" %>
-              <% elsif area[0] == "中国四国" %>
-                <% @id_name = "nav-chushikoku-content" %>
-              <% elsif area[0] == "九州" %>
-                <% @id_name = "nav-kyushu-content" %>
-              <% elsif area[0] == "沖縄" %>
-                <% @id_name = "nav-okinawa-content" %>
-              <% end %>
-
-              <div class="tab-pane fade" id="<%= @id_name %>" role="tabpanel" aria-labelledby="nav-<%= @id_name %>-tab" data-bs-target="#<%= @id_name %>" tabindex="0">
-                <%#binding.pry%>
-                <% @areas[area[0]].each do |post| %>
-                  <%= render "shared/gallery", post: post %>
-                <% end %>
-                <script>console.log('if');</script>
+              <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="nav-<%= area_name[1] %>-tab" data-bs-target="#<%= area_name[1] %>" tabindex="0">
+                <div class="row mbr-gallery">
+                  <% @areas[area[0]].each do |post| %>
+                    <%= render "shared/gallery", post: post %>
+                  <% end %>
+                </div>
               </div>
             <% end %>
-
           <% else %>
-            <% if area_name == "北海道" %>
-              <% @id_name = "nav-hokkaido-content" %>
-            <% elsif area_name == "東北" %>
-              <% @id_name = "nav-tohoku-content" %>
-            <% elsif area_name == "関東" %>
-              <% @id_name = "nav-kanto-content" %>
-            <% elsif area_name == "中部" %>
-              <% @id_name = "nav-chubu-content" %>
-            <% elsif area_name == "近畿" %>
-              <% @id_name = "nav-kinki-content" %>
-            <% elsif area_name == "中国四国" %>
-              <% @id_name = "nav-chushikoku-content" %>
-            <% elsif area_name == "九州" %>
-              <% @id_name = "nav-kyushu-content" %>
-            <% elsif area_name == "沖縄" %>
-              <% @id_name = "nav-okinawa-content" %>
-            <% end %>
-            <div class="tab-pane fade" id="<%= @id_name %>" role="tabpanel" aria-labelledby="nav-<%= @id_name %>-tab" data-bs-target="#<%= @id_name %>" tabindex="0">
-              <script>console.log('else');</script>
-              <br><p style="text-align: center;"><%= area_name %>のおでかけ情報がまだありません</p>
+            <%# その地域の投稿がない場合 %>
+            <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="nav-<%= area_name[1] %>-tab" data-bs-target="#<%= area_name[1] %>" tabindex="0">
+              <br><p style="text-align: center;"><%= area_name[0] %>のおでかけ情報がまだありません</p>
             </div>
           <% end %>
         <% end %>
