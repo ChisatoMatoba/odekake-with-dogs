@@ -55,7 +55,6 @@
     top: 0.75rem;
     z-index: 1000; }
   .navbar-dropdown .hamburger-icon {
-    content: "";
     display: inline-block;
     vertical-align: middle;
     width: 16px;

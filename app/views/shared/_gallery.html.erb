@@ -42,15 +42,14 @@
           </ol>
           <!-- 閉じるボタン -->
           <a role="button" href="" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+            <%= image_tag('close.jpeg', class: "", alt: "✕") %>
           </a>
           <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
           <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
-            <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
-            <span class="sr-only visually-hidden">Previous</span>
+            <%= image_tag('previous.jpeg', class: "", alt: "←") %>
           </a>
           <a class="carousel-control-next carousel-control" role="button" data-slide="next" data-bs-slide="next" href="#lb-tOiMnQnqDw">
-            <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
-            <span class="sr-only visually-hidden">Next</span>
+            <%= image_tag('next.jpeg', class: "", alt: "→") %>
           </a>
         </div>
       </div>

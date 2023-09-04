@@ -783,7 +783,6 @@ body {
 .alert.alert-form::after {
   background-color: inherit;
   bottom: -7px;
-  content: "";
   display: block;
   height: 14px;
   left: 50%;
