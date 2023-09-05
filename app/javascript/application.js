@@ -2,4 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "preview"
+import "preview_dog"
 import "tab"

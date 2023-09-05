@@ -6,7 +6,7 @@
 
   <div class="items-sell-main">
     <h2 class="items-sell-title">愛犬情報を入力</h2>
-    <%= form_with model: @dog, url: user_dogs_path, data: { turbo: false }, local: true do |f| %>
+    <%= form_with model: @dog, url: user_dogs_path, data: { turbo: false }, id: 'new_dog_post', local: true do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
 
     <div class="new-items">
@@ -38,11 +38,12 @@
         わんちゃんの画像
         <span class="indispensable">必須、1枚</span>
       </div>
+      <div id="previews"></div>
       <div class="click-upload">
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :image, id:"item-image" %>
+        <%= f.file_field :image, id:"item-image", name: 'post[image]' %>
       </div>
     </div>
     <%# /おでかけ画像 %>
