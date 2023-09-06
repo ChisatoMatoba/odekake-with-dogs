@@ -29,21 +29,21 @@ class Post < ApplicationRecord
   def area_group
     case prefecture_id
     when 2
-      ["北海道", "nav-hokkaido-content"]
+      ["北海道", "nav-hokkaido-content", "nav-hokkaido-tab"]
     when 3..8
-      ["東北", "nav-tohoku-content"]
+      ["東北", "nav-tohoku-content", "nav-tohoku-tab"]
     when 9..15
-      ["関東", "nav-tohoku-content"]
+      ["関東", "nav-kanto-content", "nav-kanto-tab"]
     when 16..25
-      ["中部", "nav-tohoku-content"]
+      ["中部", "nav-chubu-content", "nav-chubu-tab"]
     when 26..31
-      ["近畿", "nav-tohoku-content"]
+      ["近畿", "nav-kinki-content", "nav-kinki-tab"]
     when 32..40
-      ["中国四国", "nav-tohoku-content"]
+      ["中国四国", "nav-chushikoku-content", "nav-chushikoku-tab"]
     when 41..47
-      ["九州", "nav-tohoku-content"]
+      ["九州", "nav-kyushu-content", "nav-kyushu-tab"]
     when 48
-      ["沖縄", "nav-tohoku-content"]
+      ["沖縄", "nav-okinawa-content", "nav-okinawa-tab"]
     else
     end
   end

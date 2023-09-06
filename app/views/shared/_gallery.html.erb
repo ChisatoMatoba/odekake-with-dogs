@@ -3,7 +3,7 @@
     <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
       <%= post.place_name %>
     </div>
-    <div class="item-wrapper mb-3" data-toggle="modal" data-bs-toggle="modal" data-target="#tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
+    <div class="item-wrapper mb-3" data-bs-toggle="modal" data-bs-target="#tOiMnQnqDw-modal">
       <%= image_tag(post.images[0], class: "w-100", alt: "No Image",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
     </div>
     <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-8">
@@ -13,7 +13,7 @@
   <% end %>
 </div>
 <!-- 画像クリック後 -->
-<div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal">
+<div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
