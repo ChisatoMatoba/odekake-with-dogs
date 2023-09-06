@@ -43,11 +43,17 @@
 # 実装した機能についての画像やGIFおよびその説明
 1. 新規ユーザー登録
 
+https://github.com/chisatom0908/odekake-with-dogs/assets/139729122/f8f6812d-8554-407f-bd03-a43d9d0e925a
+
 
 2. 新規投稿・一覧表示・詳細表示
 
+https://github.com/chisatom0908/odekake-with-dogs/assets/139729122/626c147c-5ff7-48db-b317-9d3bd863b4dd
+
 
 3. 愛犬登録
+
+https://github.com/chisatom0908/odekake-with-dogs/assets/139729122/d2ac345c-477a-4dbe-9a80-24cc52f09eb7
 
 
 # 実装予定の機能
@@ -79,7 +85,9 @@
 [![Image from Gyazo](https://i.gyazo.com/cad06c993f4667bc6a842c9c6532f41f.png)](https://gyazo.com/cad06c993f4667bc6a842c9c6532f41f)
 
 * フォトギャラリー：タブで地域ごとに投稿を見られるようにしたり、画像をクリックしたら拡大表示されるようにした
-■■動画挿入■■
+
+https://github.com/chisatom0908/odekake-with-dogs/assets/139729122/88675645-7309-43bc-bb04-2ff0e42518cc
+
 
 * 愛犬登録：マイページから愛犬登録をできるようにして、投稿者のことがより分かるようにした
 
