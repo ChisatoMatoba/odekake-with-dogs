@@ -35,7 +35,7 @@
 # アプリケーションを作成した背景
 私自身が犬を飼っていて、休みのたびにドッグランやカフェ、アクティビティへ一緒に遊びに行くのが好きだが、なかなか愛犬同伴可の施設がない。<br>
 また、インターネットで調べるにも、満足できる最新情報が見れたり、愛犬家ならではの検索条件(キャリーケースに入れる必要があるか…等)で調べることが難しかった。<br>
-たまにインスタで気になった写真からお出かけ場所を探すこともあるので、お出かけ場所の検索サイトとインスタグラムのいいとこどりをしたSNSを作ろうと考えた。
+たまにインスタで気になった写真からお出かけ場所を探すこともあるので、お出かけ場所の検索サイトとインスタグラムのいいところ取りをしたSNSを作ろうと考えた。
 
 # 洗い出した要件
 [要件定義シート](https://docs.google.com/spreadsheets/d/1Pfva2BxIFWFZFsIcKXZoN_hDB3dcwBedTRjRJKHg7zE/edit?usp=sharing)
@@ -68,13 +68,13 @@
 * タスク管理：GitHub
 
 # ローカルでの動作方法
-% git clone https://github.com/chisatom0908/odekake-with-dogs.git
-% cd /odekake-with-dogs
-% bundle install
+% git clone https://github.com/chisatom0908/odekake-with-dogs.git<br>
+% cd /odekake-with-dogs<br>
+% bundle install<br>
 % yarn install
 
 # 工夫したポイント
-* 新規投稿：「施設の条件」を複数選択できるようにチェックボックスで登録できるようにした
+* 新規投稿：「施設の条件」を複数選択できるように、チェックボックスで登録するようにした
 
 [![Image from Gyazo](https://i.gyazo.com/cad06c993f4667bc6a842c9c6532f41f.png)](https://gyazo.com/cad06c993f4667bc6a842c9c6532f41f)
 
