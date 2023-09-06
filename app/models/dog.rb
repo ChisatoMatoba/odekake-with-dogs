@@ -8,6 +8,7 @@ class Dog < ApplicationRecord
     validates :breed_id
     validates :gender_id
     validates :user
+    validates :image
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
