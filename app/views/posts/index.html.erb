@@ -76,15 +76,13 @@
         <% area_list.each do |area_name| %>
           <% if @areas[area_name].present? %>
             <%# その地域の投稿がある場合 %>
-            <% @areas.each do |area| %>
-              <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="<%= area_name[2] %>" data-bs-target="#<%= area_name[1] %>" tabindex="0">
-                <div class="row mbr-gallery">
-                  <% @areas[area[0]].each do |post| %>
-                    <%= render "shared/gallery", post: post %>
-                  <% end %>
-                </div>
+            <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="<%= area_name[2] %>" data-bs-target="#<%= area_name[1] %>" tabindex="0">
+              <div class="row mbr-gallery">
+                <% @areas[area_name].each do |post| %>
+                  <%= render "shared/gallery", post: post %>
+                <% end %>
               </div>
-            <% end %>
+            </div>
           <% else %>
             <%# その地域の投稿がない場合 %>
             <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="<%= area_name[2] %>" data-bs-target="#<%= area_name[1] %>" tabindex="0">
