@@ -12,8 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
       var modalElement = document.getElementById('tOiMnQnqDw-modal-' + postId);
       var modal = new bootstrap.Modal(modalElement);
 
+      // モーダルを表示する前にキャルーセルを初期化
+      // var carouselElement = modalElement.querySelector('#lb-tOiMnQnqDw-' + postId);
+      // var carousel = new bootstrap.Carousel(carouselElement);
+
       console.log(postId);
       console.log(modal);
+      // console.log(carousel);
 
       modal.show();
 
@@ -32,3 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("モーダル閉じました");
   }
 });
+
+
+
