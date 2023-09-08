@@ -1,19 +1,20 @@
 <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-  <%= link_to post_path(post.id) do %>
-    <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
+  <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-7">
+    <%= link_to post_path(post.id) do %>
       <%= post.place_name %>
-    </div>
-    <div class="item-wrapper mb-3" data-bs-toggle="modal" data-bs-target="#tOiMnQnqDw-modal">
-      <%= image_tag(post.images[0], class: "w-100", alt: "No Image",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
-    </div>
-    <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-8">
-      <span><%= post.prefecture.name + "　　　" + post.rating.name %></span><br>
-      <span><%= link_to "投稿者：" + post.user.nickname + "さん", "/users/#{post.user_id}" %></span>
-    </div>
-  <% end %>
+    <% end %>
+   </div>
+  <!-- modalのトリガー -->
+  <div class="item-wrapper mb-3 modal_click" data-bs-toggle="modal" data-bs-target="#tOiMnQnqDw-modal" data-post-id="<%= post.id %>">
+    <%= image_tag(post.images[0], class: "w-100", alt: "No Image",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
+  </div>
+  <div class="mbr-item-subtitle mbr-fonts-style align-center mb-0 mt-3 display-8">
+    <span><%= post.prefecture.name + "　　　" + post.rating.name %></span><br>
+    <span><%= link_to "投稿者：" + post.user.nickname + "さん", "/users/#{post.user_id}" %></span>
+  </div>
 </div>
 <!-- 画像クリック後 -->
-<div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true" id="tOiMnQnqDw-modal" data-bs-target="#tOiMnQnqDw-modal">
+<div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true"  id="tOiMnQnqDw-modal-<%= post.id %>" data-post-id="<%= post.id %>">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -41,15 +42,15 @@
             <li data-slide-to="4" data-bs-slide-to="4" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
           </ol>
           <!-- 閉じるボタン -->
-          <a role="button" href="" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+          <a role="button" href="" class="close close-modal" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
             <%= image_tag('close.jpeg', class: "", alt: "✕") %>
           </a>
           <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
           <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
-            <%= image_tag('previous.jpeg', class: "", alt: "←") %>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           </a>
           <a class="carousel-control-next carousel-control" role="button" data-slide="next" data-bs-slide="next" href="#lb-tOiMnQnqDw">
-            <%= image_tag('next.jpeg', class: "", alt: "→") %>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
           </a>
         </div>
       </div>
