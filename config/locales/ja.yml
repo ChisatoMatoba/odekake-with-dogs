@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+        birthday: 生年月日
+      post:
+        prefecture_id: 都道府県
+        category_id: カテゴリー
+        rating_id: 満足度
+        place_name: 施設名
+        people_num: 訪れた人数
+        dogs_num: わんちゃんの数
+        review: 感想・おすすめポイント
+        images: お出かけ画像
+      dog:
+        dog_name: わんちゃんのお名前
+        dog_birthday: わんちゃんの生年月日
+        breed_id: わんちゃんの犬種
+        gender_id: わんちゃんの性別
+        image: わんちゃんの画像
+      comment:
+        content: コメント
