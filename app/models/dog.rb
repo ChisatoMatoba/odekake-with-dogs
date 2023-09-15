@@ -7,7 +7,6 @@ class Dog < ApplicationRecord
     validates :dog_birthday
     validates :breed_id
     validates :gender_id
-    validates :user
     validates :image
   end
 
