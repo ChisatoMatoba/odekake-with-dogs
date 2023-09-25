@@ -5,8 +5,8 @@ class Dog < ApplicationRecord
   with_options presence: true do
     validates :dog_name
     validates :dog_birthday
-    validates :breed_id
-    validates :gender_id
+    validates :breed_id,         numericality: { other_than: 1, message: "を入力してください" }
+    validates :gender_id,        numericality: { other_than: 1, message: "を入力してください" }
     validates :image
   end
 
