@@ -5,11 +5,12 @@
 愛犬と一緒におでかけした情報を投稿し合うことで、愛犬家さんたちが安心しておでかけを楽しめる場所を共有できる。
 
 # URL
-[https://owdapp.onrender.com/](https://owdapp.onrender.com/)
+※公開終了しました <br>
+[~~https://owdapp.onrender.com/~~](https://owdapp.onrender.com/)
 
 # テスト用アカウント
-* メールアドレス：test1@tt <br>
-* パスワード：test111
+~~* メールアドレス：test1@tt~~ <br>
+~~* パスワード：test111~~
 
 # 利用方法
 ## ユーザー登録・マイページ
