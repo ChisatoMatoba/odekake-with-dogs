@@ -27,14 +27,16 @@ class DogsController < ApplicationController
     birthday_params = params[:dog_birthday]
 
     # 年、月、日の各フィールドが "0" もしくは "---" の場合は無効な日付として扱う
-    if birthday_params["dog_birthday(1i)"].to_i == 0 || birthday_params["dog_birthday(2i)"].to_i == 0 || birthday_params["dog_birthday(3i)"].to_i == 0
+    if birthday_params['dog_birthday(1i)'].to_i.zero? || birthday_params['dog_birthday(2i)'].to_i.zero? || birthday_params['dog_birthday(3i)'].to_i.zero?
       # バリデーション
-      flash[:error] = "日付を正しく入力してください"
+      flash[:error] = '日付を正しく入力してください'
       return
     end
 
-    birthday = Date.new(birthday_params["dog_birthday(1i)"].to_i, birthday_params["dog_birthday(2i)"].to_i, birthday_params["dog_birthday(3i)"].to_i)
+    birthday = Date.new(birthday_params['dog_birthday(1i)'].to_i, birthday_params['dog_birthday(2i)'].to_i,
+                        birthday_params['dog_birthday(3i)'].to_i)
 
-    params.require(:dog).permit(:dog_name, :breed_id, :gender_id, :image).merge(user_id: current_user.id, dog_birthday: birthday)
+    params.require(:dog).permit(:dog_name, :breed_id, :gender_id, :image).merge(user_id: current_user.id,
+                                                                                dog_birthday: birthday)
   end
 end
