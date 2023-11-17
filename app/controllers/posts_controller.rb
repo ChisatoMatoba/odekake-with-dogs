@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_post, only: [:edit, :show, :update, :destroy]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_post, only: %i[edit show update destroy]
+  before_action :move_to_index, except: %i[index show]
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
@@ -50,10 +50,10 @@ class PostsController < ApplicationController
 
   def destroy
     post = Post.find(params[:id])
-    if user_signed_in? && current_user.id == @post.user_id
-      post.destroy
-      redirect_to root_path
-    end
+    return unless user_signed_in? && current_user.id == @post.user_id
+
+    post.destroy
+    redirect_to root_path
   end
 
   private
@@ -65,11 +65,11 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:prefecture_id, :place_name, :category_id, :people_num, :dogs_num, :rating_id, :review, condition_ids: [], images: []).merge(user_id: current_user.id)
+    params.require(:post).permit(:prefecture_id, :place_name, :category_id, :people_num, :dogs_num, :rating_id,
+                                 :review, condition_ids: [], images: []).merge(user_id: current_user.id)
   end
 
   def set_post
     @post = Post.find(params[:id])
   end
-
 end
