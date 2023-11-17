@@ -1,0 +1,36 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/**/*
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/system/*
+
+AllCops:
+  TargetRubyVersion: 3.0
+  Exclude:
+    - '**/templates/**/*'
+    - '**/vendor/**/*'
+    - app/views/**/*
+    - config/**/*
+    - config.ru
+    - node_modules/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - storage/**/*
+    - tmp/**/*
+    - bin/**/*
