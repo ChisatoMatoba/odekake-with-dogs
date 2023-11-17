@@ -27,7 +27,7 @@ class DogsController < ApplicationController
     birthday_params = params[:dog_birthday]
 
     # 年、月、日の各フィールドが "0" もしくは "---" の場合は無効な日付として扱う
-    if birthday_params['dog_birthday(1i)'].to_i == 0 || birthday_params['dog_birthday(2i)'].to_i == 0 || birthday_params['dog_birthday(3i)'].to_i == 0
+    if birthday_params['dog_birthday(1i)'].to_i.zero? || birthday_params['dog_birthday(2i)'].to_i.zero? || birthday_params['dog_birthday(3i)'].to_i.zero?
       # バリデーション
       flash[:error] = '日付を正しく入力してください'
       return
