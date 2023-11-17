@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
+  belongs_to :facility
 
   has_many   :post_conditions, dependent: :destroy
   has_many   :conditions, through: :post_conditions
