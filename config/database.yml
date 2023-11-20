@@ -14,7 +14,7 @@ test:
   <<: *default
   adapter: mysql2
   username: root
-  password:
+  password: ""
   host: 127.0.0.1
   database: odekake_with_dogs_test
 

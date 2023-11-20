@@ -10,7 +10,7 @@ jobs:
       mysql:
         image: mysql:8.1
         env:
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: ""
           MYSQL_DATABASE: odekake_with_dogs_test
         ports:
           - 3306:3306
@@ -35,4 +35,4 @@ jobs:
     env:
       MYSQL_HOST: 127.0.0.1
       MYSQL_USERNAME: root
-      MYSQL_PASSWORD:
+      MYSQL_PASSWORD: ""
