@@ -12,8 +12,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD:
           MYSQL_DATABASE: odekake_with_dogs_test
-        ports:
-          - 3306:3306
 
     steps:
       - uses: actions/checkout@v2
@@ -25,5 +23,10 @@ jobs:
         run: bundle install
       - name: Run Rubocop
         run: bundle exec rubocop
+      - name: Setup Test Database
+        run: |
+          sudo systemctl start mysql
+          mysql -u root -p '' -e 'CREATE DATABASE IF NOT EXISTS odekake_with_dogs_test;'
+          bundle exec rails db:migrate RAILS_ENV=test
       - name: Run RSpec
         run: bundle exec rspec
