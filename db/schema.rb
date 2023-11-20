@@ -76,13 +76,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_004533) do
     t.index ["user_id"], name: "index_facilities_on_user_id"
   end
 
-  create_table "facilities_conditions", charset: "utf8mb3", force: :cascade do |t|
+  create_table "facility_conditions", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "facility_id", null: false
     t.bigint "condition_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["condition_id"], name: "index_facilities_conditions_on_condition_id"
-    t.index ["facility_id"], name: "index_facilities_conditions_on_facility_id"
+    t.index ["condition_id"], name: "index_facility_conditions_on_condition_id"
+    t.index ["facility_id"], name: "index_facility_conditions_on_facility_id"
   end
 
   create_table "post_conditions", charset: "utf8mb3", force: :cascade do |t|
@@ -128,8 +128,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_004533) do
   add_foreign_key "comments", "users"
   add_foreign_key "dogs", "users"
   add_foreign_key "facilities", "users"
-  add_foreign_key "facilities_conditions", "conditions"
-  add_foreign_key "facilities_conditions", "facilities"
+  add_foreign_key "facility_conditions", "conditions"
+  add_foreign_key "facility_conditions", "facilities"
   add_foreign_key "post_conditions", "conditions"
   add_foreign_key "post_conditions", "posts"
   add_foreign_key "posts", "users"
