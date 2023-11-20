@@ -23,10 +23,9 @@ jobs:
         run: bundle install
       - name: Run Rubocop
         run: bundle exec rubocop
-      - name: Setup Test Database
-        run: |
-          sudo systemctl start mysql
-          mysql -u root -p '' -e 'CREATE DATABASE IF NOT EXISTS odekake_with_dogs_test;'
-          bundle exec rails db:migrate RAILS_ENV=test
+
+      - name: Database migrate
+        run: bundle exec rails db:migrate RAILS_ENV=test
+
       - name: Run RSpec
         run: bundle exec rspec
