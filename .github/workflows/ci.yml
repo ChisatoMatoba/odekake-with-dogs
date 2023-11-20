@@ -12,7 +12,7 @@ jobs:
         env:
           MYSQL_DATABASE: odekake_with_dogs_test
         ports:
-          - 3306:3306
+          - 3306/tcp
 
     steps:
       - uses: actions/checkout@v2
@@ -32,4 +32,3 @@ jobs:
         run: bundle exec rspec
     env:
       MYSQL_HOST: localhost
-      MYSQL_USERNAME: root
