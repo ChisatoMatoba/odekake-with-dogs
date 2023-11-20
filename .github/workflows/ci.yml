@@ -26,7 +26,6 @@ jobs:
         run: bundle exec rubocop
       - name: Setup Test Database
         run: |
-          sudo /etc/init.d/mysql start
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
       - name: Run RSpec
