@@ -15,7 +15,7 @@ test:
   adapter: mysql2
   username: root
   password:
-  host: <%= ENV['MYSQL_HOST'] %>
+  host: 127.0.0.1
   database: odekake_with_dogs_test
 
 production:
