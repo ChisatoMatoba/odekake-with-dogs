@@ -14,7 +14,6 @@ jobs:
           MYSQL_DATABASE: odekake_with_dogs_test
         ports:
           - 3306:3306
-        socket: /tmp/mysql.sock
 
     steps:
       - uses: actions/checkout@v2

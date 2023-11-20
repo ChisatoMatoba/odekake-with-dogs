@@ -15,9 +15,8 @@ test:
   adapter: mysql2
   username: root
   password:
-  host: localhost
+  host: <%= ENV['MYSQL_HOST'] %>
   database: odekake_with_dogs_test
-  socket: /tmp/mysql.sock
 
 production:
   <<: *default
