@@ -17,6 +17,7 @@ test:
   password:
   host: localhost
   database: odekake_with_dogs_test
+  socket: /tmp/mysql.sock
 
 production:
   <<: *default
