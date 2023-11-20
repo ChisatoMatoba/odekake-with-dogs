@@ -32,6 +32,6 @@ jobs:
       - name: Run RSpec
         run: bundle exec rspec
     env:
-      MYSQL_HOST: 127.0.0.1
+      MYSQL_HOST: mysql
       MYSQL_USERNAME: root
       MYSQL_PASSWORD:
