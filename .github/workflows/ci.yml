@@ -10,10 +10,11 @@ jobs:
       mysql:
         image: mysql:8.1
         env:
-          MYSQL_ROOT_PASSWORD:
+          adapter: mysql2
+          username: root
+          password:
+          host: localhost
           MYSQL_DATABASE: odekake_with_dogs_test
-        ports:
-          - 3306:3306
 
     steps:
       - uses: actions/checkout@v2
