@@ -23,7 +23,7 @@ class FacilitiesController < ApplicationController
     @facility = Facility.new(facility_params)
     if @facility.save
       # 登録できたらその施設の詳細画面へ
-      redirect_to facility_path(id: @facility.id)
+      redirect_to facility_path(@facility)
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,7 +39,7 @@ class FacilitiesController < ApplicationController
 
   def update
     if @facility.update(facility_params)
-      redirect_to facility_path(id: @facility.id)
+      redirect_to facility_path(@facility)
     else
       Rails.logger.debug @facility.errors.full_messages
       render :edit, status: :unprocessable_entity

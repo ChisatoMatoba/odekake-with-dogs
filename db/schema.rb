@@ -95,9 +95,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_000003) do
   end
 
   create_table "posts", charset: "utf8mb3", force: :cascade do |t|
-    t.integer "prefecture_id", null: false
-    t.string "place_name", null: false
-    t.integer "category_id", null: false
     t.integer "people_num", null: false
     t.integer "dogs_num", null: false
     t.integer "rating_id", null: false
