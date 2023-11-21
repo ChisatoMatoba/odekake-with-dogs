@@ -1,6 +1,7 @@
 <div class="items-sell-main">
   <h2 class="items-sell-title">施設情報を入力</h2>
-  <%= form_with model: facility, url: facilities_path, data: { turbo: false }, id: 'new_facility', local: true do |f| %>
+  <%= form_with model: facility, data: { turbo: false }, id: 'new_facility', local: true do |f| %>
+
     <%= render 'shared/error_messages', model: f.object %>
 
     <%# 施設についての説明 %>
@@ -41,4 +42,5 @@
     </div>
     <%# /下部ボタン %>
   <% end %>
-</div>
+
+  </div>

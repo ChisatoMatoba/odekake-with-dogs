@@ -39,7 +39,7 @@ class FacilitiesController < ApplicationController
 
   def update
     if @facility.update(facility_params)
-      redirect_to facilities_path(@facility.id)
+      redirect_to facility_path(id: @facility.id)
     else
       Rails.logger.debug @facility.errors.full_messages
       render :edit, status: :unprocessable_entity
