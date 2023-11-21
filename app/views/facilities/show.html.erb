@@ -44,7 +44,7 @@
     <%# ログイン者のみ投稿ボタン表示 %>
     <% if user_signed_in? %>
       <div class="d-grid gap-2 col-6 mx-auto">
-        <%=link_to "この施設のおでかけ情報を登録する", edit_facility_path(@facility.id), class:"btn btn-info" %>
+        <%=link_to "この施設のおでかけ情報を登録する", new_facility_post_path(@facility.id), class:"btn btn-info" %>
       </div>
     <% end %>
     <%# /ログイン者のみ投稿ボタン表示 %>
