@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :comments, only: :create
     end
   end
-    resources :users, only: :show do
+  resources :users, only: :show do
     resources :dogs, only: [:new, :create]
   end
 end
