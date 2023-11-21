@@ -22,7 +22,8 @@ class FacilitiesController < ApplicationController
   def create
     @facility = Facility.new(facility_params)
     if @facility.save
-      redirect_to new_facility_post_path
+      # 登録できたらその施設の詳細画面へ
+      redirect_to facility_path(id: @facility.id)
     else
       render :new, status: :unprocessable_entity
     end
