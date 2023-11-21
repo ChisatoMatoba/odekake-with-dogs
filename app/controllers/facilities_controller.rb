@@ -1,7 +1,6 @@
 class FacilitiesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_facility, only: %i[edit show update destroy]
-  before_action :move_to_index, except: %i[index show]
 
   def index
     @facilities = Facility.includes(:user).order(created_at: :desc)
@@ -55,12 +54,6 @@ class FacilitiesController < ApplicationController
   end
 
   private
-
-  def move_to_index
-    return if user_signed_in?
-
-    redirect_to action: :index
-  end
 
   def facility_params
     params.require(:facility).permit(:prefecture_id, :place_name, :category_id, condition_ids: []).merge(user_id: current_user.id)
