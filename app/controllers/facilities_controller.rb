@@ -31,9 +31,7 @@ class FacilitiesController < ApplicationController
   def show; end
 
   def edit
-    return if user_signed_in? && current_user.id == @facility.user_id
-
-    redirect_to root_path
+    redirect_to root_path unless current_user.id == @facility.user_id
   end
 
   def update
@@ -46,8 +44,7 @@ class FacilitiesController < ApplicationController
   end
 
   def destroy
-    facility = Facility.find(params[:id])
-    return unless user_signed_in? && current_user.id == @facility.user_id
+    return unless current_user.id == @facility.user_id
 
     facility.destroy
     redirect_to root_path
