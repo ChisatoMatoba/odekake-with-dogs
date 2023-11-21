@@ -21,3 +21,7 @@ ja:
         image: わんちゃんの画像
       comment:
         content: コメント
+      facility:
+        prefecture_id: 都道府県
+        category_id: カテゴリー
+        place_name: 施設名
