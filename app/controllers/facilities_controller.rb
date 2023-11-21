@@ -4,7 +4,7 @@ class FacilitiesController < ApplicationController
   before_action :move_to_index, except: %i[index show]
 
   def index
-    @facilities = Facility.includes(:user).order('created_at DESC')
+    @facilities = Facility.includes(:user).order(created_at: :desc)
 
     @areas = {}
     # 投稿を地域ごとにグループ化する
