@@ -1,0 +1,34 @@
+.facility-list {
+  height: 300px;
+  overflow-y: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th:first-child,
+td:first-child {
+  width: 30%;
+}
+
+th:last-child,
+td:last-child {
+  width: 70%;
+}
+
+th,
+td {
+  border: 1px solid black !important;
+  padding-left: 15px !important;
+  text-align: left;
+}
+
+.facility_link:hover {
+  color: #ff7043;
+}
+
+th {
+  background-color: #9adf9c !important;
+}
