@@ -1,53 +1,9 @@
 <div class="items-sell-contents">
   <header class="items-sell-header">
     <%= link_to image_tag('owd_logo.png' , size: '185x185'), "/" %>
-
   </header>
 
-  <div class="items-sell-main">
-    <h2 class="items-sell-title">施設情報を入力</h2>
-    <%= form_with model: @facility, url: facilities_path, data: { turbo: false }, id: 'new_facility', local: true do |f| %>
-    <%= render 'shared/error_messages', model: f.object %>
-
-    <%# 施設についての説明 %>
-    <div class="new-items">
-      <div class="weight-bold-text">
-        都道府県
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
-      <div class="weight-bold-text">
-        施設名
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.text_area :place_name, class:"items-text", id:"item-name", placeholder:"施設の名前（必須 40文字まで)", maxlength:"40" %>
-      <div class="weight-bold-text">
-        カテゴリー
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
-      <div class="weight-bold-text">
-        施設の条件
-        <span class="form-any">任意、複数選択可</span>
-      </div>
-      <div class="multi-check">
-        <%= f.collection_check_boxes(:condition_ids, Condition.all, :id, :category, {}, {class:"check-box", id:"entry-condition"}) do |c| %>
-          <%= c.label { c.check_box + c.text } %>
-          <br>
-        <% end %>
-      </div>
-    </div>
-    <%# /施設についての説明 %>
-
-
-    <%# 下部ボタン %>
-    <div class="sell-btn-contents">
-      <%= f.submit "登録する" ,class:"sell-btn" %>
-      <%=link_to 'もどる', root_path, class:"back-btn" %>
-    </div>
-    <%# /下部ボタン %>
-  </div>
-  <% end %>
+<%= render partial: 'form', locals: { facility: @facility } %>
 
   <footer class="items-sell-footer">
     <p class="inc">
