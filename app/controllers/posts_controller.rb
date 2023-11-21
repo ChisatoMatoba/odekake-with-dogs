@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, only: %i[edit show update destroy]
   before_action :move_to_index, except: %i[index show]
+  before_action :set_facility
 
   def index
     @posts = Post.includes(:user).order('created_at DESC')
@@ -16,7 +17,6 @@ class PostsController < ApplicationController
   end
 
   def new
-    @facility = Facility.find(params[:facility_id])
     @post = Post.new
   end
 
@@ -66,10 +66,14 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: []).merge(user_id: current_user.id)
+    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: []).merge(user_id: current_user.id, facility_id: params[:facility_id])
   end
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def set_facility
+    @facility = Facility.find(params[:facility_id])
   end
 end
