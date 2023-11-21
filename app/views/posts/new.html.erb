@@ -2,8 +2,38 @@
   <%= render "shared/header_blue" %>
 
   <div class="items-sell-main">
+    <%# 施設の情報 %>
+    <h2 class="items-sell-title">施設情報</h2>
+    <table class="acility-list">
+      <tbody>
+        <tr>
+          <th class="detail-item">施設名</th>
+          <td class="detail-value"><%= @facility.place_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">所在地</th>
+          <td class="detail-value"><%= @facility.prefecture.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">カテゴリー</th>
+          <td class="detail-value"><%= @facility.category.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">条件</th>
+          <td class="detail-value">
+            <% @facility.conditions.each do |condition| %>
+              <%= condition.category %><br>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="height: 50px;"></div>
+
+    <%# おでかけ情報投稿フォーム %>
     <h2 class="items-sell-title">おでかけ情報を入力</h2>
-    <%= form_with model: @post, url: posts_path, data: { turbo: false }, id: 'new_post', local: true do |f| %>
+    <%= form_with model: [@facility, @post], data: { turbo: false }, id: 'new_post', local: true do |f| %>
     <%= render 'shared/error_messages', model: f.object %>
 
     <%# 施設についての説明 %>

@@ -16,6 +16,7 @@ class PostsController < ApplicationController
   end
 
   def new
+    @facility = Facility.find(params[:facility_id])
     @post = Post.new
   end
 
