@@ -1,6 +1,6 @@
 class Facility < ApplicationRecord
   belongs_to :user
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   has_many   :facility_conditions, dependent: :destroy
   has_many   :conditions, through: :facility_conditions
@@ -9,7 +9,7 @@ class Facility < ApplicationRecord
   belongs_to :prefecture
   belongs_to :category
 
-  with_options numericality: { other_than: 1, message: "を入力してください" } do
+  with_options numericality: { other_than: 1, message: 'を入力してください' } do
     validates :prefecture_id
     validates :category_id
   end
