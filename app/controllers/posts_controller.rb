@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_post, only: %i[edit show update destroy]
   before_action :move_to_index, except: %i[index show]
   before_action :set_facility, except: %i[index]
+  before_action :set_post, only: %i[edit show update destroy]
 
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
@@ -71,7 +71,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = @facility.posts.find(params[:id])
   end
 
   def set_facility
