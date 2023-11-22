@@ -1,7 +1,5 @@
 <div class="items-sell-contents">
-  <header class="items-sell-header">
-    <%= link_to image_tag('owd_logo.png' , size: '185x185'), "/" %>
-  </header>
+  <%= render "shared/header_blue" %>
 
   <%= render partial: 'form', locals: { facility: @facility } %>
 
