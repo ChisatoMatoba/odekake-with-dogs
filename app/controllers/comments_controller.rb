@@ -2,11 +2,11 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      redirect_to post_path(@comment.post)
+      redirect_to facility_post_path(@comment.post.facility, @comment.post)
     else
       @post = @comment.post
       @comments = @post.comments.includes(:user)
-      redirect_to post_path(@post.id)
+      redirect_to facility_post_path(@post.facility, @post)
     end
   end
 
