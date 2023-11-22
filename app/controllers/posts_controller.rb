@@ -7,6 +7,14 @@ class PostsController < ApplicationController
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
     @posts = Post.includes(:user).order(created_at: :DESC)
+
+    @areas = {}
+    # 投稿を地域ごとにグループ化する
+    @posts.each do |post|
+      area = post.facility.area_group
+      @areas[area] ||= []
+      @areas[area] << post
+    end
   end
 
   def new
