@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   before_action :set_facility, except: %i[index]
 
   def index
+    @facilities = Facility.includes(:post).order(:prefecture_id)
     @posts = Post.includes(:user).order(created_at: :DESC)
   end
 

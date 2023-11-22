@@ -3,7 +3,7 @@
     <%= link_to post_path(post.id) do %>
       <%= post.place_name %>
     <% end %>
-   </div>
+  </div>
   <!-- modalのトリガー -->
   <div class="item-wrapper mb-3 modal_click" data-bs-toggle="modal" data-bs-target="#tOiMnQnqDw-modal" data-post-id="<%= post.id %>">
     <%= image_tag(post.images[0], class: "w-100", alt: "No Image",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
