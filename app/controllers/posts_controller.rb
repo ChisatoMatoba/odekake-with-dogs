@@ -2,26 +2,18 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, only: %i[edit show update destroy]
   before_action :move_to_index, except: %i[index show]
-  before_action :set_facility
+  before_action :set_facility, except: %i[index]
 
   def index
-    @posts = Post.includes(:user).order('created_at DESC')
-
-    @areas = {}
-    # 投稿を地域ごとにグループ化する
-    @posts.each do |post|
-      area = post.area_group
-      @areas[area] ||= []
-      @areas[area] << post
-    end
+    @posts = Post.includes(:user).order(created_at: :DESC)
   end
 
   def new
-    @post = Post.new
+    @post = @facility.posts.build
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = @facility.posts.build(post_params)
     if @post.save
       redirect_to root_path
     else
