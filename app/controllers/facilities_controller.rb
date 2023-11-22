@@ -46,7 +46,7 @@ class FacilitiesController < ApplicationController
   def destroy
     return unless current_user.id == @facility.user_id
 
-    facility.destroy
+    @facility.destroy
     redirect_to root_path
   end
 

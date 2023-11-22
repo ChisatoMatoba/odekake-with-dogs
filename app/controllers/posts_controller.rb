@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :move_to_index, except: %i[index show]
   before_action :set_facility, except: %i[index]
   before_action :set_post, only: %i[edit show update destroy]
 
@@ -24,7 +23,8 @@ class PostsController < ApplicationController
   def create
     @post = @facility.posts.build(post_params)
     if @post.save
-      redirect_to root_path
+      # 登録できたらその投稿の詳細画面へ
+      redirect_to facility_post_path(@facility, @post)
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,9 +36,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    return if user_signed_in? && current_user.id == @post.user_id
-
-    redirect_to root_path
+    redirect_to root_path unless current_user.id == @post.user_id
   end
 
   def update
@@ -51,20 +49,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    return unless user_signed_in? && current_user.id == @post.user_id
+    return unless current_user.id == @post.user_id
 
-    post.destroy
+    @post.destroy
     redirect_to root_path
   end
 
   private
-
-  def move_to_index
-    return if user_signed_in?
-
-    redirect_to action: :index
-  end
 
   def post_params
     params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: []).merge(user_id: current_user.id, facility_id: params[:facility_id])
