@@ -1,0 +1,58 @@
+<%= render "shared/header" %>
+
+<div class="post-show-main">
+<%# おでかけ情報の概要 %>
+  <div class="user__wrapper">
+    <h2 class="page-heading">
+      <span class="bg-color">~施設情報~</span>
+    </h2>
+    <%# 施設の情報 %>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item display-7">施設名</th>
+          <td class="detail-value display-7"><%= @facility.place_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item display-7">所在地</th>
+          <td class="detail-value display-7"><%= @facility.prefecture.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item display-7">カテゴリー</th>
+          <td class="detail-value display-7"><%= @facility.category.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item display-7">条件</th>
+          <td class="detail-value display-7">
+            <% @facility.conditions.each do |condition| %>
+              <%= condition.category %><br>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th class="detail-item display-7">作成者</th>
+          <td class="detail-value display-7"><%= @facility.user.nickname + 'さん' %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <%# 投稿者のみ編集削除ボタン表示 %>
+    <% if user_signed_in? && current_user.id == @facility.user_id %>
+      <div class="d-grid gap-2 col-3 mx-auto">
+        <%=link_to "編集", edit_facility_path(@facility.id), data: { turbo: false }, method: :get, class:"btn btn-success" %>
+        <%= link_to "削除", facility_path(@facility.id), data: { turbo_method: :delete }, class:"btn btn-secondary" %>
+      </div>
+    <% end %>
+    <%# /投稿者のみ編集削除ボタン表示 %>
+
+    <%# ログイン者のみ投稿ボタン表示 %>
+    <% if user_signed_in? %>
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <%=link_to "この施設のおでかけ情報を登録する", new_facility_post_path(@facility.id), class:"btn btn-info" %>
+      </div>
+    <% end %>
+    <%# /ログイン者のみ投稿ボタン表示 %>
+  </div>
+</div>
+
+<%= render "shared/footer" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_20_004533) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_21_000003) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -95,16 +95,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_004533) do
   end
 
   create_table "posts", charset: "utf8mb3", force: :cascade do |t|
-    t.integer "prefecture_id", null: false
-    t.string "place_name", null: false
-    t.integer "category_id", null: false
     t.integer "people_num", null: false
     t.integer "dogs_num", null: false
     t.integer "rating_id", null: false
     t.text "review", null: false
     t.bigint "user_id", null: false
+    t.bigint "facility_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_posts_on_facility_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -132,5 +131,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_004533) do
   add_foreign_key "facility_conditions", "facilities"
   add_foreign_key "post_conditions", "conditions"
   add_foreign_key "post_conditions", "posts"
+  add_foreign_key "posts", "facilities"
   add_foreign_key "posts", "users"
 end

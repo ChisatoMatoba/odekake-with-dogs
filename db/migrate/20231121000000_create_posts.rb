@@ -9,6 +9,7 @@ class CreatePosts < ActiveRecord::Migration[7.0]
       t.integer    :rating_id,     null: false
       t.text       :review,        null: false
       t.references :user,          null: false, foreign_key: true
+      t.references :facility,      null: false, foreign_key: true
       t.timestamps
     end
   end
