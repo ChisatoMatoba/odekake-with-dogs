@@ -11,20 +11,20 @@
       <tbody>
         <tr>
           <th class="detail-item display-7">施設名</th>
-          <td class="detail-value display-7"><%= @post.place_name %></td>
+          <td class="detail-value display-7"><%= @facility.place_name %></td>
         </tr>
         <tr>
           <th class="detail-item display-7">所在地</th>
-          <td class="detail-value display-7"><%= @post.prefecture.name %></td>
+          <td class="detail-value display-7"><%= @facility.prefecture.name %></td>
         </tr>
         <tr>
           <th class="detail-item display-7">カテゴリー</th>
-          <td class="detail-value display-7"><%= @post.category.name %></td>
+          <td class="detail-value display-7"><%= @facility.category.name %></td>
         </tr>
         <tr>
           <th class="detail-item display-7">条件</th>
           <td class="detail-value display-7">
-            <% @post.conditions.each do |condition| %>
+            <% @facility.conditions.each do |condition| %>
               <%= condition.category %><br>
             <% end %>
           </td>
@@ -71,7 +71,7 @@
       <%# コメント投稿欄(ログイン中のみ) %>
       <% if user_signed_in? %>
         <h2>コメント投稿</h2>
-        <%= form_with model: [@post, @comment], local: true do |f|%>
+        <%= form_with model: [@facility, @post, @comment], local: true do |f|%>
           <div >
             <%= f.text_area :content, class:"comment-text" %>
           </div>
@@ -100,16 +100,16 @@
     </div>
 
 <!--
-  <a href="#" class="another-posts"><%= @post.prefecture.name %>のおでかけ情報をもっと見る</a>
+  <a href="#" class="another-posts"><%= @facility.prefecture.name %>のおでかけ情報をもっと見る</a>
 -->
   </div>
 </div>
 
-     <%# 投稿者のみ編集削除ボタン表示 %>
+      <%# 投稿者のみ編集削除ボタン表示 %>
       <% if user_signed_in? && current_user.id == @post.user_id %>
         <div class='edit-del'>
-          <%= link_to "編集", edit_post_path(@post.id), data: { turbo: false }, method: :get, class: "item-red-btn" %>
-          <%= link_to "削除", post_path(@post.id), data: { turbo_method: :delete }, class:"item-destroy" %>
+          <%= link_to "編集", edit_facility_post_path(@facility, @post), data: { turbo: false }, method: :get, class: "item-red-btn" %>
+          <%= link_to "削除", facility_post_path(@facility, @post), data: { turbo_method: :delete }, class:"item-destroy" %>
         </div>
       <% end %>
       <%# /投稿者のみ編集削除ボタン表示 %>
