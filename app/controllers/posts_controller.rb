@@ -43,7 +43,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to post_path(@post.id)
+      redirect_to facility_post_path(@facility, @post)
     else
       Rails.logger.debug @post.errors.full_messages
       render :edit, status: :unprocessable_entity
