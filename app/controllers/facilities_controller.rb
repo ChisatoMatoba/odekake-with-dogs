@@ -4,6 +4,7 @@ class FacilitiesController < ApplicationController
 
   def index
     @facilities = Facility.order(:prefecture_id)
+    @prefectures = Prefecture.order(:id)
 
     @areas = {}
     # 投稿を地域ごとにグループ化する
