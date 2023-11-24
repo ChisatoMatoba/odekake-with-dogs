@@ -19,24 +19,28 @@
       <% if params[:search].present? %>
         <div class="search-results">
           <br>検索結果
-          <div class="facility-list-search">
-            <table>
-              <thead>
-                <tr>
-                  <th>都道府県</th>
-                  <th>施設名</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @search_results.each do |facility| %>
+          <% if @search_results.empty? %>
+            <p>お探しの施設はありません</p>
+          <% else %>
+            <div class="facility-list-search">
+              <table>
+                <thead>
                   <tr>
-                    <td><%= facility.prefecture.name %></td>
-                    <td><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></td>
+                    <th>都道府県</th>
+                    <th>施設名</th>
                   </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  <% @search_results.each do |facility| %>
+                    <tr>
+                      <td><%= facility.prefecture.name %></td>
+                      <td><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
