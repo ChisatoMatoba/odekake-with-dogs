@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbo:load', function() {
   document.querySelectorAll('.prefecture-row').forEach(function(row) {
     row.addEventListener('click', function() {
       var prefectureId = this.dataset.prefectureId;
@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // アイコンの切り替え
       var icon = this.querySelector('.prefecture-icon');
-      icon.textContent = isHidden ? '▽' : '△';
+      icon.classList.toggle('bi-chevron-down');
+      icon.classList.toggle('bi-chevron-up');
     });
   });
 });
