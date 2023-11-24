@@ -3,8 +3,15 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: %i[edit show update destroy]
 
   def index
-    @facilities = Facility.order(:prefecture_id)
+    @search_results =
+      if params[:search].present?
+        Facility.where('place_name LIKE ?', "%#{params[:search]}%")
+      else
+        []
+      end
+
     @prefectures = Prefecture.order(:id)
+    @facilities = Facility.order(:prefecture_id)
 
     @areas = {}
     # 投稿を地域ごとにグループ化する

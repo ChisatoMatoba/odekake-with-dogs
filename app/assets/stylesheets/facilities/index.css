@@ -36,3 +36,8 @@ th {
 .no-data {
   background-color: #cccccc;
 }
+
+.items-sell-sub-title {
+  font-size: 17px;
+  text-align: center;
+}

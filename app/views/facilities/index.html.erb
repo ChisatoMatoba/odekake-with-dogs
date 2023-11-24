@@ -10,56 +10,75 @@
     <div style="height: 50px;"></div>
 
     <h2 class="items-sell-title">登録済み施設を使用して投稿</h2>
-    <div style="text-align: center;">投稿したい施設の名前をクリックしてください</div>
-    <div class="facility-list">
-      <table>
-        <thead>
-          <tr>
-            <th>都道府県</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- 全国 -->
-          <tr class="prefecture-row" data-prefecture-id="zennkoku">
-            <td>
-              <span class="prefecture-name">全国</span>
-              <i class="bi bi-chevron-down prefecture-icon"></i>
-            </td>
-          </tr>
-          <tr class="facility-row" data-prefecture-id="zennkoku" style="display:none;">
-            <td>
-              <!-- ドロップダウンメニューの内容 -->
-              <ul>
-                <% @facilities.each do |facility| %>
-                  <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
-                <% end %>
-              </ul>
-            </td>
-          </tr>
+    <div class="items-sell-sub-title"><b>施設名を検索</b>
+      <%= form_with(url: facilities_path, method: :get, local: true) do |form| %>
+        <%= form.text_field :search, placeholder: "施設名" %>
+        <%= form.submit "検索" %>
+      <% end %>
 
-          <!-- 都道府県別 -->
-          <% @prefectures.select { |prefecture| (2..48).include?(prefecture.id) }.each do |prefecture| %>
-            <tr class="prefecture-row <%= 'no-data' if prefecture.facilities.empty? %>" data-prefecture-id="<%= prefecture.id %>">
+      <% if params[:search].present? %>
+        <div class="search-results">
+          <br><b>検索結果</b>
+          <% @search_results.each do |facility| %>
+            <p><%= link_to facility.place_name, facility_path(id: facility.id) %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div style="height: 50px;"></div>
+
+    <div class="items-sell-sub-title"><b>一覧から検索</b><br>
+      投稿したい施設の名前をクリックしてください
+      <div class="facility-list">
+        <table>
+          <thead>
+            <tr>
+              <th>都道府県</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 全国 -->
+            <tr class="prefecture-row" data-prefecture-id="zennkoku">
               <td>
-                <span class="prefecture-name"><%= prefecture.name %></span>
+                <span class="prefecture-name">全国</span>
                 <i class="bi bi-chevron-down prefecture-icon"></i>
               </td>
             </tr>
-            <tr class="facility-row <%= 'no-data' if prefecture.facilities.empty? %>" data-prefecture-id="<%= prefecture.id %>" style="display:none;">
+            <tr class="facility-row" data-prefecture-id="zennkoku" style="display:none;">
               <td>
                 <!-- ドロップダウンメニューの内容 -->
                 <ul>
-                  <% prefecture.facilities.each do |facility| %>
+                  <% @facilities.each do |facility| %>
                     <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
                   <% end %>
                 </ul>
               </td>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
 
+            <!-- 都道府県別 -->
+            <% @prefectures.select { |prefecture| (2..48).include?(prefecture.id) }.each do |prefecture| %>
+              <tr class="prefecture-row <%= 'no-data' if prefecture.facilities.empty? %>" data-prefecture-id="<%= prefecture.id %>">
+                <td>
+                  <span class="prefecture-name"><%= prefecture.name %></span>
+                  <i class="bi bi-chevron-down prefecture-icon"></i>
+                </td>
+              </tr>
+              <tr class="facility-row <%= 'no-data' if prefecture.facilities.empty? %>" data-prefecture-id="<%= prefecture.id %>" style="display:none;">
+                <td>
+                  <!-- ドロップダウンメニューの内容 -->
+                  <ul>
+                    <% prefecture.facilities.each do |facility| %>
+                      <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
+                    <% end %>
+                  </ul>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <%= render "shared/footer_blue" %>
