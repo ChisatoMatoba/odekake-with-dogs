@@ -1,5 +1,5 @@
 .facility-list {
-  height: 300px;
+  height: 700px;
   overflow-y: auto;
 }
 
@@ -31,4 +31,8 @@ td {
 
 th {
   background-color: #9adf9c !important;
+}
+
+.no-data {
+  background-color: #cccccc;
 }
