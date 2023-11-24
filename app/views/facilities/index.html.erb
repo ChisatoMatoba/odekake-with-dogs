@@ -10,7 +10,7 @@
     <div style="height: 50px;"></div>
 
     <h2 class="items-sell-title">登録済み施設を使用して投稿</h2>
-    <div class="items-sell-sub-title"><b>施設名を検索</b>
+    <div class="items-sell-sub-title"><b>〜施設名を検索〜</b>
       <%= form_with(url: facilities_path, method: :get, local: true) do |form| %>
         <%= form.text_field :search, placeholder: "施設名" %>
         <%= form.submit "検索" %>
@@ -18,17 +18,32 @@
 
       <% if params[:search].present? %>
         <div class="search-results">
-          <br><b>検索結果</b>
-          <% @search_results.each do |facility| %>
-            <p><%= link_to facility.place_name, facility_path(id: facility.id) %></p>
-          <% end %>
+          <br>検索結果
+          <div class="facility-list-search">
+            <table>
+              <thead>
+                <tr>
+                  <th>都道府県</th>
+                  <th>施設名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @search_results.each do |facility| %>
+                  <tr>
+                    <td><%= facility.prefecture.name %></td>
+                    <td><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       <% end %>
     </div>
 
     <div style="height: 50px;"></div>
 
-    <div class="items-sell-sub-title"><b>一覧から検索</b><br>
+    <div class="items-sell-sub-title"><b>〜一覧から検索〜</b><br>
       投稿したい施設の名前をクリックしてください
       <div class="facility-list">
         <table>
