@@ -11,7 +11,7 @@
       <tbody>
         <tr>
           <th class="detail-item display-7">施設名</th>
-          <td class="detail-value display-7"><%= @facility.place_name %></td>
+          <td class="detail-value display-7"><%= link_to @facility.place_name, facility_path(@facility) + "#facility-posts" %></td>
         </tr>
         <tr>
           <th class="detail-item display-7">所在地</th>
@@ -99,9 +99,9 @@
       </ul>
     </div>
 
-<!--
-  <a href="#" class="another-posts"><%= @facility.prefecture.name %>のおでかけ情報をもっと見る</a>
--->
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <%= link_to "#{@facility.place_name}のおでかけ情報をもっと見る", facility_path(@facility) + "#facility-posts", class: "btn btn-warning" %>
+    </div>
   </div>
 </div>
 
