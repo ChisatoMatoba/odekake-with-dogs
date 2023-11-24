@@ -1,3 +1,8 @@
+.facility-list-search {
+  height: 100px;
+  overflow-y: auto;
+}
+
 .facility-list {
   height: 700px;
   overflow-y: auto;
