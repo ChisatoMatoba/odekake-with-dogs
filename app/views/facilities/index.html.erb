@@ -31,11 +31,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @search_results.each do |facility| %>
-                    <tr>
-                      <td><%= facility.prefecture.name %></td>
-                      <td><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></td>
-                    </tr>
+                  <% @search_results.each do |prefecture_id, facilities| %>
+                    <% facilities.each do |facility| %>
+                      <tr>
+                        <td><%= facility.prefecture.name %></td>
+                        <td><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></td>
+                      </tr>
+                    <% end %>
                   <% end %>
                 </tbody>
               </table>
@@ -69,7 +71,7 @@
                 <!-- ドロップダウンメニューの内容 -->
                 <ul>
                   <% @facilities.each do |facility| %>
-                    <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
+                    <li><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></li>
                   <% end %>
                 </ul>
               </td>
@@ -77,18 +79,18 @@
 
             <!-- 都道府県別 -->
             <% @prefectures.select { |prefecture| (2..48).include?(prefecture.id) }.each do |prefecture| %>
-              <tr class="prefecture-row <%= 'no-data' if prefecture.facilities.empty? %>" data-prefecture-id="<%= prefecture.id %>">
+              <tr class="prefecture-row <%= 'no-data' if @facilities_groupby_pref[prefecture.id].nil? %>" data-prefecture-id="<%= prefecture.id %>">
                 <td>
                   <span class="prefecture-name"><%= prefecture.name %></span>
                   <i class="bi bi-chevron-down prefecture-icon"></i>
                 </td>
               </tr>
-              <tr class="facility-row <%= 'no-data' if prefecture.facilities.empty? %>" data-prefecture-id="<%= prefecture.id %>" style="display:none;">
+              <tr class="facility-row <%= 'no-data' if @facilities_groupby_pref[prefecture.id].nil? %>" data-prefecture-id="<%= prefecture.id %>" style="display:none;">
                 <td>
                   <!-- ドロップダウンメニューの内容 -->
                   <ul>
-                    <% prefecture.facilities.each do |facility| %>
-                      <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
+                    <% @facilities_groupby_pref[prefecture.id]&.each do |facility| %>
+                      <li><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></li>
                     <% end %>
                   </ul>
                 </td>
