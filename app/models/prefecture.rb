@@ -51,5 +51,5 @@ class Prefecture < ActiveHash::Base
     { id: 48, name: '沖縄県' }
   ]
 
-  has_many :posts
+  has_many :facilities
 end

@@ -3,7 +3,7 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: %i[edit show update destroy]
 
   def index
-    @facilities = Facility.includes(:user).order(created_at: :desc)
+    @facilities = Facility.order(:prefecture_id)
 
     @areas = {}
     # 投稿を地域ごとにグループ化する
@@ -46,7 +46,7 @@ class FacilitiesController < ApplicationController
   def destroy
     return unless current_user.id == @facility.user_id
 
-    facility.destroy
+    @facility.destroy
     redirect_to root_path
   end
 

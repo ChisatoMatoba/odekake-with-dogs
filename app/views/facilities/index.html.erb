@@ -2,15 +2,32 @@
   <%= render "shared/header_blue" %>
 
   <div class="items-sell-main">
-    <h2 class="items-sell-title">新しく施設を登録</h2>
+    <h2 class="items-sell-title">新しく施設を登録して投稿</h2>
     <div class="d-grid gap-2 col-6 mx-auto">
       <%=link_to '施設登録画面へ', new_facility_path, class:"btn btn-outline-info" %>
     </div>
 
-  <div style="height: 50px;"></div>
+    <div style="height: 50px;"></div>
 
-    <h2 class="items-sell-title">登録済み施設一覧</h2>
-    ※ここに一覧表示　＋　選択して投稿へリンクするボタン※
+    <h2 class="items-sell-title">登録済み施設を使用して投稿</h2>
+    <div class="facility-list">
+      <table>
+        <thead>
+          <tr>
+            <th>都道府県</th>
+            <th>施設名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @facilities.each do |facility| %>
+            <tr>
+              <td><%= facility.prefecture.name %></td>
+              <td><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <%= render "shared/footer_blue" %>

@@ -9,5 +9,5 @@ class Category < ActiveHash::Base
     { id: 6, name: 'その他・複合施設' }
   ]
 
-  has_many :posts
+  has_many :facilities
 end
