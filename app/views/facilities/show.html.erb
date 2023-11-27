@@ -62,7 +62,7 @@
     <div class="row mbr-gallery">
       <!-- 画像（postの数だけ) -->
       <% @facility.posts.each do |post| %>
-        <%= render "shared/gallery", post: post, facility: post.facility %>
+        <%= render "shared/gallery", post:, facility: post.facility %>
       <% end %>
     </div>
   </div>

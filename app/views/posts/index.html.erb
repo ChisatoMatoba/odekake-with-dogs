@@ -67,7 +67,7 @@
               </div>
               <!-- 画像（postの数だけ) -->
               <% @posts.each do |post| %>
-                <%= render "shared/gallery", post: post, facility: post.facility %>
+                <%= render "shared/gallery", post:, facility: post.facility %>
               <% end %>
             </div>
           </div>
@@ -79,7 +79,7 @@
             <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="<%= area_name[2] %>" data-bs-target="#<%= area_name[1] %>" tabindex="0">
               <div class="row mbr-gallery">
                 <% @areas[area_name].each do |post| %>
-                  <%= render "shared/gallery", post: post, facility: post.facility %>
+                  <%= render "shared/gallery", post:, facility: post.facility %>
                 <% end %>
               </div>
             </div>
