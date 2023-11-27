@@ -14,11 +14,11 @@ function handleRowClick() {
 }
 
 // まとめ
-function handlePrefectureRowClick() {
+function initRowEventsOnLoad() {
   document.querySelectorAll('.prefecture-row').forEach(function(row) {
     row.addEventListener('click', handleRowClick);
   });
 }
 
 // ページロード時にイベントリスナー設定
-document.addEventListener('turbo:load', handlePrefectureRowClick);
+document.addEventListener('turbo:load', initRowEventsOnLoad);
