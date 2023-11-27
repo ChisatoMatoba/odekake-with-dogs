@@ -3,12 +3,7 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: %i[edit show update destroy]
 
   def index
-    @search_results =
-      if params[:search].present?
-        Facility.where('place_name LIKE ?', "%#{params[:search]}%")
-      else
-        []
-      end
+    @search_results = Facility.where('place_name LIKE ?', "%#{params[:search]}%")
 
     @prefectures = Prefecture.order(:id)
     @facilities = Facility.order(:prefecture_id)
