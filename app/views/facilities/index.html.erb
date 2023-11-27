@@ -31,11 +31,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @search_results.each do |facility| %>
-                    <tr>
-                      <td><%= facility.prefecture.name %></td>
-                      <td><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></td>
-                    </tr>
+                  <% @search_results.each do |prefecture_id, facilities| %>
+                    <% facilities.each do |facility| %>
+                      <tr>
+                        <td><%= facility.prefecture.name %></td>
+                        <td><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></td>
+                      </tr>
+                    <% end %>
                   <% end %>
                 </tbody>
               </table>
