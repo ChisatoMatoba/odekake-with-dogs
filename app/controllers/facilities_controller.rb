@@ -7,7 +7,7 @@ class FacilitiesController < ApplicationController
 
     @prefectures = Prefecture.order(:id)
     @facilities = Facility.order(:prefecture_id)
-    @facilities_groupby_pref = Facility.all.group_by(&:prefecture_id)
+    @facilities_groupby_pref = @facilities.all.group_by(&:prefecture_id)
 
     @areas = {}
     # 投稿を地域ごとにグループ化する
