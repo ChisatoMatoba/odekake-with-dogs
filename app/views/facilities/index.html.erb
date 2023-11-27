@@ -71,7 +71,7 @@
                 <!-- ドロップダウンメニューの内容 -->
                 <ul>
                   <% @facilities.each do |facility| %>
-                    <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
+                    <li><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></li>
                   <% end %>
                 </ul>
               </td>
@@ -90,7 +90,7 @@
                   <!-- ドロップダウンメニューの内容 -->
                   <ul>
                     <% @facilities_groupby_pref[prefecture.id]&.each do |facility| %>
-                      <li><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></li>
+                      <li><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></li>
                     <% end %>
                   </ul>
                 </td>
