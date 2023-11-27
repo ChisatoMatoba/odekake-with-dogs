@@ -34,7 +34,7 @@
                   <% @search_results.each do |facility| %>
                     <tr>
                       <td><%= facility.prefecture.name %></td>
-                      <td><%= link_to facility.place_name, facility_path(id: facility.id), class: 'facility_link' %></td>
+                      <td><%= link_to facility.place_name, facility_path(facility), class: 'facility_link' %></td>
                     </tr>
                   <% end %>
                 </tbody>
