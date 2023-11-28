@@ -75,6 +75,20 @@
     </div>
     <%# /おでかけ画像 %>
 
+    <%# タグ付け %>
+    <div class="tag-form">
+      <div class="weight-bold-text">
+        タグ
+        <span class="form-any">任意、複数可</span>
+      </div>
+      タグを入力してください
+    </div>
+    <%# フォームはJSなしバージョンのみの仕様 %>
+    <% (1..5).each do |i| %>
+      <%= f.text_field "tag_#{i}", id:"tag_#{i}" %>
+    <% end %>
+    <%# /タグ付け %>
+
     <%# 下部ボタン %>
     <div class="sell-btn-contents">
       <%= f.submit "投稿する" ,class:"sell-btn" %>
