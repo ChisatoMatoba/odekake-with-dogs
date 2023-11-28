@@ -62,7 +62,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = @facility.posts.find(params[:id])
+    @post = @facility.posts.includes(images_attachments: :blob).find_by(params[:id])
   end
 
   def set_facility
