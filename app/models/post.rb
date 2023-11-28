@@ -5,6 +5,9 @@ class Post < ApplicationRecord
 
   has_many_attached :images
 
+  has_many :post_tags, dependent: :delete_all
+  has_many :tags, through: :post_tags
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :rating
 
