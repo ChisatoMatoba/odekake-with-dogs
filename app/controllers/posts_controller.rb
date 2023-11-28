@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
-    @posts = Post.includes(:user).order(created_at: :DESC)
+    @posts = Post.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC)
 
     @areas = {}
     # 投稿を地域ごとにグループ化する
@@ -62,7 +62,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = @facility.posts.find(params[:id])
+    @post = @facility.posts.includes(images_attachments: :blob).find_by(params[:id])
   end
 
   def set_facility

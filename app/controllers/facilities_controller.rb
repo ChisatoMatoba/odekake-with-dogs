@@ -61,6 +61,6 @@ class FacilitiesController < ApplicationController
   end
 
   def set_facility
-    @facility = Facility.find(params[:id])
+    @facility = Facility.includes(:user, posts: [:user, { images_attachments: :blob }]).find_by(id: params[:id])
   end
 end
