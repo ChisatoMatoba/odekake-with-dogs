@@ -1,6 +1,6 @@
 class DogsController < ApplicationController
   before_action :authenticate_user!
-  before_action :move_to_index
+  before_action :move_to_index, only: %i[new create]
 
   def new
     @dog = Dog.new
@@ -18,9 +18,7 @@ class DogsController < ApplicationController
   private
 
   def move_to_index
-    return if user_signed_in?
-
-    redirect_to action: :index
+    redirect_to root_path if current_user.id.to_s != params[:user_id]
   end
 
   def dog_params
