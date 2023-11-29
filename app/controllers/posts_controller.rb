@@ -23,8 +23,15 @@ class PostsController < ApplicationController
   def create
     @post = @facility.posts.build(post_params)
     if @post.save
+      (1..5).each do |i|
+        tag_name = params[:post]["tag_#{i}"].strip
+        unless tag_name.empty?
+          tag = Tag.find_or_create_by(name: tag_name)
+          @post.tags << tag unless @post.tags.include?(tag)
+        end
+      end
       # 登録できたらその投稿の詳細画面へ
-      redirect_to facility_post_path(@facility, @post)
+      redirect_to facility_post_path(@facility, @post), notice: '投稿が成功しました。'
     else
       render :new, status: :unprocessable_entity
     end
