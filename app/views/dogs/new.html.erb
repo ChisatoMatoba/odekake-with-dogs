@@ -9,22 +9,22 @@
     <div class="new-items">
       <div class="weight-bold-text">
         お名前
-        <span class="indispensable">必須</span>
+        <span class="required-form">必須</span>
       </div>
       <%= f.text_area :dog_name, class:"items-text", id:"item-name", placeholder:"(必須 40文字まで)", maxlength:"40" %>
       <div class="weight-bold-text">
         生年月日
-        <span class="indispensable">必須</span>
+        <span class="required-form">必須</span>
       </div>
       <%= f.date_select(:dog_birthday, prefix: "dog_birthday", prompt:"---",use_month_numbers:true, start_year:Time.now.year, end_year:1990, date_separator:'  /  ') %>
       <div class="weight-bold-text">
         犬種
-        <span class="indispensable">必須</span>
+        <span class="required-form">必須</span>
       </div>
       <%= f.collection_select(:breed_id, Breed.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
       <div class="weight-bold-text">
         男の子／女の子
-        <span class="indispensable">必須</span>
+        <span class="required-form">必須</span>
       </div>
       <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
     </div>
@@ -33,7 +33,7 @@
     <div class="img-upload">
       <div class="weight-bold-text">
         わんちゃんの画像
-        <span class="indispensable">必須、1枚</span>
+        <span class="required-form">必須、1枚</span>
       </div>
       <div id="previews"></div>
       <div class="click-upload">
