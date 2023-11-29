@@ -36,23 +36,23 @@
     <%# 口コミ %>
     <div class="weight-bold-text">
       <span>訪れた人数</span>
-      <span class="indispensable">必須</span>
+      <span class="required-form">必須</span>
     </div>
     <%= f.text_field :people_num, class:"items-text", id:"item-name", placeholder:"例）3" %>
     <div class="weight-bold-text">
       <span>一緒に訪れたワンちゃんの数</span>
-      <span class="indispensable">必須</span>
+      <span class="required-form">必須</span>
     </div>
     <%= f.text_field :dogs_num, class:"items-text", id:"item-name", placeholder:"例）3" %>
     <div class="weight-bold-text">
       満足度（非常に不満〜非常に満足）
-      <span class="indispensable">必須</span>
+      <span class="required-form">必須</span>
     </div>
     <%= f.collection_select(:rating_id, Rating.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
     <div class="items-explain">
       <div class="weight-bold-text">
         感想・おすすめポイント
-        <span class="indispensable">必須</span>
+        <span class="required-form">必須</span>
       </div>
       <%= f.text_area :review, class:"items-text", id:"item-info", placeholder:"施設を訪れた感想を書いてください！（必須 1,000文字まで）" ,rows:"7" ,maxlength:"1000" %>
     </div>
@@ -62,7 +62,7 @@
     <div class="img-upload">
       <div class="weight-bold-text">
         おでかけ画像
-        <span class="indispensable">必須</span>
+        <span class="required-form">必須</span>
       </div>
       <div id="previews"></div>
       <div class="click-upload">
@@ -74,6 +74,20 @@
       </div>
     </div>
     <%# /おでかけ画像 %>
+
+    <%# タグ付け %>
+    <div class="tag-form">
+      <div class="weight-bold-text">
+        タグ(複数登録可)
+        <span class="optional-form">任意</span>
+      </div>
+      タグを入力してください
+    </div>
+    <%# フォームはJSなしバージョンのみの仕様 %>
+    <% (1..5).each do |i| %>
+      <%= f.text_field "tag_#{i}", id:"tag_#{i}" %>
+    <% end %>
+    <%# /タグ付け %>
 
     <%# 下部ボタン %>
     <div class="sell-btn-contents">

@@ -30,7 +30,7 @@
 }
 
 /* 共通 */
-.indispensable {
+.required-form {
   background: #ea352d;
   margin-left: 8px;
   padding: 3px;
@@ -226,4 +226,12 @@
 
 .inc {
   font-size: 13px;
+}
+
+.optional-form {
+  background: #ccc;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 4px;
 }
