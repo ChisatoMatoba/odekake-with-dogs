@@ -84,8 +84,8 @@
       タグを入力してください
     </div>
     <% @tags = 5.times.map { @post.tags.build } %>
-    <%= f.fields_for :tags, @tags do |tags_form| %>
-      <%= tags_form.text_field :name %>
+    <%= f.fields_for :tags, @tags.each_with_index do |tags_form, i| %>
+      <%= tags_form.text_field :name, id: "tag_#{i}" %>
     <% end %>
     <%# /タグ付け %>
 
