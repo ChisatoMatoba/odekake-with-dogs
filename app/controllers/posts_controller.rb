@@ -76,7 +76,7 @@ class PostsController < ApplicationController
   end
 
   # すでに存在するタグはfind、ないタグはcreateして@post.tagsに保存
-  def save_tags
+  def save_tags(tag_names)
     @post.tags.clear
     tag_names.each do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name)
