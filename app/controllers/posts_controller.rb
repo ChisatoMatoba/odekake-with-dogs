@@ -65,7 +65,8 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: []).merge(user_id: current_user.id, facility_id: params[:facility_id])
+    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: [], tags_attributes: %i[id name])
+          .merge(user_id: current_user.id, facility_id: params[:facility_id])
   end
 
   def set_post
