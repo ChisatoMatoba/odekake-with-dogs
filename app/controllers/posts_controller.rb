@@ -22,9 +22,14 @@ class PostsController < ApplicationController
 
   def create
     @post = @facility.posts.build(post_params)
+
+    # 空欄でないタグフォームのタグ名を配列に
+    tag_names = post_params[:tags_attributes].values.map { |tag_attr| tag_attr[:name].strip }.reject(&:empty?)
+    save_tags(tag_names)
+
     if @post.save
       # 登録できたらその投稿の詳細画面へ
-      redirect_to facility_post_path(@facility, @post)
+      redirect_to facility_post_path(@facility, @post), notice: '投稿が成功しました。'
     else
       render :new, status: :unprocessable_entity
     end
@@ -58,14 +63,24 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: []).merge(user_id: current_user.id, facility_id: params[:facility_id])
+    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: [], tags_attributes: [:name])
+          .merge(user_id: current_user.id, facility_id: params[:facility_id])
   end
 
   def set_post
-    @post = @facility.posts.includes(images_attachments: :blob).find_by(params[:id])
+    @post = @facility.posts.includes(images_attachments: :blob).find_by(id: params[:id])
   end
 
   def set_facility
     @facility = Facility.find(params[:facility_id])
+  end
+
+  # すでに存在するタグはfind、ないタグはcreateして@post.tagsに保存
+  def save_tags(tag_names)
+    @post.tags.clear
+    tag_names.each do |tag_name|
+      tag = Tag.find_or_create_by(name: tag_name)
+      @post.tags << tag unless @post.tags.include?(tag)
+    end
   end
 end
