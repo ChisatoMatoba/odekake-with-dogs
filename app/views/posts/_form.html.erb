@@ -91,10 +91,15 @@
               <% 5.times.map { @post.tags.build } %>
             <% end %>
 
-    <%= f.fields_for :tags, @tags do |tags_form| %>
-      <%= tags_form.text_field :name %>
-      <%= tags_form.hidden_field :id, value: tags_form.object.id %> <%# #編集時にはidが必要 %>
-    <% end %>
+    <div class="tag-form-container">
+      <%# f.fields_for :tags, @tags do |tags_form| %>
+        <%# tags_form.text_field :name %>
+        <%# tags_form.hidden_field :id, value: tags_form.object.id %> <%# #編集時にはidが必要 %>
+      <%# end %>
+      <input type="text" id="inputTag" placeholder="テキストを入力">
+      <button id="addTagButton" type="button">タグを追加</button>
+    </div>
+    <div id="TagContainer"></div>
     <%# /タグ付け %>
 
     <%# 下部ボタン %>
