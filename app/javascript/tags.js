@@ -2,13 +2,17 @@ document.addEventListener('turbo:load', function() {
   const inputTag = document.getElementById('inputTag');
   const tagContainer = document.getElementById('TagContainer');
   const addButton = document.getElementById('addTagButton');
+  let tagIndex = 0; // タグのインデックスを管理する変数
 
   // タグを追加する関数
   function addTag() {
     const inputText = inputTag.value;
     if (inputText) {
       createBadge(inputText);
-      createHiddenInput(inputText);
+      createHiddenInput(inputText, tagIndex);
+
+      // インデックスを増やす
+      tagIndex++;
 
       // 入力フィールドをクリア
       inputTag.value = '';
@@ -24,10 +28,10 @@ document.addEventListener('turbo:load', function() {
   }
 
   // 隠しフィールドを追加する関数
-  function createHiddenInput(value) {
+  function createHiddenInput(value, index) {
     const hiddenInput = document.createElement('input');
     hiddenInput.type = 'hidden';
-    hiddenInput.name = 'post[tags_attributes][][name]';
+    hiddenInput.name = `post[tags_attributes][${index}][name]`;
     hiddenInput.value = value;
     document.querySelector('form').appendChild(hiddenInput);
   }
