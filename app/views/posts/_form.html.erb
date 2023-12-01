@@ -83,13 +83,14 @@
       </div>
       タグを入力してください
     </div>
-    <%# @tagsをbuild、ココはJS対応で変更になるはず %>
-    <% if controller.action_name == 'new' %>
-      <% @tags = 5.times.map { @post.tags.build } %>
-    <% else %>
-    <%# 空欄分だけ新たに@tagsをbuild、ココはJS対応で変更になるはず %>
-      <% @tags = (5 - @post.tags.count).times { @post.tags.build } %>
-    <% end %>
+
+    <%# すでに@postが存在する＝editのときには、空の@tagsをbuild %>
+    <% @tags = if @post.persisted? %>
+              <% (5 - @post.tags.count).times { @post.tags.build } %>
+            <% else %>
+              <% 5.times.map { @post.tags.build } %>
+            <% end %>
+
     <%= f.fields_for :tags, @tags do |tags_form| %>
       <%= tags_form.text_field :name %>
       <%= tags_form.hidden_field :id, value: tags_form.object.id %> <%# #編集時にはidが必要 %>
