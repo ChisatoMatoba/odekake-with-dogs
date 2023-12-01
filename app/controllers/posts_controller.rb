@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_facility, except: %i[index]
-  before_action :set_post, only: %i[edit show update destroy]
+  before_action :set_post, only: %i[edit update destroy]
 
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
@@ -36,6 +36,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = @facility.posts.includes(images_attachments: :blob).find_by(id: params[:id])
     @comment = Comment.new
     @comments = @post.comments.includes(:user)
   end
@@ -82,7 +83,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = @facility.posts.includes(action_name == 'show' ? { images_attachments: :blob } : {}).find_by(id: params[:id])
+    @post = @facility.posts.find_by(id: params[:id])
   end
 
   def set_facility
