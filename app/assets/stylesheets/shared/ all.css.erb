@@ -1680,3 +1680,58 @@ a {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.tag-item li {
+	display: inline-block;
+}
+
+.tag-item a {
+	line-height: 26px;
+	position: relative;
+	display: inline-block;
+	height: 26px;
+	margin: 0 10px 10px 0;
+	padding: 0 20px 0 23px;
+	-webkit-transition: color 0.2s;
+	        transition: color 0.2s;
+	text-decoration: none;
+	color: #455a64;
+	border-radius: 3px 0 0 3px;
+	background: #40d0ed;
+}
+
+.tag-item a::before, .tag-item a::after {
+	background: #fafcfc;/*背景色*/
+}
+
+.tag-item a::before {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 6px;
+	height: 6px;
+	content: '';
+	border-radius: 10px;
+}
+
+.tag-item a::after {
+	position: absolute;
+	top: -2px;
+	right: -6px;
+	width: 0;
+	height: 0;
+	content: '';
+	border-width: 15px 0 15px 8px;
+	border-style: solid;
+	border-color: transparent transparent transparent #cfd8dc;
+	border-radius: 4px;
+}
+
+.tag-item a:hover {
+	color: #ffffff;
+	background-color: #ec407a;
+}
+
+.tag-item a:hover::after {
+	border-left-color: #ec407a;
+}

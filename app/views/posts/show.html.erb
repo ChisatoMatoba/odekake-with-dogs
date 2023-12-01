@@ -63,6 +63,14 @@
             </div>
           </td>
         </tr>
+        <tr>
+          <th class="detail-item display-7">タグ</th>
+          <td class="detail-value tag-item">
+            <% @post.tags.each do |tag| %>
+              <%= link_to "#{tag.name} ( #{tag.posts.count} )", "#" %>
+            <% end %>
+          </td>
+        </tr>
       </tbody>
     </table>
     <%# /ユーザーレビュー %>
