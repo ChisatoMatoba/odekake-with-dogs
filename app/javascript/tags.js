@@ -34,6 +34,12 @@ document.addEventListener('turbo:load', function() {
     hiddenInput.name = `post[tags_attributes][${index}][name]`;
     hiddenInput.value = value;
     document.querySelector('form').appendChild(hiddenInput);
+
+    // タグのidフィールド（新しいタグの場合は値なし）
+    const hiddenIdInput = document.createElement('input');
+    hiddenIdInput.type = 'hidden';
+    hiddenIdInput.name = `post[tags_attributes][${index}][id]`;
+    document.querySelector('form').appendChild(hiddenIdInput);
   }
 
   // イベントリスナー関数
