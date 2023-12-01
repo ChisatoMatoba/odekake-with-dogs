@@ -84,7 +84,7 @@
       タグを入力してください
     </div>
 
-    <%# すでに@postが存在する＝editのときには、空の@tagsをbuild %>
+    <%# すでに@postが存在する＝editのときには、全部で5つになるように空の@tagsをbuild %>
     <% @tags = if @post.persisted? %>
               <% (5 - @post.tags.count).times { @post.tags.build } %>
             <% else %>
