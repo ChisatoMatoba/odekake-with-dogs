@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_facility, except: %i[index]
-  before_action :set_post, only: %i[edit show update destroy]
+  before_action :set_post, only: %i[edit update destroy]
 
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
@@ -36,6 +36,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = @facility.posts.includes(images_attachments: :blob).find_by(id: params[:id])
     @comment = Comment.new
     @comments = @post.comments.includes(:user)
   end
@@ -45,7 +46,20 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
+    # 空欄でないタグフォームのタグ名を配列に
+    tag_names = post_params[:tags_attributes].values.map { |tag_attr| tag_attr[:name].strip }.reject(&:empty?)
+
+    # @post.tagsに保存
+    save_tags(tag_names)
+
+    # 既存のタグの属性を準備。既存のタグは削除したくないので、
+    # '_destroy' の値を '0' に明示して設定、タグが削除されないようにする
+    tags_attributes = @post.tags.map do |tag|
+      { id: tag.id, name: tag.name, _destroy: '0' }
+    end
+
+    # 更新したいタグの属性を含めて、@post を更新
+    if @post.update(post_params.merge(tags_attributes: tags_attributes))
       redirect_to facility_post_path(@facility, @post)
     else
       Rails.logger.debug @post.errors.full_messages
@@ -63,12 +77,13 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: [], tags_attributes: [:name])
+    # tags_attributes: update時は[id]と[_delete]が必要
+    params.require(:post).permit(:people_num, :dogs_num, :rating_id, :review, images: [], tags_attributes: %i[id name _destroy])
           .merge(user_id: current_user.id, facility_id: params[:facility_id])
   end
 
   def set_post
-    @post = @facility.posts.includes(images_attachments: :blob).find_by(id: params[:id])
+    @post = @facility.posts.find_by(id: params[:id])
   end
 
   def set_facility

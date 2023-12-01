@@ -83,9 +83,17 @@
       </div>
       タグを入力してください
     </div>
-    <% @tags = 5.times.map { @post.tags.build } %>
+
+    <%# すでに@postが存在する＝editのときには、全部で5つになるように空の@tagsをbuild %>
+    <% @tags = if @post.persisted? %>
+              <% (5 - @post.tags.count).times { @post.tags.build } %>
+            <% else %>
+              <% 5.times.map { @post.tags.build } %>
+            <% end %>
+
     <%= f.fields_for :tags, @tags do |tags_form| %>
       <%= tags_form.text_field :name %>
+      <%= tags_form.hidden_field :id, value: tags_form.object.id %> <%# #編集時にはidが必要 %>
     <% end %>
     <%# /タグ付け %>
 
