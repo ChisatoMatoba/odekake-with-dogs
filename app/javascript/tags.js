@@ -42,8 +42,8 @@ document.addEventListener('turbo:load', function() {
     document.querySelector('form').appendChild(hiddenIdInput);
   }
 
-  // イベントリスナー関数
-  function addEventListeners() {
+  // エンターかボタンクリックでタグを追加する関数
+  function setupTagInputHandlers() {
     // 入力フィールドにユーザーが入力したとき(エンターキー押下時の処理)
     if (inputTag) {
       inputTag.addEventListener('keypress', function(event) {
@@ -60,6 +60,6 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
-  // イベントリスナー実行
-  addEventListeners();
+  // タグ追加実行
+  setupTagInputHandlers();
 });
