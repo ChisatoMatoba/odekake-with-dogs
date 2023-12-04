@@ -19,6 +19,17 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
+  // タグを削除する関数
+  function deleteTag(badge, index) {
+    // タグを削除
+    badge.remove();
+    // 対応するname,idフィールドを空欄にする(コントローラーで空欄は除外されるため)
+    const nameInput = document.querySelector(`input[name='post[tags_attributes][${index}][name]']`);
+    const idInput = document.querySelector(`input[name='post[tags_attributes][${index}][id]']`);
+    if (nameInput) nameInput.value = '';
+    if (idInput) idInput.value = '';
+  }
+
   // タグを表示する関数
   function createBadge(text, index) {
     const badge = document.createElement('div');
@@ -29,13 +40,7 @@ document.addEventListener('turbo:load', function() {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = '✕'; // バツマーク
     deleteBtn.onclick = function() {
-      // タグを削除
-      badge.remove();
-      // 対応するname,idフィールドを空欄にする(コントローラーで空欄は除外されるため)
-      const nameInput = document.querySelector(`input[name='post[tags_attributes][${index}][name]']`);
-      const idInput = document.querySelector(`input[name='post[tags_attributes][${index}][id]']`);
-      if (nameInput) nameInput.value = '';
-      if (idInput) idInput.value = '';
+      deleteTag(badge, index);
     };
 
     badge.appendChild(deleteBtn);
