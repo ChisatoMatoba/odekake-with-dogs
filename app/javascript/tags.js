@@ -8,7 +8,7 @@ document.addEventListener('turbo:load', function() {
   function addTag() {
     const inputText = inputTag.value;
     if (inputText) {
-      createBadge(inputText);
+      createBadge(inputText, tagIndex);
       createHiddenInput(inputText, tagIndex);
 
       // インデックスを増やす
@@ -19,11 +19,31 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
+  // タグを削除する関数
+  function deleteTag(badge, index) {
+    // タグを削除
+    badge.remove();
+    // 対応するname,idフィールドを空欄にする(コントローラーで空欄は除外されるため)
+    const nameInput = document.querySelector(`input[name='post[tags_attributes][${index}][name]']`);
+    const idInput = document.querySelector(`input[name='post[tags_attributes][${index}][id]']`);
+    if (nameInput) nameInput.value = '';
+    if (idInput) idInput.value = '';
+  }
+
   // タグを表示する関数
-  function createBadge(text) {
+  function createBadge(text, index) {
     const badge = document.createElement('div');
     badge.textContent = text;
     badge.classList.add('badge');
+
+    // 削除ボタンを追加
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '✕'; // バツマーク
+    deleteBtn.onclick = function() {
+      deleteTag(badge, index);
+    };
+
+    badge.appendChild(deleteBtn);
     tagContainer.appendChild(badge);
   }
 
