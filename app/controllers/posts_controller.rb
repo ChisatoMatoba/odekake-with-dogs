@@ -46,6 +46,8 @@ class PostsController < ApplicationController
   end
 
   def update
+    binding.pry
+
     # 空欄でないタグフォームのタグ名を配列に
     tag_names = post_params[:tags_attributes].values.map { |tag_attr| tag_attr[:name].strip }.reject(&:empty?)
 

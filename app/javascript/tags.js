@@ -2,7 +2,10 @@ document.addEventListener('turbo:load', function() {
   const inputTag = document.getElementById('input-tag');
   const tagContainer = document.getElementById('tag-container');
   const addButton = document.getElementById('add-tag-button');
-  let tagIndex = 0; // タグのインデックスを管理する変数
+
+  // 既存のタグの数を取得し、tagIndexに設定
+  const existingTags = document.querySelectorAll('.badge');
+  let tagIndex = existingTags.length;
 
   // タグを追加する関数
   function addTag() {
@@ -62,6 +65,37 @@ document.addEventListener('turbo:load', function() {
     document.querySelector('form').appendChild(hiddenIdInput);
   }
 
+  // 編集画面で既存のタグを表示する関数
+  // 既存のタグの隠しフィールドを追加する処理
+  function addExistingTagsHiddenFields() {
+    const existingTags = document.querySelectorAll('.badge');
+    console.log(existingTags);
+    existingTags.forEach(function(tagElement, index) {
+      const tagId = tagElement.getAttribute('data-tag-id');
+      const tagName = tagElement.getAttribute('data-tag-name');
+
+      console.log(tagId);
+      console.log(tagName);
+
+      // 既存のタグの隠しフィールドを追加する
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = `post[tags_attributes][${index}][name]`;
+      hiddenInput.value = tagName;
+      document.querySelector('form').appendChild(hiddenInput);
+
+      const hiddenIdInput = document.createElement('input');
+      hiddenIdInput.type = 'hidden';
+      hiddenIdInput.name = `post[tags_attributes][${index}][id]`;
+      hiddenIdInput.value = tagId;
+      document.querySelector('form').appendChild(hiddenIdInput);
+    });
+  }
+
+  function setupDeleteTagButtons() {
+    // ✗ボタンがクリックされたとき
+  }
+
   // エンターかボタンクリックでタグを追加する関数
   function setupTagInputHandlers() {
     // 入力フィールドにユーザーが入力したとき(エンターキー押下時の処理)
@@ -80,6 +114,10 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
+  // 既存のタグを表示(編集画面)
+  addExistingTagsHiddenFields();
+  // 既存のタグの削除(編集画面)
+  setupDeleteTagButtons();
   // タグ追加実行
   setupTagInputHandlers();
 });

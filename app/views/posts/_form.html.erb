@@ -88,7 +88,14 @@
       <input type="text" id="input-tag" placeholder="テキストを入力">
       <button id="add-tag-button" type="button">タグを追加</button>
     </div>
-    <div id="tag-container"></div>
+    <div id="tag-container">
+      <% @post.tags.each_with_index do |tag, i| %>
+        <div class="badge existing-tag" id="existing-tag-<%= i %>" data-tag-id="<%= tag.id %>" data-tag-name="<%= tag.name %>">
+          <%= tag.name %>
+          <button type="button" class="delete-tag-btn" data-tag-id="<%= i %>">✕</button>
+        </div>
+      <% end %>
+    </div>
     <%# /タグ付け %>
 
     <%# 下部ボタン %>
