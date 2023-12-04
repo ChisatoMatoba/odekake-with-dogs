@@ -66,7 +66,7 @@ document.addEventListener('turbo:load', function() {
     document.querySelector('form').appendChild(hiddenIdInput);
   }
 
-  // 既存のタグを表示(編集画面)
+  // 既存のタグの隠しフィールドを作成(編集画面)
   function addExistingTagsHiddenFields() {
     const existingTags = document.querySelectorAll('.badge');
     existingTags.forEach(function(tagElement, index) {
@@ -107,7 +107,7 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
-  // 既存のタグを表示(編集画面)
+  // 既存のタグの隠しフィールドを作成(編集画面)
   addExistingTagsHiddenFields();
   // 既存のタグの削除(編集画面)
   setupDeleteTagButtons();
