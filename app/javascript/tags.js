@@ -52,6 +52,7 @@ document.addEventListener('turbo:load', function() {
 
   // 隠しフィールドを追加する関数
   function createHiddenInput(value, index) {
+    // タグのnameフィールド
     const hiddenInput = document.createElement('input');
     hiddenInput.type = 'hidden';
     hiddenInput.name = `post[tags_attributes][${index}][name]`;
@@ -65,44 +66,25 @@ document.addEventListener('turbo:load', function() {
     document.querySelector('form').appendChild(hiddenIdInput);
   }
 
-  // 編集画面で既存のタグを表示する関数
-  // 既存のタグの隠しフィールドを追加する処理
+  // 既存のタグを表示(編集画面)
   function addExistingTagsHiddenFields() {
     const existingTags = document.querySelectorAll('.badge');
     existingTags.forEach(function(tagElement, index) {
-      const tagId = tagElement.getAttribute('data-tag-id');
       const tagName = tagElement.getAttribute('data-tag-name');
-
-      // 既存のタグの隠しフィールドを追加する
-      const hiddenInput = document.createElement('input');
-      hiddenInput.type = 'hidden';
-      hiddenInput.name = `post[tags_attributes][${index}][name]`;
-      hiddenInput.value = tagName;
-      document.querySelector('form').appendChild(hiddenInput);
-
-      const hiddenIdInput = document.createElement('input');
-      hiddenIdInput.type = 'hidden';
-      hiddenIdInput.name = `post[tags_attributes][${index}][id]`;
-      hiddenIdInput.value = tagId;
-      document.querySelector('form').appendChild(hiddenIdInput);
-    });
+      // 隠しフィールドを作成
+      createHiddenInput(tagName, index)
+  });
   }
 
+  // 既存のタグの削除(編集画面)
   function setupDeleteTagButtons() {
     // ✗ボタンがクリックされたとき
     document.querySelectorAll('.delete-tag-btn').forEach(function(button) {
       const index = button.getAttribute('data-tag-button-id');
       button.addEventListener('click', function() {
         const tagElement = document.getElementById(`existing-tag-${index}`);
-        if (tagElement) {
-          // タグを削除
-          tagElement.remove();
-          // 対応する隠しフィールドを空にする
-          const nameInput = document.querySelector(`input[name='post[tags_attributes][${index}][name]']`);
-          const idInput = document.querySelector(`input[name='post[tags_attributes][${index}][id]']`);
-          if (nameInput) nameInput.value = '';
-          if (idInput) idInput.value = '';
-        }
+        // タグの削除
+        if (tagElement) deleteTag(tagElement, index);
       });
     });
   }
