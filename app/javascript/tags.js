@@ -20,10 +20,22 @@ document.addEventListener('turbo:load', function() {
   }
 
   // タグを表示する関数
-  function createBadge(text) {
+  function createBadge(text, index) {
     const badge = document.createElement('div');
     badge.textContent = text;
     badge.classList.add('badge');
+
+    // 削除ボタンを追加
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '✕'; // バツマーク
+    deleteBtn.onclick = function() {
+      // タグと関連する隠しフィールドを削除
+      badge.remove();
+      document.getElementsByName(`post[tags_attributes][${index}][name]`)[0].remove();
+      document.getElementsByName(`post[tags_attributes][${index}][id]`)[0].remove();
+    };
+
+    badge.appendChild(deleteBtn);
     tagContainer.appendChild(badge);
   }
 
