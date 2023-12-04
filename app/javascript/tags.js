@@ -1,7 +1,7 @@
 document.addEventListener('turbo:load', function() {
-  const inputTag = document.getElementById('inputTag');
-  const tagContainer = document.getElementById('TagContainer');
-  const addButton = document.getElementById('addTagButton');
+  const inputTag = document.getElementById('input-tag');
+  const tagContainer = document.getElementById('tag-container');
+  const addButton = document.getElementById('add-tag-button');
   let tagIndex = 0; // タグのインデックスを管理する変数
 
   // タグを追加する関数
