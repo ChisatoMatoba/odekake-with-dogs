@@ -69,13 +69,9 @@ document.addEventListener('turbo:load', function() {
   // 既存のタグの隠しフィールドを追加する処理
   function addExistingTagsHiddenFields() {
     const existingTags = document.querySelectorAll('.badge');
-    console.log(existingTags);
     existingTags.forEach(function(tagElement, index) {
       const tagId = tagElement.getAttribute('data-tag-id');
       const tagName = tagElement.getAttribute('data-tag-name');
-
-      console.log(tagId);
-      console.log(tagName);
 
       // 既存のタグの隠しフィールドを追加する
       const hiddenInput = document.createElement('input');
@@ -94,6 +90,21 @@ document.addEventListener('turbo:load', function() {
 
   function setupDeleteTagButtons() {
     // ✗ボタンがクリックされたとき
+    document.querySelectorAll('.delete-tag-btn').forEach(function(button) {
+      const index = button.getAttribute('data-tag-button-id');
+      button.addEventListener('click', function() {
+        const tagElement = document.getElementById(`existing-tag-${index}`);
+        if (tagElement) {
+          // タグを削除
+          tagElement.remove();
+          // 対応する隠しフィールドを空にする
+          const nameInput = document.querySelector(`input[name='post[tags_attributes][${index}][name]']`);
+          const idInput = document.querySelector(`input[name='post[tags_attributes][${index}][id]']`);
+          if (nameInput) nameInput.value = '';
+          if (idInput) idInput.value = '';
+        }
+      });
+    });
   }
 
   // エンターかボタンクリックでタグを追加する関数

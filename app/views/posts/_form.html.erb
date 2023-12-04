@@ -92,7 +92,7 @@
       <% @post.tags.each_with_index do |tag, i| %>
         <div class="badge existing-tag" id="existing-tag-<%= i %>" data-tag-id="<%= tag.id %>" data-tag-name="<%= tag.name %>">
           <%= tag.name %>
-          <button type="button" class="delete-tag-btn" data-tag-id="<%= i %>">✕</button>
+          <button type="button" class="delete-tag-btn" data-tag-button-id="<%= i %>">✕</button>
         </div>
       <% end %>
     </div>
