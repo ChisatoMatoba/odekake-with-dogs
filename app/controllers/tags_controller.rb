@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
   def index
-    @tag = Tag.includes(:post)
+    @tags = Tag.all
   end
 end
