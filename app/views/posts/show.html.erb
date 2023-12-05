@@ -67,7 +67,7 @@
           <th class="detail-item display-7">タグ</th>
           <td class="detail-value tag-item">
             <% @post.tags.each do |tag| %>
-              <%= link_to "#{tag.name} ( #{tag.posts.count} )", "#" %>
+              <%= link_to "#{tag.name} ( #{tag.posts.count} )", tag_path(tag.id) %>
             <% end %>
           </td>
         </tr>
