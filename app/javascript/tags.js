@@ -80,7 +80,7 @@ document.addEventListener('turbo:load', function() {
   function setupDeleteTagButtons() {
     // ✗ボタンがクリックされたとき
     document.querySelectorAll('.delete-tag-btn').forEach(function(button) {
-      const index = button.getAttribute('data-tag-button-id');
+      const index = button.getAttribute('data-tag-button-index');
       button.addEventListener('click', function() {
         const tagElement = document.getElementById(`existing-tag-${index}`);
         // タグの削除
