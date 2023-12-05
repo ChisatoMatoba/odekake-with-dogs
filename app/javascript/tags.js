@@ -2,7 +2,10 @@ document.addEventListener('turbo:load', function() {
   const inputTag = document.getElementById('input-tag');
   const tagContainer = document.getElementById('tag-container');
   const addButton = document.getElementById('add-tag-button');
-  let tagIndex = 0; // タグのインデックスを管理する変数
+
+  // 既存のタグの数を取得し、tagIndexに設定
+  const existingTags = document.querySelectorAll('.badge');
+  let tagIndex = existingTags.length;
 
   // タグを追加する関数
   function addTag() {
@@ -49,6 +52,7 @@ document.addEventListener('turbo:load', function() {
 
   // 隠しフィールドを追加する関数
   function createHiddenInput(value, index) {
+    // タグのnameフィールド
     const hiddenInput = document.createElement('input');
     hiddenInput.type = 'hidden';
     hiddenInput.name = `post[tags_attributes][${index}][name]`;
@@ -60,6 +64,29 @@ document.addEventListener('turbo:load', function() {
     hiddenIdInput.type = 'hidden';
     hiddenIdInput.name = `post[tags_attributes][${index}][id]`;
     document.querySelector('form').appendChild(hiddenIdInput);
+  }
+
+  // 既存のタグの隠しフィールドを作成(編集画面)
+  function addExistingTagsHiddenFields() {
+    const existingTags = document.querySelectorAll('.badge');
+    existingTags.forEach(function(tagElement, index) {
+      const tagName = tagElement.getAttribute('data-tag-name');
+      // 隠しフィールドを作成
+      createHiddenInput(tagName, index)
+  });
+  }
+
+  // 既存のタグの削除(編集画面)
+  function setupDeleteTagButtons() {
+    // ✗ボタンがクリックされたとき
+    document.querySelectorAll('.delete-tag-btn').forEach(function(button) {
+      const index = button.getAttribute('data-tag-button-index');
+      button.addEventListener('click', function() {
+        const tagElement = document.getElementById(`existing-tag-${index}`);
+        // タグの削除
+        if (tagElement) deleteTag(tagElement, index);
+      });
+    });
   }
 
   // エンターかボタンクリックでタグを追加する関数
@@ -80,6 +107,10 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
+  // 既存のタグの隠しフィールドを作成(編集画面)
+  addExistingTagsHiddenFields();
+  // 既存のタグの削除(編集画面)
+  setupDeleteTagButtons();
   // タグ追加実行
   setupTagInputHandlers();
 });
