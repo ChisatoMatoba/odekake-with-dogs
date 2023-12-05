@@ -1,0 +1,21 @@
+<%= render "shared/header" %>
+
+<div class="tags-main">
+  <div class="user__wrapper">
+    <h2 class="page-heading">
+      <span class="bg-color">~<%= @tag.name %>のタグがつけられている投稿一覧~</span>
+    </h2>
+
+    <div class="row mbr-gallery">
+      <!-- 画像（postの数だけ) -->
+      <% @tag.posts.each do |post| %>
+        <%= render "shared/gallery", post:, facility: post.facility %>
+      <% end %>
+    </div>
+
+
+
+  </div>
+</div>
+
+<%= render "shared/footer" %>
