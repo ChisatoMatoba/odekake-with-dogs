@@ -1,0 +1,19 @@
+<%= render "shared/header" %>
+
+<div class="tags-main">
+  <div class="user__wrapper">
+    <h2 class="page-heading">
+      <span class="bg-color">~タグ一覧~</span>
+    </h2>
+      タグをクリックすると、そのタグの投稿一覧が見られます
+
+    <div class="tag-item">
+      <% @tags.each do |tag| %>
+          <%= link_to "#{tag.name} ( #{tag.posts.count} )", "#" %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+<%= render "shared/footer" %>
