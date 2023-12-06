@@ -9,7 +9,7 @@
 
     <div class="tag-item">
       <% @tags.each do |tag| %>
-          <%= link_to "#{tag.name} ( #{tag.posts.count} )", "#" %>
+          <%= link_to "#{tag.name} ( #{tag.posts.count} )", tag_path(tag.id) %>
       <% end %>
     </div>
 
