@@ -10,7 +10,7 @@ WORKDIR /rails
 # Install packages needed to build gems
 # default-libmysqlclient-dev（MySQL用開発ヘッダー）は必要でした
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev
+    apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev libpq-dev
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
