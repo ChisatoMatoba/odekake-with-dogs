@@ -5,7 +5,7 @@ ARG RUBY_VERSION=3.1.4
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim
 
 # Rails app lives here
-WORKDIR /rails
+WORKDIR /odekake_with_dogs
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \

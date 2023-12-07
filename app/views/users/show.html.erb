@@ -52,9 +52,12 @@
         </table>
       <% end %>
       <%# ログイン中かつ自分のページなら、愛犬登録ボタンを表示 %>
-      <div class="title d-grid col-3 mx-auto">
-        <%= link_to "！愛犬登録はこちら！", new_user_dog_path(@user.id), class: "btn btn-warning display-7" %>
-      </div>
+      <% if user_signed_in? && current_user.id == @user.id %>
+        <div class="title d-grid col-3 mx-auto">
+          <%= link_to "！愛犬登録はこちら！", new_user_dog_path(@user.id), class: "btn btn-warning display-7" %>
+        </div>
+      <% end %>
+
       <h2 class="page-heading">
         <br><span class="bg-color"><%= "~#{@user.nickname}さんの投稿一覧~"%></span>
       </h2>
