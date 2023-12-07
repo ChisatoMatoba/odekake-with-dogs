@@ -1,4 +1,5 @@
 class DogsController < ApplicationController
+  before_action :authenticate_user!
   before_action :move_to_index, only: %i[new create]
 
   def new
