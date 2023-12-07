@@ -1,20 +1,18 @@
 default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: password
+  host: db
 
 development:
   <<: *default
   adapter: mysql2
-  username: root
-  password:
-  host: localhost
   database: odekake_with_dogs_development
 
 test:
   <<: *default
   adapter: mysql2
-  username: root
-  host: localhost
   database: odekake_with_dogs_test
 
 production:
