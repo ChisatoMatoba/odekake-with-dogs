@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
   before do
-    @user = FactoryBot.build(:user)
+    let(:user) { FactoryBot.create(:user) }
   end
 
   context 'ユーザー新規登録ができるとき' do
@@ -14,19 +14,19 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 新規登録ページへ移動する
       visit new_user_registration_path
       # ユーザー情報を入力する
-      fill_in 'nickname', with: @user.nickname
-      fill_in 'email', with: @user.email
-      fill_in 'password', with: @user.password
-      fill_in 'password-confirmation', with: @user.password_confirmation
+      fill_in 'nickname', with: user.nickname
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
+      fill_in 'password-confirmation', with: user.password_confirmation
       # 生年月日を入力する
-      select @user.birthday.year.to_s, from: 'user_birthday_1i' # 年
-      select @user.birthday.month.to_s, from: 'user_birthday_2i' # 月
-      select @user.birthday.day.to_s, from: 'user_birthday_3i' # 日
+      select user.birthday.year.to_s, from: 'user_birthday_1i' # 年
+      select user.birthday.month.to_s, from: 'user_birthday_2i' # 月
+      select user.birthday.day.to_s, from: 'user_birthday_3i' # 日
       # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する
       expect do
         find('input[name="commit"]').click
         sleep 1
-      end.to change { User.count }.by(1)
+      end.to change { User :count }.by(1)
       # トップページへ遷移したことを確認する
       expect(page).to have_current_path(root_path)
       # トップページにログアウトボタンが表示されることを確認する
@@ -58,7 +58,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       expect do
         find('input[name="commit"]').click
         sleep 1
-      end.to change { User.count }.by(0)
+      end.to change { User :count }.by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path(new_user_registration_path)
     end
