@@ -14,21 +14,23 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 新規登録ページへ移動する
       visit new_user_registration_path
       # ユーザー情報を入力する
-      fill_in 'Nickname', with: @user.nickname
-      fill_in 'Email', with: @user.email
-      fill_in 'Password', with: @user.password
-      fill_in 'Password confirmation', with: @user.password_confirmation
+      fill_in 'nickname', with: @user.nickname
+      fill_in 'email', with: @user.email
+      fill_in 'password', with: @user.password
+      fill_in 'password-confirmation', with: @user.password_confirmation
+      # 生年月日を入力する
+      select @user.birthday.year.to_s, from: 'user_birthday_1i' # 年
+      select @user.birthday.month.to_s, from: 'user_birthday_2i' # 月
+      select @user.birthday.day.to_s, from: 'user_birthday_3i' # 日
       # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
         sleep 1
       end.to change { User.count }.by(1)
       # トップページへ遷移したことを確認する
       expect(page).to have_current_path(root_path)
-      # カーソルを合わせるとログアウトボタンが表示されることを確認する
-      expect(
-        find('.user_nav').find('span').hover
-      ).to have_content('ログアウト')
+      # トップページにログアウトボタンが表示されることを確認する
+      expect(page).to have_content('ログアウト')
       # サインアップページへ遷移するボタンや、ログインページへ遷移するボタンが表示されていないことを確認する
       expect(page).to have_no_content('新規登録')
       expect(page).to have_no_content('ログイン')
@@ -44,12 +46,16 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 新規登録ページへ移動する
       visit new_user_registration_path
       # ユーザー情報を入力する
-      fill_in 'Nickname', with: ''
-      fill_in 'Email', with: ''
-      fill_in 'Password', with: ''
-      fill_in 'Password confirmation', with: ''
+      fill_in 'nickname', with: ''
+      fill_in 'email', with: ''
+      fill_in 'password', with: ''
+      fill_in 'password-confirmation', with: ''
+      # 生年月日を入力する
+      select '--', from: 'user_birthday_1i' # 年
+      select '--', from: 'user_birthday_2i' # 月
+      select '--', from: 'user_birthday_3i' # 日
       # サインアップボタンを押してもユーザーモデルのカウントは上がらないことを確認する
-      expect  do
+      expect do
         find('input[name="commit"]').click
         sleep 1
       end.to change { User.count }.by(0)
