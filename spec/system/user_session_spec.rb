@@ -4,6 +4,7 @@ RSpec.describe 'ユーザーログイン', type: :system do
   # Userモデル初期化
   before do
     User.destroy_all
+    sign_in_user
   end
 
   context 'ユーザーログインができるとき' do
@@ -11,15 +12,68 @@ RSpec.describe 'ユーザーログイン', type: :system do
     let(:valid_user_info) do
       {
         email: 'test@example.com',
-        password: 'password123',
-        password_confirmation: 'password123'
+        password: 'password123'
       }
     end
 
     it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
+      # トップページに移動する
+      visit root_path
+      # ログアウトボタンが存在する場合、クリックしてログアウトする
+      click_on 'ログアウト' if page.has_content?('ログアウト')
+
+      # トップページにログインページへ遷移するボタンがあることを確認する
+      expect(page).to have_link('ログイン', href: new_user_session_path)
+      # ログインページへ遷移する
+      visit new_user_session_path
+      # 正しいユーザー情報を入力する
+      fill_in 'email', with: valid_user_info[:email]
+      fill_in 'password', with: valid_user_info[:password]
+      # ログインボタンを押す
+      find('input[name="commit"]').click
+      # トップページへ遷移することを確認する
+      expect(page).to have_current_path(root_path)
+      # カーソルを合わせるとログアウトボタンが表示されることを確認する
+      expect(page).to have_content('ログアウト')
+      # ログインページへ遷移するボタンが表示されていないことを確認する
+      expect(page).to have_no_link('ログイン', href: new_user_session_path)
+      # サインアップページへ遷移するボタンが表示されていないことを確認する
+      expect(page).to have_no_content('会員登録')
     end
 
     it 'ログイン中にはユーザーログアウトができてトップページに移動する' do
+      # ログイン処理を行う
+      visit root_path
+      if page.has_content?('ログイン')
+        visit new_user_session_path
+        fill_in 'email', with: valid_user_info[:email]
+        fill_in 'password', with: valid_user_info[:password]
+        find('input[name="commit"]').click
+        # トップページへ遷移することを確認する
+        expect(page).to have_current_path(root_path)
+      end
+      # カーソルを合わせるとログアウトボタンが表示されることを確認する
+      expect(page).to have_content('ログアウト')
+      # ログアウトボタンをクリックする
+      click_on 'ログアウト'
+      # トップページへ遷移することを確認する
+      expect(page).to have_current_path(root_path)
+      # ログインページへ遷移するボタンとサインアップページへ遷移するボタンが表示されていることを確認する
+      expect(page).to have_link('ログイン', href: new_user_session_path)
+      expect(page).to have_content('会員登録')
     end
+  end
+
+  private
+
+  def sign_in_user
+    # ユーザー情報をデータベースに保存する
+    User.create!(nickname: 'テストユーザー', email: 'test@example.com', password: 'password123', password_confirmation: 'password123', birthday: '2000-01-01')
+    # root_pathに移動する
+    visit root_path
+    # ログアウトボタンが存在する場合、クリックしてログアウトする
+    click_on 'ログアウト' if page.has_content?('ログアウト')
+    # ログアウトしたことを確認する
+    expect(page).to have_content('ログイン')
   end
 end
