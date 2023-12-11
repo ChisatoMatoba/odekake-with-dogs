@@ -6,25 +6,17 @@ RSpec.describe 'ユーザーログイン', type: :system do
     sign_in_user
   end
 
-  # 正しいuser情報を作成
-  let(:valid_user_info) do
-    {
-      email: 'test@example.com',
-      password: 'password123'
-    }
-  end
-
   it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
     # トップページに移動する
     visit root_path
     # ログイン処理を行う
-    log_in_as(valid_user_info)
+    log_in
   end
 
   it 'ログイン中にはユーザーログアウトができてトップページに移動する' do
     visit root_path
     # ログイン処理を行う
-    log_in_as(valid_user_info) if page.has_content?('ログイン')
+    log_in if page.has_content?('ログイン')
     # ログアウトボタンをクリックする
     click_on 'ログアウト'
     # トップページへ遷移することを確認する
@@ -47,19 +39,19 @@ RSpec.describe 'ユーザーログイン', type: :system do
     expect(page).to have_link('ログイン', href: new_user_session_path)
   end
 
-  def log_in_as(user_info)
+  def log_in
     # ログイン
-    fill_login_form(user_info)
+    fill_login_form
     # ログインできていることを確認
     verify_login_success
   end
 
-  def fill_login_form(_user_info)
+  def fill_login_form
     # ログインページへ遷移する
     visit new_user_session_path
     # 正しいユーザー情報を入力する
-    fill_in 'email', with: valid_user_info[:email]
-    fill_in 'password', with: valid_user_info[:password]
+    fill_in 'email', with: 'test@example.com'
+    fill_in 'password', with: 'password123'
     # ログインボタンを押す
     find('input[name="commit"]').click
   end
