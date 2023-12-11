@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
+  # Userモデル初期化
+  before do
+    User.destroy_all
+  end
+
   def move_to_registration
     # トップページに移動する
     visit root_path
@@ -8,14 +13,6 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     expect(page).to have_content('会員登録')
     # 新規登録ページへ移動する
     visit new_user_registration_path
-  end
-
-  def user_count_expect(countby)
-    # サインアップボタンを押すとユーザーモデルのカウントがcountby上がることを確認する
-    expect do
-      find('input[name="commit"]').click
-      sleep 1
-    end.to change(User, :count).by(countby)
   end
 
   def fill_in_user_info(user)
@@ -39,8 +36,8 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       move_to_registration
       # ユーザー情報を入力する
       fill_in_user_info(user)
-      # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する
-      user_count_expect(1)
+      # サインアップボタンを押す
+      find('input[name="commit"]').click
       # トップページへ遷移したことを確認する
       expect(page).to have_current_path(root_path)
       # トップページにログアウトボタンが表示されることを確認する
@@ -48,6 +45,8 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # サインアップページへ遷移するボタンや、ログインページへ遷移するボタンが表示されていないことを確認する
       expect(page).to have_no_content('新規登録')
       expect(page).to have_no_content('ログイン')
+      # ユーザーモデルのカウントが1上がることを確認する
+      expect(User.count).to eq 1
     end
   end
 
@@ -60,10 +59,12 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       move_to_registration
       # ユーザー情報を入力する
       fill_in_user_info(user)
-      # サインアップボタンを押してもユーザーモデルのカウントは上がらないことを確認する
-      user_count_expect(0)
+      # サインアップボタンを押す
+      find('input[name="commit"]').click
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path(new_user_registration_path)
+      # ユーザーモデルのカウントが上がっていないことを確認する
+      expect(User.count).to eq 0
     end
   end
 end
