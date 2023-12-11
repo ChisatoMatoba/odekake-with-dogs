@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザーログイン', type: :system do
-  # Userモデル初期化
   before do
-    User.destroy_all
+    # ログインテスト用のユーザーを作成
     sign_in_user
   end
 
