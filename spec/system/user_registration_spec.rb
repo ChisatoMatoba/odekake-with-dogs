@@ -6,27 +6,6 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     User.destroy_all
   end
 
-  def move_to_registration
-    # トップページに移動する
-    visit root_path
-    # トップページにサインアップページへ遷移するボタンがあることを確認する
-    expect(page).to have_content('会員登録')
-    # 新規登録ページへ移動する
-    visit new_user_registration_path
-  end
-
-  def fill_in_user_info(user)
-    # ユーザー情報を入力する
-    fill_in 'nickname', with: user.nickname
-    fill_in 'email', with: user.email
-    fill_in 'password', with: user.password
-    fill_in 'password-confirmation', with: user.password_confirmation
-    # 生年月日を入力する
-    select user.birthday.year.to_s, from: 'user_birthday_1i' # 年
-    select user.birthday.month.to_s, from: 'user_birthday_2i' # 月
-    select user.birthday.day.to_s, from: 'user_birthday_3i' # 日
-  end
-
   context 'ユーザー新規登録ができるとき' do
     # 正しいuser情報を作成
     let(:user) { FactoryBot.build(:user) }
@@ -66,5 +45,28 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # ユーザーモデルのカウントが上がっていないことを確認する
       expect(User.count).to eq 0
     end
+  end
+
+  private
+
+  def move_to_registration
+    # トップページに移動する
+    visit root_path
+    # トップページにサインアップページへ遷移するボタンがあることを確認する
+    expect(page).to have_content('会員登録')
+    # 新規登録ページへ移動する
+    visit new_user_registration_path
+  end
+
+  def fill_in_user_info(user)
+    # ユーザー情報を入力する
+    fill_in 'nickname', with: user.nickname
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    fill_in 'password-confirmation', with: user.password_confirmation
+    # 生年月日を入力する
+    select user.birthday.year.to_s, from: 'user_birthday_1i' # 年
+    select user.birthday.month.to_s, from: 'user_birthday_2i' # 月
+    select user.birthday.day.to_s, from: 'user_birthday_3i' # 日
   end
 end
