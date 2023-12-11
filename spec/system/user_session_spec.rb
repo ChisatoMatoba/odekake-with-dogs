@@ -19,9 +19,6 @@ RSpec.describe 'ユーザーログイン', type: :system do
     it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
       # トップページに移動する
       visit root_path
-      # ログアウトボタンが存在する場合、クリックしてログアウトする
-      click_on 'ログアウト' if page.has_content?('ログアウト')
-
       # トップページにログインページへ遷移するボタンがあることを確認する
       expect(page).to have_link('ログイン', href: new_user_session_path)
       # ログイン処理を行う
@@ -52,7 +49,7 @@ RSpec.describe 'ユーザーログイン', type: :system do
     # ログアウトボタンが存在する場合、クリックしてログアウトする
     click_on 'ログアウト' if page.has_content?('ログアウト')
     # ログアウトしたことを確認する
-    expect(page).to have_content('ログイン')
+    expect(page).to have_link('ログイン', href: new_user_session_path)
   end
 
   def log_in_as(user_info)
