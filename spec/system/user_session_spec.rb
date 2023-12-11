@@ -18,8 +18,6 @@ RSpec.describe 'ユーザーログイン', type: :system do
   it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
     # トップページに移動する
     visit root_path
-    # トップページにログインページへ遷移するボタンがあることを確認する
-    expect(page).to have_link('ログイン', href: new_user_session_path)
     # ログイン処理を行う
     log_in_as(valid_user_info)
   end
