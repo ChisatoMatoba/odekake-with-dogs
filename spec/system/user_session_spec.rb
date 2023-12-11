@@ -7,15 +7,15 @@ RSpec.describe 'ユーザーログイン', type: :system do
     sign_in_user
   end
 
-  context 'ユーザーログインができるとき' do
-    # 正しいuser情報を作成
-    let(:valid_user_info) do
-      {
-        email: 'test@example.com',
-        password: 'password123'
-      }
-    end
+  # 正しいuser情報を作成
+  let(:valid_user_info) do
+    {
+      email: 'test@example.com',
+      password: 'password123'
+    }
+  end
 
+  context 'ユーザーログインができるとき' do
     it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
       # トップページに移動する
       visit root_path
@@ -24,36 +24,14 @@ RSpec.describe 'ユーザーログイン', type: :system do
 
       # トップページにログインページへ遷移するボタンがあることを確認する
       expect(page).to have_link('ログイン', href: new_user_session_path)
-      # ログインページへ遷移する
-      visit new_user_session_path
-      # 正しいユーザー情報を入力する
-      fill_in 'email', with: valid_user_info[:email]
-      fill_in 'password', with: valid_user_info[:password]
-      # ログインボタンを押す
-      find('input[name="commit"]').click
-      # トップページへ遷移することを確認する
-      expect(page).to have_current_path(root_path)
-      # カーソルを合わせるとログアウトボタンが表示されることを確認する
-      expect(page).to have_content('ログアウト')
-      # ログインページへ遷移するボタンが表示されていないことを確認する
-      expect(page).to have_no_link('ログイン', href: new_user_session_path)
-      # サインアップページへ遷移するボタンが表示されていないことを確認する
-      expect(page).to have_no_content('会員登録')
+      # ログイン処理を行う
+      log_in_as(valid_user_info)
     end
 
     it 'ログイン中にはユーザーログアウトができてトップページに移動する' do
-      # ログイン処理を行う
       visit root_path
-      if page.has_content?('ログイン')
-        visit new_user_session_path
-        fill_in 'email', with: valid_user_info[:email]
-        fill_in 'password', with: valid_user_info[:password]
-        find('input[name="commit"]').click
-        # トップページへ遷移することを確認する
-        expect(page).to have_current_path(root_path)
-      end
-      # カーソルを合わせるとログアウトボタンが表示されることを確認する
-      expect(page).to have_content('ログアウト')
+      # ログイン処理を行う
+      log_in_as(valid_user_info) if page.has_content?('ログイン')
       # ログアウトボタンをクリックする
       click_on 'ログアウト'
       # トップページへ遷移することを確認する
@@ -75,5 +53,33 @@ RSpec.describe 'ユーザーログイン', type: :system do
     click_on 'ログアウト' if page.has_content?('ログアウト')
     # ログアウトしたことを確認する
     expect(page).to have_content('ログイン')
+  end
+
+  def log_in_as(user_info)
+    # ログイン
+    fill_login_form(user_info)
+    # ログインできていることを確認
+    verify_login_success
+  end
+
+  def fill_login_form(_user_info)
+    # ログインページへ遷移する
+    visit new_user_session_path
+    # 正しいユーザー情報を入力する
+    fill_in 'email', with: valid_user_info[:email]
+    fill_in 'password', with: valid_user_info[:password]
+    # ログインボタンを押す
+    find('input[name="commit"]').click
+  end
+
+  def verify_login_success
+    # トップページへ遷移することを確認する
+    expect(page).to have_current_path(root_path)
+    # カーソルを合わせるとログアウトボタンが表示されることを確認する
+    expect(page).to have_content('ログアウト')
+    # ログインページへ遷移するボタンが表示されていないことを確認する
+    expect(page).to have_no_link('ログイン', href: new_user_session_path)
+    # サインアップページへ遷移するボタンが表示されていないことを確認する
+    expect(page).to have_no_content('会員登録')
   end
 end
