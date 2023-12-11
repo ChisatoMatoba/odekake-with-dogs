@@ -1,16 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
+  def move_to_registration
+    # トップページに移動する
+    visit root_path
+    # トップページにサインアップページへ遷移するボタンがあることを確認する
+    expect(page).to have_content('会員登録')
+    # 新規登録ページへ移動する
+    visit new_user_registration_path
+  end
+
+  def user_count_expect(countby)
+    # サインアップボタンを押すとユーザーモデルのカウントがcountby上がることを確認する
+    expect do
+      find('input[name="commit"]').click
+      sleep 1
+    end.to change(User, :count).by(countby)
+  end
+
   let(:user) { FactoryBot.build(:user) }
 
   context 'ユーザー新規登録ができるとき' do
     it '正しい情報を入力すればユーザー新規登録ができてトップページに移動する' do
-      # トップページに移動する
-      visit root_path
-      # トップページにサインアップページへ遷移するボタンがあることを確認する
-      expect(page).to have_content('会員登録')
       # 新規登録ページへ移動する
-      visit new_user_registration_path
+      move_to_registration
       # ユーザー情報を入力する
       fill_in 'nickname', with: user.nickname
       fill_in 'email', with: user.email
@@ -21,10 +34,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       select user.birthday.month.to_s, from: 'user_birthday_2i' # 月
       select user.birthday.day.to_s, from: 'user_birthday_3i' # 日
       # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する
-      expect do
-        find('input[name="commit"]').click
-        sleep 1
-      end.to change(User, :count).by(1)
+      user_count_expect(1)
       # トップページへ遷移したことを確認する
       expect(page).to have_current_path(root_path)
       # トップページにログアウトボタンが表示されることを確認する
@@ -37,12 +47,8 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
   context 'ユーザー新規登録ができないとき' do
     it '誤った情報ではユーザー新規登録ができずに新規登録ページへ戻ってくる' do
-      # トップページに移動する
-      visit root_path
-      # トップページにサインアップページへ遷移するボタンがあることを確認する
-      expect(page).to have_content('新規登録')
       # 新規登録ページへ移動する
-      visit new_user_registration_path
+      move_to_registration
       # ユーザー情報を入力する
       fill_in 'nickname', with: ''
       fill_in 'email', with: ''
@@ -53,10 +59,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       select '--', from: 'user_birthday_2i' # 月
       select '--', from: 'user_birthday_3i' # 日
       # サインアップボタンを押してもユーザーモデルのカウントは上がらないことを確認する
-      expect do
-        find('input[name="commit"]').click
-        sleep 1
-      end.to change(User, :count).by(0)
+      user_count_expect(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path(new_user_registration_path)
     end
