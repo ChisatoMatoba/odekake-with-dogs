@@ -18,21 +18,27 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     end.to change(User, :count).by(countby)
   end
 
-  let(:user) { FactoryBot.build(:user) }
+  def fill_in_user_info(user)
+    # ユーザー情報を入力する
+    fill_in 'nickname', with: user.nickname
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    fill_in 'password-confirmation', with: user.password_confirmation
+    # 生年月日を入力する
+    select user.birthday.year.to_s, from: 'user_birthday_1i' # 年
+    select user.birthday.month.to_s, from: 'user_birthday_2i' # 月
+    select user.birthday.day.to_s, from: 'user_birthday_3i' # 日
+  end
 
   context 'ユーザー新規登録ができるとき' do
+    # 正しいuser情報を作成
+    let(:user) { FactoryBot.build(:user) }
+
     it '正しい情報を入力すればユーザー新規登録ができてトップページに移動する' do
       # 新規登録ページへ移動する
       move_to_registration
       # ユーザー情報を入力する
-      fill_in 'nickname', with: user.nickname
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      fill_in 'password-confirmation', with: user.password_confirmation
-      # 生年月日を入力する
-      select user.birthday.year.to_s, from: 'user_birthday_1i' # 年
-      select user.birthday.month.to_s, from: 'user_birthday_2i' # 月
-      select user.birthday.day.to_s, from: 'user_birthday_3i' # 日
+      fill_in_user_info(user)
       # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する
       user_count_expect(1)
       # トップページへ遷移したことを確認する
@@ -46,18 +52,14 @@ RSpec.describe 'ユーザー新規登録', type: :system do
   end
 
   context 'ユーザー新規登録ができないとき' do
+    # 誤ったuser情報を作成
+    let(:user) { FactoryBot.build(:user, email: nil) }
+
     it '誤った情報ではユーザー新規登録ができずに新規登録ページへ戻ってくる' do
       # 新規登録ページへ移動する
       move_to_registration
       # ユーザー情報を入力する
-      fill_in 'nickname', with: ''
-      fill_in 'email', with: ''
-      fill_in 'password', with: ''
-      fill_in 'password-confirmation', with: ''
-      # 生年月日を入力する
-      select '--', from: 'user_birthday_1i' # 年
-      select '--', from: 'user_birthday_2i' # 月
-      select '--', from: 'user_birthday_3i' # 日
+      fill_in_user_info(user)
       # サインアップボタンを押してもユーザーモデルのカウントは上がらないことを確認する
       user_count_expect(0)
       # 新規登録ページへ戻されることを確認する
