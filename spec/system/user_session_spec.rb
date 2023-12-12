@@ -7,8 +7,6 @@ RSpec.describe 'ユーザーログイン', type: :system do
   end
 
   it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
-    # トップページに移動する
-    visit root_path
     # ログインページへ遷移する
     visit new_user_session_path
     # 正しいユーザー情報を入力する
@@ -28,7 +26,6 @@ RSpec.describe 'ユーザーログイン', type: :system do
   end
 
   it 'ログイン中にはユーザーログアウトができてトップページに移動する' do
-    visit root_path
     # ログイン処理を行う
     if page.has_content?('ログイン')
       # ログインページへ遷移する
