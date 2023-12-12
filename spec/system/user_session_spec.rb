@@ -25,15 +25,13 @@ RSpec.describe 'ユーザーログイン', type: :system do
 
   it 'ログイン中にはユーザーログアウトができてトップページに移動する' do
     # ログイン処理を行う
-    if page.has_content?('ログイン')
-      # ログインページへ遷移する
-      visit new_user_session_path
-      # 正しいユーザー情報を入力する
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      # ログインボタンを押す
-      find('input[name="commit"]').click
-    end
+    # ログインページへ遷移する
+    visit new_user_session_path
+    # 正しいユーザー情報を入力する
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    # ログインボタンを押す
+    find('input[name="commit"]').click
     # ログアウトボタンをクリックする
     click_on 'ログアウト'
     # トップページへ遷移することを確認する
