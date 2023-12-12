@@ -12,7 +12,6 @@ RSpec.describe 'ユーザーログイン', type: :system do
     fill_in 'password', with: user.password
     # ログインボタンを押す
     find('input[name="commit"]').click
-
     # トップページへ遷移することを確認する
     expect(page).to have_current_path(root_path)
     # ログアウトボタンが表示されることを確認する
