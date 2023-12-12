@@ -22,6 +22,7 @@ RSpec.describe '施設新規登録', type: :system do
     expect(page).to have_current_path(facilities_path)
     # 施設登録画面へボタンをクリックする
     click_on '施設登録画面へ'
+
     # 施設登録ページへ遷移することを確認する
     expect(page).to have_current_path(new_facility_path)
     # 施設情報を入力する
@@ -30,8 +31,11 @@ RSpec.describe '施設新規登録', type: :system do
     select '宿泊', from: 'item-category'
     # 登録ボタンを押す
     find('input[name="commit"]').click
+
     # その施設の詳細ページへ遷移することを確認する
     new_facility = Facility.last
     expect(page).to have_current_path(facility_path(new_facility))
+    # 登録した施設名がページに表示されていることを確認
+    expect(page).to have_text('テスト施設')
   end
 end
