@@ -11,6 +11,9 @@ RSpec.describe '施設新規登録', type: :system do
     sign_in user
   end
 
-  it '正しい情報を入力すれば施設を登録できて、施設詳細画面に移動する' do
+  it '正しい情報を入力すれば施設を編集できて、施設詳細画面に移動する' do
+  end
+
+  it '自分が作成した施設を削除できる' do
   end
 end
