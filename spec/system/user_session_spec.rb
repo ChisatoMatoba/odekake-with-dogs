@@ -1,17 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザーログイン', type: :system do
-  before do
-    # ログインテスト用のユーザーを作成
-    sign_in_user
-  end
+  # ログインテスト用のユーザーを作成
+  let(:user) { FactoryBot.create(:user) }
 
   it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
     # ログインページへ遷移する
     visit new_user_session_path
     # 正しいユーザー情報を入力する
-    fill_in 'email', with: 'test@example.com'
-    fill_in 'password', with: 'password123'
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
     # ログインボタンを押す
     find('input[name="commit"]').click
 
@@ -31,8 +29,8 @@ RSpec.describe 'ユーザーログイン', type: :system do
       # ログインページへ遷移する
       visit new_user_session_path
       # 正しいユーザー情報を入力する
-      fill_in 'email', with: 'test@example.com'
-      fill_in 'password', with: 'password123'
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
       # ログインボタンを押す
       find('input[name="commit"]').click
     end
@@ -43,18 +41,5 @@ RSpec.describe 'ユーザーログイン', type: :system do
     # ログインページへ遷移するボタンとサインアップページへ遷移するボタンが表示されていることを確認する
     expect(page).to have_link('ログイン', href: new_user_session_path)
     expect(page).to have_content('会員登録')
-  end
-
-  private
-
-  def sign_in_user
-    # ユーザー情報をデータベースに保存する
-    User.create!(nickname: 'テストユーザー', email: 'test@example.com', password: 'password123', password_confirmation: 'password123', birthday: '2000-01-01')
-    # root_pathに移動する
-    visit root_path
-    # ログアウトボタンが存在する場合、クリックしてログアウトする
-    click_on 'ログアウト' if page.has_content?('ログアウト')
-    # ログアウトしたことを確認する
-    expect(page).to have_link('ログイン', href: new_user_session_path)
   end
 end
