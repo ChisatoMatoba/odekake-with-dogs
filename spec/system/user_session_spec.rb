@@ -9,14 +9,36 @@ RSpec.describe 'ユーザーログイン', type: :system do
   it '正しい情報を入力すればユーザーログインができてトップページに移動する' do
     # トップページに移動する
     visit root_path
-    # ログイン処理を行う
-    log_in
+    # ログインページへ遷移する
+    visit new_user_session_path
+    # 正しいユーザー情報を入力する
+    fill_in 'email', with: 'test@example.com'
+    fill_in 'password', with: 'password123'
+    # ログインボタンを押す
+    find('input[name="commit"]').click
+
+    # トップページへ遷移することを確認する
+    expect(page).to have_current_path(root_path)
+    # ログアウトボタンが表示されることを確認する
+    expect(page).to have_content('ログアウト')
+    # ログインページへ遷移するボタンが表示されていないことを確認する
+    expect(page).to have_no_link('ログイン', href: new_user_session_path)
+    # サインアップページへ遷移するボタンが表示されていないことを確認する
+    expect(page).to have_no_content('会員登録')
   end
 
   it 'ログイン中にはユーザーログアウトができてトップページに移動する' do
     visit root_path
     # ログイン処理を行う
-    log_in if page.has_content?('ログイン')
+    if page.has_content?('ログイン')
+      # ログインページへ遷移する
+      visit new_user_session_path
+      # 正しいユーザー情報を入力する
+      fill_in 'email', with: 'test@example.com'
+      fill_in 'password', with: 'password123'
+      # ログインボタンを押す
+      find('input[name="commit"]').click
+    end
     # ログアウトボタンをクリックする
     click_on 'ログアウト'
     # トップページへ遷移することを確認する
@@ -37,33 +59,5 @@ RSpec.describe 'ユーザーログイン', type: :system do
     click_on 'ログアウト' if page.has_content?('ログアウト')
     # ログアウトしたことを確認する
     expect(page).to have_link('ログイン', href: new_user_session_path)
-  end
-
-  def log_in
-    # ログイン
-    fill_login_form
-    # ログインできていることを確認
-    verify_login_success
-  end
-
-  def fill_login_form
-    # ログインページへ遷移する
-    visit new_user_session_path
-    # 正しいユーザー情報を入力する
-    fill_in 'email', with: 'test@example.com'
-    fill_in 'password', with: 'password123'
-    # ログインボタンを押す
-    find('input[name="commit"]').click
-  end
-
-  def verify_login_success
-    # トップページへ遷移することを確認する
-    expect(page).to have_current_path(root_path)
-    # カーソルを合わせるとログアウトボタンが表示されることを確認する
-    expect(page).to have_content('ログアウト')
-    # ログインページへ遷移するボタンが表示されていないことを確認する
-    expect(page).to have_no_link('ログイン', href: new_user_session_path)
-    # サインアップページへ遷移するボタンが表示されていないことを確認する
-    expect(page).to have_no_content('会員登録')
   end
 end
