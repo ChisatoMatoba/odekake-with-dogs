@@ -28,7 +28,7 @@ RSpec.describe '施設新規登録', type: :system do
     fill_in 'item-name', with: 'テスト施設'
     select '宿泊', from: 'item-category'
     # 登録ボタンを押す
-    find('input[name="commit"]').click
+    click_on '登録する'
 
     # その施設の詳細ページへ遷移することを確認する
     new_facility = Facility.last
