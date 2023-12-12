@@ -18,6 +18,16 @@ RSpec.describe '施設新規登録', type: :system do
     click_on '編集'
     # 施設編集ページへ遷移することを確認する
     expect(page).to have_current_path(edit_facility_path(facility))
+    # 施設情報を変更する
+    fill_in 'item-name', with: '施設名変更テスト'
+    # 登録ボタンを押す
+    click_on '登録する'
+
+    # その施設の詳細ページへ遷移することを確認する
+    new_facility = Facility.last
+    expect(page).to have_current_path(facility_path(new_facility))
+    # 登録した施設名がページに表示されていることを確認
+    expect(page).to have_text('施設名変更テスト')
   end
 
   it '自分が作成した施設を削除できる' do
