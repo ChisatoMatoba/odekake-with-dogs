@@ -30,6 +30,18 @@ RSpec.describe '施設新規登録', type: :system do
     expect(page).to have_text('施設名変更テスト')
   end
 
-  it '自分が作成した施設を削除できる' do
+  it '自分が作成した施設を削除できて、トップページに移動する' do
+    # 施設詳細画面へ遷移する
+    visit facility_path(facility)
+    # 削除ボタンをクリックする
+    click_on '削除'
+    # rootページへ遷移することを確認する
+    expect(page).to have_current_path(root_path)
+    # 施設一覧ページへ遷移する
+    visit facilities_path
+    # 「全国」の項目をクリックする
+    find('.prefecture-row', text: '全国').click
+    # 削除された施設がリストに表示されていないことを確認する
+    expect(page).not_to have_content(facility.place_name)
   end
 end
