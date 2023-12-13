@@ -4,7 +4,7 @@ RSpec.describe '施設新規登録', type: :system do
   # テスト用のユーザーを作成
   let!(:user) { FactoryBot.create(:user) }
   # テスト用の施設を作成
-  let!(:facility) { FactoryBot.create(:facility, user: user) }
+  let!(:facility) { FactoryBot.create(:facility, user: user, place_name: 'テスト施設') }
 
   before do
     # 事前にサインインしておく
