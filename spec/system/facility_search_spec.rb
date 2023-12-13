@@ -21,12 +21,24 @@ RSpec.describe '施設検索', type: :system do
     # 検索結果欄と検索結果が表示されることを確認する
     expect(page).to have_content '検索結果'
     expect(page).to have_content 'テスト施設'
+    # 一致しない施設は表示されないことを確認する
+    expect(page).to have_no_content 'テスト宿泊地'
     # 施設名をクリックする
     click_on 'テスト施設'
     # テスト施設の詳細画面へ遷移することを確認する
     expect(page).to have_current_path(facility_path(facility))
     # クリックした施設名がページに表示されていることを確認
     expect(page).to have_text('テスト施設')
+  end
+
+  it '既存の施設のうち、入力した検索内容と部分的に一致する施設を検索でき、施設詳細へ遷移できる' do
+    # 検索フォームに入力する
+    fill_in '施設名', with: 'テスト'
+    click_on '検索'
+    # 検索結果欄と検索結果（部分一致）が表示されることを確認する
+    expect(page).to have_content '検索結果'
+    expect(page).to have_content 'テスト施設'
+    expect(page).to have_content 'テスト宿泊地'
   end
 
   it '存在しない施設名を入力すれば「お探しの施設はありません」と表示される' do
