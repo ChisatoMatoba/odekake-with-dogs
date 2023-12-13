@@ -5,7 +5,7 @@ RSpec.describe '施設検索', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   # テスト用の施設を作成
   let!(:facility) { FactoryBot.create(:facility, user: user, place_name: 'テスト施設') }
-  let!(:facility_2) { FactoryBot.create(:facility, user: user, place_name: 'テスト宿泊地') }
+  let!(:facility_sub) { FactoryBot.create(:facility, user: user, place_name: 'テスト宿泊地') }
 
   before do
     # 事前にサインインしておく
@@ -70,10 +70,10 @@ RSpec.describe '施設検索', type: :system do
     expect(page).to have_content('テスト宿泊地')
 
     # 施設名をクリックする
-    click_on 'テスト施設'
+    click_on 'テスト宿泊地'
     # テスト施設の詳細画面へ遷移することを確認する
-    expect(page).to have_current_path(facility_path(facility))
+    expect(page).to have_current_path(facility_path(facility_sub))
     # クリックした施設名がページに表示されていることを確認
-    expect(page).to have_text('テスト施設')
+    expect(page).to have_text('テスト宿泊地')
   end
 end
