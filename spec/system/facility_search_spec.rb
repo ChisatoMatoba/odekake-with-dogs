@@ -40,20 +40,23 @@ RSpec.describe '施設検索', type: :system do
 
   it '検索結果に関わらず、一覧表示には常にすべての施設が表示され、施設詳細へ遷移できる' do
     # 検索フォームを入力する前
-    # facilityの都道府県名をクリックする
-    find('.prefecture-row', text: facility.prefecture.name).click
+    # 全国の行をクリックする
+    find('.prefecture-row', text: '全国').click
     # 施設がリストに表示されていることを確認する
     expect(page).to have_content('テスト施設')
+    expect(page).to have_content('テスト宿泊地')
 
     # 検索
     fill_in '施設名', with: 'フェイル施設'
     click_on '検索'
 
     # 検索後も同じ状況であることを確認する
-    # facilityの都道府県名をクリックする
-    find('.prefecture-row', text: facility.prefecture.name).click
+    # 全国の行をクリックする
+    find('.prefecture-row', text: '全国').click
     # 施設がリストに表示されていることを確認する
     expect(page).to have_content('テスト施設')
+    expect(page).to have_content('テスト宿泊地')
+
     # 施設名をクリックする
     click_on 'テスト施設'
     # テスト施設の詳細画面へ遷移することを確認する
