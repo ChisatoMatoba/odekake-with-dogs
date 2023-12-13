@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :facility do
-    prefecture { Prefecture.all.reject { |p| p.id == 1 }.sample }
+    prefecture { Prefecture.where.not(id: 1).sample }
     place_name { Faker::Name.initials(number: 2) }
-    category { Category.all.reject { |p| p.id == 1 }.sample }
+    category { Category.where.not(id: 1).sample }
     association :user
   end
 end
