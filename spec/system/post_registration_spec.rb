@@ -23,7 +23,20 @@ RSpec.describe '施設新規登録', type: :system do
     expect(page).to have_text('テスト施設')
   end
 
-  it '正しい情報を入力すれば投稿でき、投稿詳細画面に移動する' do
-
+  it '正しい情報(タグ以外)を入力すれば投稿でき、投稿詳細画面に移動する' do
+    # 新規投稿ページへ移動する
+    visit new_facility_post_path(facility)
+    # 正しい投稿内容を入力する
+    fill_in 'post[people_num]', with: '3'
+    fill_in 'post[dogs_num]', with: '3'
+    select '★★★★☆', from: 'item-category'
+    fill_in 'post[review]', with: '楽しかった'
+    # 画像を添付する
+    attach_file('post[images][]', Rails.root.join('public/images/test_image.png'))
+    # 投稿ボタンを押す
+    click_on '投稿する'
+    # 登録した投稿の内容が投稿詳細ページに表示されていることを確認
+    expect(page).to have_text("#{user.nickname}さんのレビュー")
+    expect(page).to have_text('楽しかった')
   end
 end
