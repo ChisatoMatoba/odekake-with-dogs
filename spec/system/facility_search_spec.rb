@@ -5,8 +5,6 @@ RSpec.describe '施設検索', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   # テスト用の施設を作成
   let!(:facility) { FactoryBot.create(:facility, user: user, place_name: 'テスト施設') }
-  let!(:hokkaido) { Prefecture.find_by(name: '北海道') }
-  let!(:facility_hokkaido) { FactoryBot.create(:facility, user: user, prefecture: hokkaido, place_name: '札幌の公園') }
 
   before do
     # 事前にサインインしておく
@@ -39,6 +37,27 @@ RSpec.describe '施設検索', type: :system do
     expect(page).to have_content 'お探しの施設はありません'
   end
 
-  it '検索結果に関わらず、一覧表示には常にすべての施設が表示される' do
+  it '検索結果に関わらず、一覧表示には常にすべての施設が表示され、施設詳細へ遷移できる' do
+    # 検索フォームを入力する前
+    # facilityの都道府県名をクリックする
+    find('.prefecture-row', text: facility.prefecture.name).click
+    # 施設がリストに表示されていることを確認する
+    expect(page).to have_content('テスト施設')
+
+    # 検索
+    fill_in '施設名', with: 'フェイル施設'
+    click_on '検索'
+
+    # 検索後も同じ状況であることを確認する
+    # facilityの都道府県名をクリックする
+    find('.prefecture-row', text: facility.prefecture.name).click
+    # 施設がリストに表示されていることを確認する
+    expect(page).to have_content('テスト施設')
+    # 施設名をクリックする
+    click_on 'テスト施設'
+    # テスト施設の詳細画面へ遷移することを確認する
+    expect(page).to have_current_path(facility_path(facility))
+    # クリックした施設名がページに表示されていることを確認
+    expect(page).to have_text('テスト施設')
   end
 end
