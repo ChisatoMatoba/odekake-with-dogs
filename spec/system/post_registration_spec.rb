@@ -12,7 +12,15 @@ RSpec.describe '施設新規登録', type: :system do
   end
 
   it '施設詳細画面から新規投稿画面に遷移後、その施設の情報が表示される' do
-
+    # 施設詳細画面へ移動する
+    visit facility_path(facility)
+    # 「この施設のお出かけ情報を登録する」ボタンを押す
+    click_on 'この施設のおでかけ情報を登録する'
+    # 新規投稿ページへ遷移することを確認する
+    expect(page).to have_current_path(new_facility_post_path(facility))
+    expect(page).to have_text('おでかけ情報を入力')
+    # 施設の情報が表示されていることを確認する
+    expect(page).to have_text('テスト施設')
   end
 
   it '正しい情報を入力すれば投稿でき、投稿詳細画面に移動する' do
