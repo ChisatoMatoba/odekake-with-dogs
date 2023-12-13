@@ -5,6 +5,7 @@ RSpec.describe '施設検索', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   # テスト用の施設を作成
   let!(:facility) { FactoryBot.create(:facility, user: user, place_name: 'テスト施設') }
+  let!(:facility_2) { FactoryBot.create(:facility, user: user, place_name: 'テスト宿泊地') }
 
   before do
     # 事前にサインインしておく
