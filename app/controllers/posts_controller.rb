@@ -24,7 +24,9 @@ class PostsController < ApplicationController
     @post = @facility.posts.build(post_params)
 
     # 空欄でないタグフォームのタグ名を配列に
-    tag_names = post_params[:tags_attributes].values.map { |tag_attr| tag_attr[:name].strip }.reject(&:empty?)
+    tag_names = post_params[:tags_attributes].to_h.map { |_, tag_attr| tag_attr[:name].to_s.strip }.reject(&:empty?)
+
+    # @post.tagsに保存
     save_tags(tag_names)
 
     if @post.save
@@ -47,7 +49,7 @@ class PostsController < ApplicationController
 
   def update
     # 空欄でないタグフォームのタグ名を配列に
-    tag_names = post_params[:tags_attributes].values.map { |tag_attr| tag_attr[:name].strip }.reject(&:empty?)
+    tag_names = post_params[:tags_attributes].to_h.map { |_, tag_attr| tag_attr[:name].to_s.strip }.reject(&:empty?)
 
     # @post.tagsに保存
     save_tags(tag_names)
