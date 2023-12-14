@@ -4,7 +4,7 @@
       <%= post.facility.place_name %>
     <% end %>
   </div>
-  <!-- modalのトリガー -->
+  <%# modalのトリガー %>
   <div class="item-wrapper mb-3 modal_click" data-bs-toggle="modal" data-bs-target="#tOiMnQnqDw-modal" data-post-id="<%= post.id %>">
     <%= image_tag(post.images[0], class: "w-100", alt: "No Image",  data: { slide_to: "0", bs_slide_to: "0", target: "#lb-tOiMnQnqDw", bs_target: "#lb-tOiMnQnqDw" }) %>
   </div>
@@ -13,14 +13,14 @@
     <span><%= link_to "投稿者：" + post.user.nickname + "さん", "/users/#{post.user_id}" %></span>
   </div>
 </div>
-<!-- 画像クリック後 -->
+<%# 画像クリック後 %>
 <div class="modal mbr-slider" tabindex="-1" role="dialog" aria-hidden="true"  id="tOiMnQnqDw-modal-<%= post.id %>" data-post-id="<%= post.id %>">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <div class="carousel slide carousel-fade" data-pause="false" data-bs-pause="false" id="lb-tOiMnQnqDw" data-interval="5000" data-bs-interval="5000">
           <div class="carousel-inner">
-            <!-- 複数画像があるとき枚数分(スライド用) -->
+            <%# 複数画像があるとき枚数分(スライド用) %>
             <% post.images.each_with_index do |image,i| %>
               <% if i == 0 %>
                 <div class="carousel-item active">
@@ -33,7 +33,7 @@
               <% end %>
             <% end %>
           </div>
-          <!-- 下の●、複数画像があるとき枚数分(スライド用) -->
+          <%# 下の●、複数画像があるとき枚数分(スライド用) %>
           <ol class="carousel-indicators">
             <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
             <li data-slide-to="1" data-bs-slide-to="1" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
@@ -41,11 +41,11 @@
             <li data-slide-to="3" data-bs-slide-to="3" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
             <li data-slide-to="4" data-bs-slide-to="4" data-target="#lb-tOiMnQnqDw" data-bs-target="#lb-tOiMnQnqDw"></li>
           </ol>
-          <!-- 閉じるボタン -->
+          <%# 閉じるボタン %>
           <a role="button" href="" class="close close-modal" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
             <%= image_tag('close.jpeg', class: "", alt: "✕") %>
           </a>
-          <!-- 前へ、次へボタン(1枚のときは表示しない？) -->
+          <%# 前へ、次へボタン(1枚のときは表示しない？) %>
           <a class="carousel-control-prev carousel-control" role="button" data-slide="prev" data-bs-slide="prev" href="#lb-tOiMnQnqDw">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           </a>

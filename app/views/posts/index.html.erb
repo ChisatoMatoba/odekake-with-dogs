@@ -39,10 +39,45 @@
           </div>
         </div>
       </div>
+  </section>
 
-      <!-- photo -->
+  <!-- 検索フォームセクション -->
+  <section class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+    <div class="container-fluid search-form">
+      <!-- title -->
+      <div class="#">
+        <strong>検索フォーム</strong>
+      </div>
+      <!-- 一旦ransackの検索フォームが表示できたことだけ確認 -->
+      <div class="#">
+        <%= search_form_for(@q, url: root_path, method: :get, local: true) do |f| %>
+          <%= f.label :name, "Keyword" %>
+          <%= f.search_field :review %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <!-- 検索結果セクション -->
+  <section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+    <!-- photo -->
+    <div class="row mbr-gallery">
+      <%# 例 %>
+      <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+        <%= image_tag("gallery.jpeg", class: "") %>
+      </div>
+      <%# 画像（postの数だけ) %>
+      <% @posts.each do |post| %>
+        <%= render "shared/gallery", post:, facility: post.facility %>
+      <% end %>
+    </div>
+  <section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+
+<!--
+      <%# photo %>
       <div class="row mbr-gallery">
-        <!-- タブ -->
+        <%# タブ %>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link tab_change active" id="nav-zenkoku-tab" data-bs-toggle="tab" data-bs-target="#nav-zenkoku-content" type="button" role="tab" aria-controls="nav-zenkoku-content" aria-selected="true">全国</button>
@@ -56,16 +91,16 @@
             <button class="nav-link tab_change" id="nav-okinawa-tab" data-bs-toggle="tab" data-bs-target="#nav-okinawa-content" type="button" role="tab" aria-controls="nav-okinawa-content" aria-selected="false">沖縄</button>
           </div>
         </nav>
-        <!-- photo -->
+        <%# photo %>
         <div class="tab-content" id="nav-tabContent">
-          <!-- 全国 -->
+          <%# 全国 %>
           <div class="tab-pane fade show active" id="nav-zenkoku-content" role="tabpanel" aria-labelledby="nav-home-tab" data-bs-target="#nav-zenkoku-content" tabindex="0">
             <div class="row mbr-gallery">
-              <!-- 例 -->
+              <%# 例 %>
               <div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <%= image_tag("gallery.jpeg", class: "") %>
               </div>
-              <!-- 画像（postの数だけ) -->
+              <%# 画像（postの数だけ) %>
               <% @posts.each do |post| %>
                 <%= render "shared/gallery", post:, facility: post.facility %>
               <% end %>
@@ -95,6 +130,7 @@
     </div>
   </section>
 </div>
+-->
 
 <%= render "shared/footer" %>
 

@@ -23,4 +23,12 @@ class Post < ApplicationRecord
     validates :review
     validates :images, length: { minimum: 1, maximum: 5, message: 'は1枚以上5枚以下にしてください' }
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at dogs_num facility_id id id_value people_num rating_id review updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %(comments facility images_attachments images_blobs post_tags rating tags user)
+  end
 end
