@@ -5,7 +5,8 @@ class PostsController < ApplicationController
 
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
-    @posts = Post.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC)
+    @q = Post.ransack(params[:q]) # Ransackの検索オブジェクトを初期化
+    @posts = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
 
     @areas = {}
     # 投稿を地域ごとにグループ化する
