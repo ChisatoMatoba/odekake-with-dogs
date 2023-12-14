@@ -1,7 +1,6 @@
 class Category < ActiveHash::Base
   include ActiveHash::Associations
   self.data = [
-    { id: 1, name: '---' },
     { id: 2, name: '宿泊' },
     { id: 3, name: 'カフェ・レストラン' },
     { id: 4, name: 'ドッグラン' },
