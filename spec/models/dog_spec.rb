@@ -31,14 +31,14 @@ RSpec.describe Dog, type: :model do
         expect(@dog.errors.full_messages).to include('わんちゃんの生年月日を入力してください')
       end
 
-      it '犬種が---では保存できない' do
-        @dog.breed_id = Breed.find_by(name: '---').id
+      it '犬種が選択されていなければ保存できない' do
+        @dog.breed_id = nil
         @dog.valid?
         expect(@dog.errors.full_messages).to include('わんちゃんの犬種を入力してください')
       end
 
-      it '性別が---では保存できない' do
-        @dog.gender_id = Gender.find_by(name: '---').id
+      it '性別が選択されていなければ保存できない' do
+        @dog.gender_id = nil
         @dog.valid?
         expect(@dog.errors.full_messages).to include('わんちゃんの性別を入力してください')
       end
