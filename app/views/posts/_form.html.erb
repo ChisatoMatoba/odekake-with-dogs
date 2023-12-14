@@ -48,7 +48,7 @@
       満足度（非常に不満〜非常に満足）
       <span class="required-form">必須</span>
     </div>
-    <%= f.collection_select(:rating_id, Rating.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+    <%= f.collection_select(:rating_id, Rating.all, :id, :name, { include_blank: true }, {class:"select-box", id:"item-category"}) %>
     <div class="items-explain">
       <div class="weight-bold-text">
         感想・おすすめポイント

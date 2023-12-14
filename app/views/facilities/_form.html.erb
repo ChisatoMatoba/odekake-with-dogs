@@ -10,7 +10,7 @@
         都道府県
         <span class="required-form">必須</span>
       </div>
-      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
+      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, { include_blank: true }, {class:"select-box", id:"prefecture"}) %>
       <div class="weight-bold-text">
         施設名
         <span class="required-form">必須</span>
@@ -20,7 +20,7 @@
         カテゴリー
         <span class="required-form">必須</span>
       </div>
-      <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+      <%= f.collection_select(:category_id, Category.all, :id, :name, { include_blank: true }, {class:"select-box", id:"item-category"}) %>
       <div class="weight-bold-text">
         施設の条件(複数選択可)
         <span class="optional-form">任意</span>
