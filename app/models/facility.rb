@@ -39,4 +39,8 @@ class Facility < ApplicationRecord
       %w[沖縄 nav-okinawa-content nav-okinawa-tab]
     end
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[category_id created_at id id_value place_name prefecture_id updated_at user_id]
+  end
 end

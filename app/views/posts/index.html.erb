@@ -48,11 +48,11 @@
       <div class="#">
         <strong>検索フォーム</strong>
       </div>
-      <!-- 一旦ransackの検索フォームが表示できたことだけ確認 -->
+      <!-- 検索フォーム -->
       <div class="#">
         <%= search_form_for(@q, url: root_path, method: :get, local: true) do |f| %>
-          <%= f.label :name, "Keyword" %>
-          <%= f.search_field :review %>
+          <%= f.label :facility_prefecture_id_eq, '都道府県で検索' %>
+          <%= f.collection_select :facility_prefecture_id_eq, Prefecture.all, :id, :name, include_blank: '指定なし' %>
           <%= f.submit "検索" %>
         <% end %>
       </div>
