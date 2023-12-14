@@ -21,12 +21,12 @@
         犬種
         <span class="required-form">必須</span>
       </div>
-      <%= f.collection_select(:breed_id, Breed.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+      <%= f.collection_select(:breed_id, Breed.all, :id, :name, { include_blank: true }, {class:"select-box", id:"item-category"}) %>
       <div class="weight-bold-text">
         男の子／女の子
         <span class="required-form">必須</span>
       </div>
-      <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+      <%= f.collection_select(:gender_id, Gender.all, :id, :name, { include_blank: true }, {class:"select-box", id:"item-category"}) %>
     </div>
 
     <%# 画像 %>

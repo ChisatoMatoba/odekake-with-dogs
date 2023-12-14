@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :rating
 
-  with_options numericality: { other_than: 1, message: 'を入力してください' } do
+  with_options numericality: { only_integer: true, message: 'を入力してください' } do
     validates :rating_id
   end
 

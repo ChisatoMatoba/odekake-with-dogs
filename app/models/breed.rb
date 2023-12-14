@@ -1,7 +1,6 @@
 class Breed < ActiveHash::Base
   include ActiveHash::Associations
   self.data = [
-    { id: 1, name: '---' },
     { id: 2, name: 'その他 小型犬' },
     { id: 3, name: 'その他 中型犬' },
     { id: 4, name: 'その他 大型犬' },
