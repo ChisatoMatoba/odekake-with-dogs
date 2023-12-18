@@ -13,9 +13,8 @@ class PostsController < ApplicationController
     location_narrowdown
 
     # セレクトボックスで地域と都道府県を同時に表示する
-    area_to_pref_ids = Facility.area_to_prefecture_ids
     @location_select_options = {
-      'エリア' => area_to_pref_ids.map { |area, ids| [area, ids.join(',')] },
+      'エリア' => Area.select_options,
       '都道府県' => Prefecture.all.pluck(:name, :id)
     }
 
@@ -122,12 +121,11 @@ class PostsController < ApplicationController
 
     @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
     # カンマ区切りがある場合は地域とみなして、検索結果を設定する
-    @search_conditions['地域'] = if location.include?(',')
-                                 Facility.area_to_prefecture_ids.find do |_, ids|
-                                   ids.include?(location.split(',').first.to_i)
-                                 end.first
-                               else
-                                 Prefecture.find_by(id: location)&.name
-                               end
+    @search_conditions['地域'] =
+      if location.include?(',')
+        Area.area_name(location.split(',').first.to_i)
+      else
+        Prefecture.find_by(id: location)&.name
+      end
   end
 end
