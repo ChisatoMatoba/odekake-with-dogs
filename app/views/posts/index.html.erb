@@ -73,19 +73,19 @@
       <!-- 検索条件 -->
       <div class="container-fluid search-form mb-3">
         <h5>適用された検索条件</h5>
-        <ul class="list-group">
+        <div class="d-flex flex-wrap">
           <% if params[:q].present? && @search_conditions.values.any?(&:present?) %>
             <% @search_conditions.each do |key, value| %>
               <% unless value.blank? %>
-                <li class="list-group-item">
+                <h5><span class="badge bg-light text-dark">
                   <%= "#{key}: #{value}" %>
-                </li>
+                </span></h5>
               <% end %>
             <% end %>
           <% else %>
-            <li class="list-group-item">（指定なし）</li>
+            <h5><span class="badge bg-light text-dark">（指定なし）</span></h5>
           <% end %>
-        </ul>
+        </div>
       </div>
       <!-- photo -->
       <div class="row mbr-gallery">
