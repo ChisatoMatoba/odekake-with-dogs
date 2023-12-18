@@ -50,7 +50,7 @@
 
       <!-- 検索フォーム -->
       <div class="w-100">
-        <%= search_form_for(@q, url: root_path, method: :get, local: true) do |f| %>
+        <%= search_form_for(@q, url: root_path, html: { data: { turbo_frame: "search_results" } }, local: true) do |f| %>
           <div class="form-group">
             <%= f.label :facility_prefecture_id_eq, '都道府県で検索', class: 'form-label' %>
             <%= f.collection_select :facility_prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: '指定なし'}, {class: 'form-control'} %>
@@ -61,17 +61,19 @@
     </div>
 
     <!-- 検索結果セクション -->
-    <!-- photo -->
-    <div class="row mbr-gallery">
-      <%# 例 %>
-      <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-        <%= image_tag("gallery.jpeg", class: "") %>
+    <turbo-frame id="search_results">
+      <!-- photo -->
+      <div class="row mbr-gallery">
+        <%# 例 %>
+        <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+          <%= image_tag("gallery.jpeg", class: "") %>
+        </div>
+        <%# 画像（postの数だけ) %>
+        <% @posts.each do |post| %>
+          <%= render "shared/gallery", post:, facility: post.facility %>
+        <% end %>
       </div>
-      <%# 画像（postの数だけ) %>
-      <% @posts.each do |post| %>
-        <%= render "shared/gallery", post:, facility: post.facility %>
-      <% end %>
-    </div>
+    </turbo-flame>
   </section>
 
 <!--
