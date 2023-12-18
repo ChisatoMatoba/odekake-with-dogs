@@ -63,7 +63,7 @@
 
     <!-- 検索結果セクション -->
     <turbo-frame id="search_results">
-        <!-- title -->
+      <!-- title -->
       <div class="mt-5 mb-3 text-center">
         <h3>~検索結果~</h3>
       </div>
@@ -79,6 +79,8 @@
                 </li>
               <% end %>
             <% end %>
+          <% else %>
+            <li class="list-group-item">（指定なし）</li>
           <% end %>
         </ul>
       </div>
@@ -94,7 +96,7 @@
             <%= render "shared/gallery", post:, facility: post.facility %>
           <% end %>
         <% else %>
-            <p style="text-align: center;">お探しのおでかけ情報がまだありません</p>
+          <p style="text-align: center;">お探しのおでかけ情報がまだありません</p>
         <% end %>
       </div>
     </turbo-flame>
