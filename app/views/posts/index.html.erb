@@ -62,7 +62,7 @@
     </div>
 
     <!-- 検索結果セクション -->
-    <turbo-frame id="search_results">
+    <%= turbo_frame_tag 'search_results', target: '_top' do %>
       <!-- title -->
       <div class="mt-5 mb-3 text-center">
         <h3>~検索結果~</h3>
@@ -99,7 +99,7 @@
           <p style="text-align: center;">お探しのおでかけ情報がまだありません</p>
         <% end %>
       </div>
-    </turbo-flame>
+    <% end %>
   </section>
 
 <!--
