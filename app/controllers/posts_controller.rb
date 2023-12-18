@@ -145,6 +145,8 @@ class PostsController < ApplicationController
 
     # 空文字列を除外した条件のidを取得
     selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
+    # 配列が空の場合は抜ける
+    return query if selected_condition_ids.empty?
 
     # 選択されたidに基づく施設の検索
     narrowed_query = query.joins(facility: { facility_conditions: :condition }).where(conditions: { id: selected_condition_ids })
