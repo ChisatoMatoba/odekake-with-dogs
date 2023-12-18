@@ -6,15 +6,18 @@ class PostsController < ApplicationController
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
     @q = Post.ransack(params[:q]) # Ransackの検索オブジェクトを初期化
-    @posts = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
+    initial_query = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
 
     @search_conditions = {}
     # 地域・都道府県での絞り込み
-    location_narrowdown
+    narrowed_query = location_narrowdown(initial_query)
     # 施設のカテゴリーでの絞り込み
-    facility_narrowdown
+    narrowed_query = facility_narrowdown(narrowed_query)
     # 施設条件で絞り込み（複数選択のOR）
-    facility_conditions_narrowdown
+    narrowed_query = facility_conditions_narrowdown(narrowed_query)
+
+    # 重複を排除し、結果を取得
+    @posts = narrowed_query.includes(:user, :facility, images_attachments: :blob).distinct.order(created_at: :DESC)
   end
 
   def new
@@ -103,12 +106,12 @@ class PostsController < ApplicationController
   end
 
   # 地域・都道府県が選択された場合の絞り込み処理
-  def location_narrowdown
-    return unless params[:q] && params[:q][:location].present?
+  def location_narrowdown(query)
+    return query unless params[:q] && params[:q][:location].present?
 
     location = params[:q][:location]
 
-    @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
+    narrowed_query = query.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
     # カンマ区切りがある場合は地域とみなして、検索結果を設定する
     @search_conditions['地域'] =
       if location.include?(',')
@@ -116,26 +119,37 @@ class PostsController < ApplicationController
       else
         Prefecture.find_by(id: location)&.name
       end
+
+    # 更新されたクエリを返す
+    narrowed_query
   end
 
   # 施設のカテゴリーでの絞り込み処理
-  def facility_narrowdown
-    return unless params[:q] && params[:q][:facility_category_id_eq].present?
+  def facility_narrowdown(query)
+    return query unless params[:q] && params[:q][:facility_category_id_eq].present?
+
+    narrowed_query = query.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
 
     @posts = @posts.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
+
+    # 更新されたクエリを返す
+    narrowed_query
   end
 
   # 施設条件での絞り込み（複数選択のOR）
-  def facility_conditions_narrowdown
-    return unless params[:q] && params[:q][:facility_conditions_id_in].present?
+  def facility_conditions_narrowdown(query)
+    return query unless params[:q] && params[:q][:facility_conditions_id_in].present?
 
     # 空文字列を除外した条件のidを取得
     selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
 
     # 選択されたidに基づく施設の検索
-    @posts = @posts.joins(facility: { facility_conditions: :condition }).where(conditions: { id: selected_condition_ids })
+    narrowed_query = query.joins(facility: { facility_conditions: :condition }).where(conditions: { id: selected_condition_ids })
     # 検索条件の保存
     @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ')
+
+    # 更新されたクエリを返す
+    narrowed_query
   end
 end
