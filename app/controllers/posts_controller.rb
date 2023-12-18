@@ -11,6 +11,8 @@ class PostsController < ApplicationController
     @search_conditions = {}
     # 地域・都道府県での絞り込み
     location_narrowdown
+    # 施設のカテゴリーでの絞り込み
+    facility_narrowdown
   end
 
   def new
@@ -112,5 +114,12 @@ class PostsController < ApplicationController
       else
         Prefecture.find_by(id: location)&.name
       end
+  end
+
+  # 施設のカテゴリーでの絞り込み処理
+  def facility_narrowdown
+    return unless params[:q] && params[:q][:facility_category_id_eq].present?
+
+    @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
   end
 end

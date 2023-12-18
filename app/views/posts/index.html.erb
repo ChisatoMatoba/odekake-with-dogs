@@ -74,7 +74,7 @@
       <div class="container-fluid search-form mb-3">
         <h5>適用された検索条件</h5>
         <ul class="list-group">
-          <% if params[:q] %>
+          <% if params[:q].present? && @search_conditions.values.any?(&:present?) %>
             <% @search_conditions.each do |key, value| %>
               <% unless value.blank? %>
                 <li class="list-group-item">
