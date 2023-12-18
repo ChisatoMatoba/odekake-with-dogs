@@ -63,15 +63,38 @@
 
     <!-- 検索結果セクション -->
     <turbo-frame id="search_results">
+        <!-- title -->
+      <div class="mt-5 mb-3 text-center">
+        <h3>~検索結果~</h3>
+      </div>
+      <!-- 検索条件 -->
+      <div class="container-fluid search-form mb-3">
+        <h5>適用された検索条件</h5>
+        <ul class="list-group">
+          <% if params[:q] %>
+            <% @search_conditions.each do |key, value| %>
+              <% unless value.blank? %>
+                <li class="list-group-item">
+                  <%= "#{key}: #{value}" %>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
       <!-- photo -->
       <div class="row mbr-gallery">
-        <%# 例 %>
-        <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-          <%= image_tag("gallery.jpeg", class: "") %>
-        </div>
-        <%# 画像（postの数だけ) %>
-        <% @posts.each do |post| %>
-          <%= render "shared/gallery", post:, facility: post.facility %>
+        <% if @posts.present? %>
+          <%# 例 %>
+          <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+            <%= image_tag("gallery.jpeg", class: "") %>
+          </div>
+          <%# 画像（postの数だけ) %>
+          <% @posts.each do |post| %>
+            <%= render "shared/gallery", post:, facility: post.facility %>
+          <% end %>
+        <% else %>
+            <p style="text-align: center;">お探しのおでかけ情報がまだありません</p>
         <% end %>
       </div>
     </turbo-flame>
