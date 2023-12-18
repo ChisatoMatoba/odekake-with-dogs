@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 
     # セレクトボックスで地域と都道府県を同時に表示する
     area_to_pref_ids = Facility.area_to_prefecture_ids
-    @select_options = {
+    @location_select_options = {
       'エリア' => area_to_pref_ids.map { |area, ids| [area, ids.join(',')] },
       '都道府県' => Prefecture.all.pluck(:name, :id)
     }
