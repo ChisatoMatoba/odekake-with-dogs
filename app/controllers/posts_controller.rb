@@ -128,7 +128,7 @@ class PostsController < ApplicationController
                   Prefecture.find_by(id: location)&.name
                 end
 
-    @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location })
+    @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
     @search_conditions['地域'] = area_name
   end
 end
