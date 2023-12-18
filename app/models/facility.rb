@@ -40,6 +40,15 @@ class Facility < ApplicationRecord
     end
   end
 
+  # 地域名と都道府県のidを紐づけておく
+  def self.area_to_prefecture_ids
+    (2..48).each_with_object({}) do |prefecture_id, hash|
+      area = new(prefecture_id: prefecture_id).area_group.first
+      hash[area] ||= []
+      hash[area] << prefecture_id
+    end
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[category_id created_at id id_value place_name prefecture_id updated_at user_id]
   end
