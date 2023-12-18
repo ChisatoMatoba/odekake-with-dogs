@@ -59,9 +59,9 @@
             <%= f.label :facility_category_id_eq, '施設のカテゴリー', class: 'form-label' %>
             <%= f.collection_select :facility_category_id_eq, Category.all, :id, :name, {include_blank: '指定なし'}, {class: 'form-control'} %>
             <!-- 施設の条件 -->
-            <%= f.label :facility_conditions_category_in, '施設の条件', class: 'form-label' %>
+            <%= f.label :facility_conditions_id_in, '施設の条件', class: 'form-label' %>
             <div class="multi-check">
-              <%= f.collection_check_boxes(:facility_conditions_category_in, Condition.all, :id, :category, {}, {class:"check-box"}) do |c| %>
+              <%= f.collection_check_boxes(:facility_conditions_id_in, Condition.all, :id, :category, {}, {class:"check-box"}) do |c| %>
                 <%= c.label { c.check_box + c.text } %>
                 <br>
               <% end %>

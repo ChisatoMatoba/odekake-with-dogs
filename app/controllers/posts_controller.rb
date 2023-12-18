@@ -13,6 +13,8 @@ class PostsController < ApplicationController
     location_narrowdown
     # 施設のカテゴリーでの絞り込み
     facility_narrowdown
+    # 施設条件で絞り込み（複数選択のOR）
+    facility_conditions_narrowdown
   end
 
   def new
@@ -122,5 +124,18 @@ class PostsController < ApplicationController
 
     @posts = @posts.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
+  end
+
+  # 施設条件での絞り込み（複数選択のOR）
+  def facility_conditions_narrowdown
+    return unless params[:q] && params[:q][:facility_conditions_id_in].present?
+
+    # 空文字列を除外した条件のidを取得
+    selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
+
+    # 選択されたidに基づく施設の検索
+    @posts = @posts.joins(facility: { facility_conditions: :condition }).where(conditions: { id: selected_condition_ids })
+    # 検索条件の保存
+    @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ')
   end
 end
