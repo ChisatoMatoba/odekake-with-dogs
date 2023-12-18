@@ -8,8 +8,16 @@ class PostsController < ApplicationController
     @q = Post.ransack(params[:q]) # Ransackの検索オブジェクトを初期化
     @posts = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
 
-    @areas = {}
+    # セレクトボックスで地域と都道府県を同時に表示する
+    area_to_pref_ids = Facility.area_to_prefecture_ids
+    @select_options = {
+      'エリア' => area_to_pref_ids.map { |area, ids| [area, ids.join(',')] },
+      '都道府県' => Prefecture.all.pluck(:name, :id)
+    }
+
+    # NOTE: タブ表示のビューにのみ使用、コメントアウト部分を削除するタイミングで一緒に削除
     # 投稿を地域ごとにグループ化する
+    @areas = {}
     @posts.each do |post|
       area = post.facility.area_group
       @areas[area] ||= []

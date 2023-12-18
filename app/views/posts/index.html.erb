@@ -45,15 +45,16 @@
     <div class="container-fluid search-form">
       <!-- title -->
       <div class="mb-3">
-        <span class="bg-color">~検索フォーム~</span>
+        <h4 class="bg-color">~検索フォーム~</h4>
       </div>
 
       <!-- 検索フォーム -->
       <div class="w-100">
         <%= search_form_for(@q, url: root_path, html: { data: { turbo_frame: "search_results" } }, local: true) do |f| %>
           <div class="form-group">
-            <%= f.label :facility_prefecture_id_eq, '都道府県で検索', class: 'form-label' %>
-            <%= f.collection_select :facility_prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: '指定なし'}, {class: 'form-control'} %>
+            <!-- 地域・都道府県で検索 -->
+            <%= f.label :location, '地域・都道府県で検索', class: 'form-label' %>
+            <%= f.select :location, grouped_options_for_select(@select_options), {include_blank: '指定なし'}, {class: 'form-control'} %>
             <%= f.submit "検索", class: 'btn btn-primary' %>
           </div>
         <% end %>

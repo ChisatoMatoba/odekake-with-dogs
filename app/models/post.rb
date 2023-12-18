@@ -25,7 +25,7 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at dogs_num facility_id id id_value people_num rating_id review updated_at user_id]
+    %w[created_at dogs_num facility_id id id_value people_num rating_id review updated_at user_id location]
   end
 
   def self.ransackable_associations(_auth_object = nil)
