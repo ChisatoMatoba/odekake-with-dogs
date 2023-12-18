@@ -6,18 +6,20 @@ class PostsController < ApplicationController
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
     @q = Post.ransack(params[:q]) # Ransackの検索オブジェクトを初期化
-    initial_query = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
-
+    initial_query = @q.result # 検索結果を取得
     @search_conditions = {}
-    # 地域・都道府県での絞り込み
-    narrowed_query = location_narrowdown(initial_query)
-    # 施設のカテゴリーでの絞り込み
-    narrowed_query = facility_narrowdown(narrowed_query)
-    # 施設条件で絞り込み（複数選択のOR）
-    narrowed_query = facility_conditions_narrowdown(narrowed_query)
 
-    # 重複を排除し、結果を取得
-    @posts = narrowed_query.includes(:user, :facility, images_attachments: :blob).distinct.order(created_at: :DESC)
+    # メソッドチェーンで絞り込み処理
+    @posts = initial_query
+             # 地域・都道府県での絞り込み
+             .then { |query| location_narrowdown(query) }
+             # 施設のカテゴリーでの絞り込み
+             .then { |query| facility_narrowdown(query) }
+             # 施設条件で絞り込み（複数選択のOR）
+             .then { |query| facility_conditions_narrowdown(query) }
+             .includes(:user, :facility, images_attachments: :blob)
+             .distinct
+             .order(created_at: :DESC)
   end
 
   def new
