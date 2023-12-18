@@ -119,16 +119,15 @@ class PostsController < ApplicationController
     return unless params[:q] && params[:q][:location].present?
 
     location = params[:q][:location]
-    # カンマ区切りがある場合は地域とみなして、検索結果を設定する
-    area_name = if location.include?(',')
-                  Facility.area_to_prefecture_ids.find do |_, ids|
-                    ids.include?(location.split(',').first.to_i)
-                  end.first
-                else
-                  Prefecture.find_by(id: location)&.name
-                end
 
     @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
-    @search_conditions['地域'] = area_name
+    # カンマ区切りがある場合は地域とみなして、検索結果を設定する
+    @search_conditions['地域'] = if location.include?(',')
+                                 Facility.area_to_prefecture_ids.find do |_, ids|
+                                   ids.include?(location.split(',').first.to_i)
+                                 end.first
+                               else
+                                 Prefecture.find_by(id: location)&.name
+                               end
   end
 end
