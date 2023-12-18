@@ -39,28 +39,28 @@
           </div>
         </div>
       </div>
-  </section>
+    </div>
 
-  <!-- 検索フォームセクション -->
-  <section class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+    <!-- 検索フォームセクション -->
     <div class="container-fluid search-form">
       <!-- title -->
-      <div class="#">
-        <strong>検索フォーム</strong>
+      <div class="mb-3">
+        <span class="bg-color">~検索フォーム~</span>
       </div>
-      <!-- 一旦ransackの検索フォームが表示できたことだけ確認 -->
-      <div class="#">
+
+      <!-- 検索フォーム -->
+      <div class="w-100">
         <%= search_form_for(@q, url: root_path, method: :get, local: true) do |f| %>
-          <%= f.label :name, "Keyword" %>
-          <%= f.search_field :review %>
-          <%= f.submit "検索" %>
+          <div class="form-group">
+            <%= f.label :facility_prefecture_id_eq, '都道府県で検索', class: 'form-label' %>
+            <%= f.collection_select :facility_prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: '指定なし'}, {class: 'form-control'} %>
+            <%= f.submit "検索", class: 'btn btn-primary' %>
+          </div>
         <% end %>
       </div>
     </div>
-  </section>
 
-  <!-- 検索結果セクション -->
-  <section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+    <!-- 検索結果セクション -->
     <!-- photo -->
     <div class="row mbr-gallery">
       <%# 例 %>
@@ -72,7 +72,7 @@
         <%= render "shared/gallery", post:, facility: post.facility %>
       <% end %>
     </div>
-  <section data-bs-version="5.1" class="gallery1 mbr-gallery cid-tOiHBd9Aax" id="gallery01-1l">
+  </section>
 
 <!--
       <%# photo %>
@@ -129,8 +129,7 @@
       </div>
     </div>
   </section>
-</div>
 -->
+</div>
 
 <%= render "shared/footer" %>
-
