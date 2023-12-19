@@ -18,11 +18,6 @@ class Facility < ApplicationRecord
     validates :place_name
   end
 
-  # 投稿された地域を分類
-  def area_group
-    Area.find_by(prefecture_id: prefecture_id)
-  end
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[category_id created_at id id_value place_name prefecture_id updated_at user_id]
   end
