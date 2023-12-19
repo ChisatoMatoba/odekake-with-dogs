@@ -123,7 +123,7 @@ class PostsController < ApplicationController
     # カンマ区切りがある場合は地域とみなして、検索結果を設定する
     @search_conditions['地域'] =
       if location.include?(',')
-        Area.area_name(location.split(',').first.to_i)
+        Prefecture.find_by(id: location.split(',').first.to_i)&.area&.name
       else
         Prefecture.find_by(id: location)&.name
       end
