@@ -11,15 +11,6 @@ class PostsController < ApplicationController
     @search_conditions = {}
     # 地域・都道府県での絞り込み
     location_narrowdown
-
-    # NOTE: タブ表示のビューにのみ使用、コメントアウト部分を削除するタイミングで一緒に削除
-    # 投稿を地域ごとにグループ化する
-    @areas = {}
-    @posts.each do |post|
-      area = post.facility.area_group
-      @areas[area] ||= []
-      @areas[area] << post
-    end
   end
 
   def new

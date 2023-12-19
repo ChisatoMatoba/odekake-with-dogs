@@ -137,11 +137,11 @@
 
         <% area_list = [["北海道", "nav-hokkaido-content", "nav-hokkaido-tab"], ["東北", "nav-tohoku-content", "nav-tohoku-tab"], ["関東", "nav-kanto-content", "nav-kanto-tab"], ["中部", "nav-chubu-content", "nav-chubu-tab"], ["近畿", "nav-kinki-content", "nav-kinki-tab"], ["中国四国", "nav-chushikoku-content", "nav-chushikoku-tab"], ["九州", "nav-kyushu-content", "nav-kyushu-tab"], ["沖縄", "nav-okinawa-content", "nav-okinawa-tab"]] %>
         <% area_list.each do |area_name| %>
-          <% if @areas[area_name].present? %>
+          <% if post_groupedby_area(@posts)[area_name].present? %>
             <%# その地域の投稿がある場合 %>
             <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="<%= area_name[2] %>" data-bs-target="#<%= area_name[1] %>" tabindex="0">
               <div class="row mbr-gallery">
-                <% @areas[area_name].each do |post| %>
+                <% post_groupedby_area(@posts)[area_name].each do |post| %>
                   <%= render "shared/gallery", post:, facility: post.facility %>
                 <% end %>
               </div>
