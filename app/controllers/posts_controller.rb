@@ -8,13 +8,9 @@ class PostsController < ApplicationController
     @q = Post.ransack(params[:q]) # Ransackの検索オブジェクトを初期化
     @posts = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
 
-    @areas = {}
-    # 投稿を地域ごとにグループ化する
-    @posts.each do |post|
-      area = post.facility.area_group
-      @areas[area] ||= []
-      @areas[area] << post
-    end
+    @search_conditions = {}
+    # 地域・都道府県での絞り込み
+    location_narrowdown
   end
 
   def new
@@ -100,5 +96,21 @@ class PostsController < ApplicationController
       tag = Tag.find_or_create_by(name: tag_name)
       @post.tags << tag unless @post.tags.include?(tag)
     end
+  end
+
+  # 地域・都道府県が選択された場合の絞り込み処理
+  def location_narrowdown
+    return unless params[:q] && params[:q][:location].present?
+
+    location = params[:q][:location]
+
+    @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
+    # カンマ区切りがある場合は地域とみなして、検索結果を設定する
+    @search_conditions['地域'] =
+      if location.include?(',')
+        Prefecture.find_by(id: location.split(',').first.to_i)&.area&.name
+      else
+        Prefecture.find_by(id: location)&.name
+      end
   end
 end

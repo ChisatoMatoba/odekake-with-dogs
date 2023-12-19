@@ -45,15 +45,16 @@
     <div class="container-fluid search-form">
       <!-- title -->
       <div class="mb-3">
-        <span class="bg-color">~検索フォーム~</span>
+        <h4 class="bg-color">~検索フォーム~</h4>
       </div>
 
       <!-- 検索フォーム -->
       <div class="w-100">
         <%= search_form_for(@q, url: root_path, html: { data: { turbo_frame: "search_results" } }, local: true) do |f| %>
           <div class="form-group">
-            <%= f.label :facility_prefecture_id_eq, '都道府県で検索', class: 'form-label' %>
-            <%= f.collection_select :facility_prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: '指定なし'}, {class: 'form-control'} %>
+            <!-- 地域・都道府県で検索 -->
+            <%= f.label :location, '地域・都道府県で検索', class: 'form-label' %>
+            <%= f.select :location, grouped_options_for_select(location_select_options), {include_blank: '指定なし'}, {class: 'form-control'} %>
             <%= f.submit "検索", class: 'btn btn-primary' %>
           </div>
         <% end %>
@@ -61,19 +62,44 @@
     </div>
 
     <!-- 検索結果セクション -->
-    <turbo-frame id="search_results">
+    <%= turbo_frame_tag 'search_results', target: '_top' do %>
+      <!-- title -->
+      <div class="mt-5 mb-3 text-center">
+        <h3>~検索結果~</h3>
+      </div>
+      <!-- 検索条件 -->
+      <div class="container-fluid search-form mb-3">
+        <h5>適用された検索条件</h5>
+        <ul class="list-group">
+          <% if params[:q] %>
+            <% @search_conditions.each do |key, value| %>
+              <% unless value.blank? %>
+                <li class="list-group-item">
+                  <%= "#{key}: #{value}" %>
+                </li>
+              <% end %>
+            <% end %>
+          <% else %>
+            <li class="list-group-item">（指定なし）</li>
+          <% end %>
+        </ul>
+      </div>
       <!-- photo -->
       <div class="row mbr-gallery">
-        <%# 例 %>
-        <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-          <%= image_tag("gallery.jpeg", class: "") %>
-        </div>
-        <%# 画像（postの数だけ) %>
-        <% @posts.each do |post| %>
-          <%= render "shared/gallery", post:, facility: post.facility %>
+        <% if @posts.present? %>
+          <%# 例 %>
+          <div class="col-12 col-md-6 col-lg-3 item gallery-image">
+            <%= image_tag("gallery.jpeg", class: "") %>
+          </div>
+          <%# 画像（postの数だけ) %>
+          <% @posts.each do |post| %>
+            <%= render "shared/gallery", post:, facility: post.facility %>
+          <% end %>
+        <% else %>
+          <p style="text-align: center;">お探しのおでかけ情報がまだありません</p>
         <% end %>
       </div>
-    </turbo-flame>
+    <% end %>
   </section>
 
 <!--
@@ -111,11 +137,11 @@
 
         <% area_list = [["北海道", "nav-hokkaido-content", "nav-hokkaido-tab"], ["東北", "nav-tohoku-content", "nav-tohoku-tab"], ["関東", "nav-kanto-content", "nav-kanto-tab"], ["中部", "nav-chubu-content", "nav-chubu-tab"], ["近畿", "nav-kinki-content", "nav-kinki-tab"], ["中国四国", "nav-chushikoku-content", "nav-chushikoku-tab"], ["九州", "nav-kyushu-content", "nav-kyushu-tab"], ["沖縄", "nav-okinawa-content", "nav-okinawa-tab"]] %>
         <% area_list.each do |area_name| %>
-          <% if @areas[area_name].present? %>
+          <% if post_groupedby_area(@posts)[area_name].present? %>
             <%# その地域の投稿がある場合 %>
             <div class="tab-pane fade" id="<%= area_name[1] %>" role="tabpanel" aria-labelledby="<%= area_name[2] %>" data-bs-target="#<%= area_name[1] %>" tabindex="0">
               <div class="row mbr-gallery">
-                <% @areas[area_name].each do |post| %>
+                <% post_groupedby_area(@posts)[area_name].each do |post| %>
                   <%= render "shared/gallery", post:, facility: post.facility %>
                 <% end %>
               </div>
