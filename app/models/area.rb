@@ -15,21 +15,9 @@ class Area < ActiveHash::Base
     { id: 8, name: '沖縄' }
   ]
 
-  # 地域名からprefecture_idを割り出す
-  def self.prefecture_ids(area_name)
-    AREA_PREFECTURE_MAPPING[area_name] || []
-  end
-
-  # prefecture_idから地域名を割り出す
-  def self.area_name(prefecture_id)
-    AREA_PREFECTURE_MAPPING.find do |_area, ids|
-      ids.include?(prefecture_id)
-    end&.first
-  end
-
   # セレクトボックス用のデータを生成する
   def self.select_options
-    AREA_PREFECTURE_MAPPING.map { |area, ids| [area, ids.join(',')] }
+    all.map { |area| [area.name, area.prefectures.pluck(:id).join(',')] }
   end
 
   # NOTE: タブ表示のビューに使用、今後使用する場合は、ヘルパーに移すなどの処置をすること
