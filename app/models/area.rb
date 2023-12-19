@@ -1,7 +1,7 @@
 # Prefectureから地域(Area)を定義する
 class Area < ActiveHash::Base
   include ActiveHash::Associations
-  has_many :prefectures
+  has_many :prefectures, dependent: :restrict_with_exception
 
   # 地域と都道府県IDのマッピング
   self.data = [
