@@ -54,7 +54,7 @@
           <div class="form-group">
             <!-- 地域・都道府県で検索 -->
             <%= f.label :location, '地域・都道府県で検索', class: 'form-label' %>
-            <%= f.select :location, grouped_options_for_select(@location_select_options), {include_blank: '指定なし'}, {class: 'form-control'} %>
+            <%= f.select :location, grouped_options_for_select(location_select_options), {include_blank: '指定なし'}, {class: 'form-control'} %>
             <%= f.submit "検索", class: 'btn btn-primary' %>
           </div>
         <% end %>

@@ -15,11 +15,6 @@ class Area < ActiveHash::Base
     { id: 8, name: '沖縄' }
   ]
 
-  # セレクトボックス用のデータを生成する
-  def self.select_options
-    all.map { |area| [area.name, area.prefectures.pluck(:id).join(',')] }
-  end
-
   # NOTE: タブ表示のビューに使用、今後使用する場合は、ヘルパーに移すなどの処置をすること
   # タブ表示のためのロジック
   def self.find_by(prefecture_id:)
