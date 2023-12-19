@@ -1,16 +1,19 @@
 # Prefectureから地域(Area)を定義する
 class Area < ActiveHash::Base
+  include ActiveHash::Associations
+  has_many :prefectures
+
   # 地域と都道府県IDのマッピング
-  AREA_PREFECTURE_MAPPING = {
-    '北海道' => [2],
-    '東北' => (3..8).to_a,
-    '関東' => (9..15).to_a,
-    '中部' => (16..25).to_a,
-    '近畿' => (26..31).to_a,
-    '中国四国' => (32..40).to_a,
-    '九州' => (41..47).to_a,
-    '沖縄' => [48]
-  }.freeze
+  self.data = [
+    { id: 1, name: '北海道' },
+    { id: 2, name: '東北' },
+    { id: 3, name: '関東' },
+    { id: 4, name: '中部' },
+    { id: 5, name: '近畿' },
+    { id: 6, name: '中国四国' },
+    { id: 7, name: '九州' },
+    { id: 8, name: '沖縄' }
+  ]
 
   # 地域名からprefecture_idを割り出す
   def self.prefecture_ids(area_name)
