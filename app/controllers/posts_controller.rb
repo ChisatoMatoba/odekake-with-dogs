@@ -120,6 +120,7 @@ class PostsController < ApplicationController
   def facility_narrowdown
     return unless params[:q] && params[:q][:facility_category_id_eq].present?
 
+    @posts = @posts.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
   end
 end
