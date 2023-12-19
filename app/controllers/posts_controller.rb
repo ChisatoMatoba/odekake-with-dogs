@@ -132,7 +132,6 @@ class PostsController < ApplicationController
 
     narrowed_query = query.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
 
-    @posts = @posts.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
 
     # 更新されたクエリを返す
