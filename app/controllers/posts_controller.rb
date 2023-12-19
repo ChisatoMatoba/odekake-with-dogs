@@ -143,5 +143,8 @@ class PostsController < ApplicationController
     selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
     @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ') \
     if selected_condition_ids.present? && !selected_condition_ids.empty?
+
+    # 投稿の満足度
+    @search_conditions['満足度'] = Rating.find_by(id: params[:q][:rating_id_lteq])&.name_with_suffix if params[:q][:rating_id_lteq].present?
   end
 end
