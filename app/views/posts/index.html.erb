@@ -52,9 +52,12 @@
       <div class="w-100">
         <%= search_form_for(@q, url: root_path, html: { data: { turbo_frame: "search_results" } }, local: true) do |f| %>
           <div class="form-group">
-            <!-- 地域・都道府県で検索 -->
-            <%= f.label :location, '地域・都道府県で検索', class: 'form-label' %>
+            <!-- 地域・都道府県 -->
+            <%= f.label :location, '地域・都道府県', class: 'form-label' %>
             <%= f.select :location, grouped_options_for_select(location_select_options), {include_blank: '指定なし'}, {class: 'form-control'} %>
+            <!-- 施設のカテゴリー -->
+            <%= f.label :facility_category_id_eq, '施設のカテゴリー', class: 'form-label' %>
+            <%= f.collection_select :facility_category_id_eq, Category.all, :id, :name, {include_blank: '指定なし'}, {class: 'form-control'} %>
             <%= f.submit "検索", class: 'btn btn-primary' %>
           </div>
         <% end %>
@@ -70,19 +73,19 @@
       <!-- 検索条件 -->
       <div class="container-fluid search-form mb-3">
         <h5>適用された検索条件</h5>
-        <ul class="list-group">
-          <% if params[:q] %>
+        <div class="d-flex flex-wrap">
+          <% if params[:q].present? && @search_conditions.values.any?(&:present?) %>
             <% @search_conditions.each do |key, value| %>
               <% unless value.blank? %>
-                <li class="list-group-item">
+                <h5><span class="badge bg-light text-dark">
                   <%= "#{key}: #{value}" %>
-                </li>
+                </span></h5>
               <% end %>
             <% end %>
           <% else %>
-            <li class="list-group-item">（指定なし）</li>
+            <h5><span class="badge bg-light text-dark">（指定なし）</span></h5>
           <% end %>
-        </ul>
+        </div>
       </div>
       <!-- photo -->
       <div class="row mbr-gallery">
