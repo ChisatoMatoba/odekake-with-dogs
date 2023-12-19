@@ -8,5 +8,10 @@ class Rating < ActiveHash::Base
     { id: 6, name: '★☆☆☆☆' }
   ]
 
+  # 検索の表示用
+  def name_with_suffix
+    "#{name}以上"
+  end
+
   has_many :posts
 end
