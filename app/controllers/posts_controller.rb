@@ -17,10 +17,8 @@ class PostsController < ApplicationController
              .distinct
              .order(created_at: :DESC)
 
-    # 施設のカテゴリーでの絞り込み
-    facility_narrowdown
-    # 施設条件で絞り込み
-    facility_conditions_narrowdown
+    # 適用された検索条件の作成
+    applied_search_condition
   end
 
   def new
@@ -127,15 +125,14 @@ class PostsController < ApplicationController
     narrowed_query
   end
 
-  # 施設のカテゴリーでの絞り込み処理
-  def facility_narrowdown
+  # 適用された検索条件の作成
+  def applied_search_condition
+    # 施設のカテゴリー
     return unless params[:q] && params[:q][:facility_category_id_eq].present?
 
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
-  end
 
-  # 施設条件での絞り込み（複数選択のOR）
-  def facility_conditions_narrowdown
+    # 施設の条件
     return unless params[:q] && params[:q][:facility_conditions_id_in].present?
 
     # 空文字列を除外した条件のidを取得
