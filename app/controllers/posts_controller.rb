@@ -110,25 +110,21 @@ class PostsController < ApplicationController
   def location_narrowdown(query)
     return query unless params[:q] && params[:q][:location].present?
 
-    location = params[:q][:location]
-
-    narrowed_query = query.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
-    # カンマ区切りがある場合は地域とみなして、検索結果を設定する
-    @search_conditions['地域'] =
-      if location.include?(',')
-        Prefecture.find_by(id: location.split(',').first.to_i)&.area&.name
-      else
-        Prefecture.find_by(id: location)&.name
-      end
-
-    # 更新されたクエリを返す
-    narrowed_query
+    # クエリを更新して返す
+    query.joins(:facility).where(facilities: { prefecture_id: params[:q][:location].split(',') })
   end
 
-  # 適用された検索条件の作成(地域以外)
+  # 適用された検索条件の作成
   def applied_search_condition
     # params[:q] が存在しない場合、早期リターン
     return unless params[:q]
+
+    # 施設の地域・都道府県   カンマ区切りがある場合は地域とみなして、検索結果を設定する
+    if params[:q][:location].present?
+      location_id = params[:q][:location].split(',').first.to_i
+      prefecture = Prefecture.find_by(id: location_id)
+      @search_conditions['地域'] = prefecture&.area&.name || prefecture&.name
+    end
 
     # 施設のカテゴリー
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name if params[:q][:facility_category_id_eq].present?
