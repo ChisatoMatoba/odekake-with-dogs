@@ -25,3 +25,13 @@ document.addEventListener("turbo:load", () => {
     containerCssClass: ':all:'
   });
 });
+
+// 一度ページを離れてからブラウザバックなどした際に重複して表示されてしまうのを防ぐために
+// ページがキャッシュされる前にselect2が適用された要素をクリーンアップ
+document.addEventListener("turbo:before-cache", () => {
+  $('.js-searchable').each(function() {
+    if ($(this).data('select2')) {
+      $(this).select2('destroy');
+    }
+  });
+});
