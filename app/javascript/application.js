@@ -7,3 +7,9 @@ import "tab"
 import "modal"
 import "facility_index"
 import "tags"
+
+import jQuery from "jquery"
+window.jQuery = jQuery
+window.$ = jQuery
+
+import "select2"
