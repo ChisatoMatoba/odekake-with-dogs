@@ -128,14 +128,8 @@ class PostsController < ApplicationController
       end
   end
 
-  # 適用された検索条件の作成
-  def applied_search_condition
-    # params[:q] が存在しない場合、早期リターン
-    return unless params[:q]
-
-    # 施設の地域・都道府県
-    location_condition
-
+  # 施設のカテゴリー、条件の検索条件を作成
+  def facility_search_conditions
     # 施設のカテゴリー
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name if params[:q][:facility_category_id_eq].present?
 
@@ -143,5 +137,18 @@ class PostsController < ApplicationController
     selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
     @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ') \
     if selected_condition_ids.present? && !selected_condition_ids.empty?
+  end
+
+  # 適用された検索条件の作成
+  def applied_search_condition
+    # params[:q] が存在しない場合、早期リターン
+    return unless params[:q]
+
+    # 施設の地域・都道府県
+    location_condition
+    # 施設のカテゴリー、条件
+    facility_search_conditions
+    # 投稿の満足度
+    @search_conditions['満足度'] = Rating.find_by(id: params[:q][:rating_id_lteq])&.name_with_suffix if params[:q][:rating_id_lteq].present?
   end
 end
