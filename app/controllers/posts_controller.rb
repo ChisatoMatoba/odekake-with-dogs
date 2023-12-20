@@ -6,13 +6,19 @@ class PostsController < ApplicationController
   def index
     @facilities = Facility.includes(:post).order(:prefecture_id)
     @q = Post.ransack(params[:q]) # Ransackの検索オブジェクトを初期化
-    @posts = @q.result.includes(:user, :facility, images_attachments: :blob).order(created_at: :DESC) # 検索結果を取得
-
+    initial_query = @q.result # 検索結果を取得
     @search_conditions = {}
-    # 地域・都道府県での絞り込み
-    location_narrowdown
-    # 施設のカテゴリーでの絞り込み
-    facility_narrowdown
+
+    # メソッドチェーンで絞り込み処理
+    @posts = initial_query
+             # 地域・都道府県での絞り込み
+             .then { |query| location_narrowdown(query) }
+             .includes(:user, :facility, images_attachments: :blob)
+             .distinct
+             .order(created_at: :DESC)
+
+    # 適用された検索条件の作成
+    applied_search_condition
   end
 
   def new
@@ -101,12 +107,18 @@ class PostsController < ApplicationController
   end
 
   # 地域・都道府県が選択された場合の絞り込み処理
-  def location_narrowdown
-    return unless params[:q] && params[:q][:location].present?
+  def location_narrowdown(query)
+    return query unless params[:q] && params[:q][:location].present?
+
+    # クエリを更新して返す
+    query.joins(:facility).where(facilities: { prefecture_id: params[:q][:location].split(',') })
+  end
+
+  # 施設の地域・都道府県の検索条件を作成
+  def location_condition
+    return if params[:q][:location].blank?
 
     location = params[:q][:location]
-
-    @posts = @posts.joins(:facility).where(facilities: { prefecture_id: location.split(',') })
     # カンマ区切りがある場合は地域とみなして、検索結果を設定する
     @search_conditions['地域'] =
       if location.include?(',')
@@ -116,11 +128,20 @@ class PostsController < ApplicationController
       end
   end
 
-  # 施設のカテゴリーでの絞り込み処理
-  def facility_narrowdown
-    return unless params[:q] && params[:q][:facility_category_id_eq].present?
+  # 適用された検索条件の作成
+  def applied_search_condition
+    # params[:q] が存在しない場合、早期リターン
+    return unless params[:q]
 
-    @posts = @posts.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
-    @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
+    # 施設の地域・都道府県
+    location_condition
+
+    # 施設のカテゴリー
+    @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name if params[:q][:facility_category_id_eq].present?
+
+    # 施設の条件
+    selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
+    @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ') \
+    if selected_condition_ids.present? && !selected_condition_ids.empty?
   end
 end

@@ -21,4 +21,8 @@ class Facility < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[category_id created_at id id_value place_name prefecture_id updated_at user_id]
   end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[category conditions facility_conditions posts prefecture user]
+  end
 end
