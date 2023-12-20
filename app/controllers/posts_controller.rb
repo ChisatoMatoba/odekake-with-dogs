@@ -13,13 +13,14 @@ class PostsController < ApplicationController
     @posts = initial_query
              # 地域・都道府県での絞り込み
              .then { |query| location_narrowdown(query) }
-             # 施設のカテゴリーでの絞り込み
-             .then { |query| facility_narrowdown(query) }
-             # 施設条件で絞り込み（複数選択のOR）
-             .then { |query| facility_conditions_narrowdown(query) }
              .includes(:user, :facility, images_attachments: :blob)
              .distinct
              .order(created_at: :DESC)
+
+    # 施設のカテゴリーでの絞り込み
+    facility_narrowdown
+    # 施設条件で絞り込み
+    facility_conditions_narrowdown
   end
 
   def new
@@ -127,32 +128,22 @@ class PostsController < ApplicationController
   end
 
   # 施設のカテゴリーでの絞り込み処理
-  def facility_narrowdown(query)
-    return query unless params[:q] && params[:q][:facility_category_id_eq].present?
-
-    narrowed_query = query.joins(:facility).where(facilities: { category_id: params[:q][:facility_category_id_eq] })
+  def facility_narrowdown
+    return unless params[:q] && params[:q][:facility_category_id_eq].present?
 
     @search_conditions['施設のカテゴリー'] = Category.find_by(id: params[:q][:facility_category_id_eq])&.name
-
-    # 更新されたクエリを返す
-    narrowed_query
   end
 
   # 施設条件での絞り込み（複数選択のOR）
-  def facility_conditions_narrowdown(query)
-    return query unless params[:q] && params[:q][:facility_conditions_id_in].present?
+  def facility_conditions_narrowdown
+    return unless params[:q] && params[:q][:facility_conditions_id_in].present?
 
     # 空文字列を除外した条件のidを取得
     selected_condition_ids = params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
     # 配列が空の場合は抜ける
-    return query if selected_condition_ids.empty?
+    return if selected_condition_ids.empty?
 
-    # 選択されたidに基づく施設の検索
-    narrowed_query = query.joins(facility: { facility_conditions: :condition }).where(conditions: { id: selected_condition_ids })
     # 検索条件の保存
     @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ')
-
-    # 更新されたクエリを返す
-    narrowed_query
   end
 end
