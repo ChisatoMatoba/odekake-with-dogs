@@ -149,6 +149,8 @@ class PostsController < ApplicationController
     # 施設のカテゴリー、条件
     facility_search_conditions
     # 投稿の満足度
-    @search_conditions['満足度'] = Rating.find_by(id: params[:q][:rating_id_lteq])&.name_with_suffix if params[:q][:rating_id_lteq].present?
+    @search_conditions['満足度'] = "#{Rating.find_by(id: params[:q][:rating_id_lteq])&.name}以上" if params[:q][:rating_id_lteq].present?
+    # 検索条件の保存
+    @search_conditions['投稿者'] = User.find_by(id: params[:q][:user_id_eq])&.nickname if params[:q][:user_id_eq].present?
   end
 end
