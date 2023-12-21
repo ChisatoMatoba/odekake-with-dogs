@@ -139,6 +139,13 @@ class PostsController < ApplicationController
     if selected_condition_ids.present? && !selected_condition_ids.empty?
   end
 
+  # タグの検索条件を作成
+  def post_tag_search_condition
+    selected_tag_ids = params[:q][:tags_id_in].reject(&:blank?).map(&:to_i)
+    @search_conditions['タグ'] = Tag.where(id: selected_tag_ids).pluck(:name).join(', ') \
+    if selected_tag_ids.present? && !selected_tag_ids.empty?
+  end
+
   # 適用された検索条件の作成
   def applied_search_condition
     # params[:q] が存在しない場合、早期リターン
@@ -150,7 +157,9 @@ class PostsController < ApplicationController
     facility_search_conditions
     # 投稿の満足度
     @search_conditions['満足度'] = "#{Rating.find_by(id: params[:q][:rating_id_lteq])&.name}以上" if params[:q][:rating_id_lteq].present?
-    # 検索条件の保存
+    # 投稿者
     @search_conditions['投稿者'] = User.find_by(id: params[:q][:user_id_eq])&.nickname if params[:q][:user_id_eq].present?
+    # タグ
+    post_tag_search_condition
   end
 end
