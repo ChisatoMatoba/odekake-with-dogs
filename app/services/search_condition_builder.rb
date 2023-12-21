@@ -33,14 +33,14 @@ class SearchConditionBuilder
     # 施設の条件
     selected_condition_ids = @params[:q][:facility_conditions_id_in].reject(&:blank?).map(&:to_i)
     @search_conditions['施設の条件'] = Condition.where(id: selected_condition_ids).pluck(:category).join(', ') \
-    if selected_condition_ids.present? && !selected_condition_ids.empty?
+    if selected_condition_ids.present?
   end
 
   # タグの検索条件を作成
   def post_tag_search_condition
     selected_tag_ids = @params[:q][:tags_id_in].reject(&:blank?).map(&:to_i)
     @search_conditions['タグ'] = Tag.where(id: selected_tag_ids).pluck(:name).join(', ') \
-    if selected_tag_ids.present? && !selected_tag_ids.empty?
+    if selected_tag_ids.present?
   end
 
   # 適用された検索条件の作成
