@@ -111,7 +111,7 @@
         <% if @posts.present? %>
           <%# 例 %>
           <div class="col-12 col-md-6 col-lg-3 item gallery-image">
-            <%= image_tag("gallery.jpeg", class: "") %>
+            <%= image_tag("gallery.jpeg", class: "card border-warning border-4") %>
           </div>
           <%# 画像（postの数だけ) %>
           <% @posts.each do |post| %>
